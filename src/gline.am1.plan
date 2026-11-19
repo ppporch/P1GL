@@ -1,0 +1,13 @@
+/ G_LINE IMPLEMENTATION PLAN — NOT AM1 SOURCE, NOT ASSEMBLABLE
+/ Pending confirmation of AM1 calling convention and logical->Type30 transform.
+/ Four logical coordinate arguments: X0 Y0 X1 Y1
+/ dx=abs(x1-x0); dy=abs(y1-y0)
+/ sx=sign(x1-x0); sy=sign(y1-y0)
+/ err=dx-dy
+/ LOOP: G_PLOT_LOGICAL(x0,y0)
+/       if x0=x1 and y0=y1: return
+/       e2=err+err
+/       if e2 > -dy: err-=dy; x0+=sx
+/       if e2 < dx: err+=dx; y0+=sy
+/       jump LOOP
+/ This plan intentionally avoids inventing unverified AM1 instruction syntax.

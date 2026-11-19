@@ -1,0 +1,14 @@
+{
+  "snapshot": "/tmp/p1gl-first-test-20261119/P1GL/build/snapshots/20261119T194102Z",
+  "points": 8762,
+  "complete_frames": 194,
+  "frame_counter_delta": 194,
+  "elapsed_seconds": 4.000051982933655,
+  "mean_frame_ms": 20.618824654297192,
+  "run": true,
+  "pc": "000340",
+  "intensity_fields": {
+    "6": 8762
+  },
+  "limits": "Mean from frame counter; no worst-case refresh or visual rendering claim."
+}

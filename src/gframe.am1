@@ -1,0 +1,210 @@
+// Retained frame: points grow upwards in a caller buffer, Type 33 characters
+// downwards. Capacity is WORDS, not records; points use 2, characters use 5.
+// jda gframe_begin; BUFFER_ADDRESS; CAPACITY_WORDS
+// jsp gframe_end; jsp gframe_refresh. Build between begin/end only.
+// Faults: 1 invalid arguments, 2 full buffer, 3 refresh during build.
+// Fault is sticky until begin; an invalid frame is never partially replayed.
+gframe_begin, 0
+        dac gf_begin_ret
+        lac i gf_begin_ret
+        dac gf_base
+        dac gf_low
+        idx gf_begin_ret
+        lac i gf_begin_ret
+        dac gf_capacity
+        idx gf_begin_ret
+        dzm gf_fault
+        dzm gf_points
+        dzm gf_chars
+        law 1
+        dac gf_recording
+        lac gf_base
+        spa
+        jmp gf_bad_begin
+        sub [07777]
+        sma sza
+        jmp gf_bad_begin
+        lac gf_capacity
+        sma sza
+        jmp gf_check_end
+        jmp gf_bad_begin
+gf_check_end,
+        sub [010000]
+        sma sza
+        jmp gf_bad_begin
+        lac gf_base
+        add gf_capacity
+        dac gf_end
+        dac gf_high
+        sub [010000]
+        sma sza
+        jmp gf_bad_begin
+        jmp i gf_begin_ret
+gf_bad_begin,
+        law 1
+        dac gf_fault
+        jmp i gf_begin_ret
+
+gframe_end,
+        dap gf_end_ret
+        dzm gf_recording
+        lac gf_fault
+gf_end_ret, jmp .
+
+// Called from the optional retained branch in G_PLOT, after conversion.
+gf_append_point,
+        dap gf_point_ret
+        lac gf_fault
+        sza
+        jmp gf_point_ret
+        lac gf_low
+        add [2]
+        sub gf_high
+        sma sza
+        jmp gf_full_point
+        lac gp_y
+        dac i gf_low
+        idx gf_low
+        lac gp_x
+        dac i gf_low
+        idx gf_low
+        idx gf_points
+        jmp gf_point_ret
+gf_full_point,
+        law 2
+        dac gf_fault
+gf_point_ret, jmp .
+
+// Character record: format size, raw Y, raw X, left/right bitmaps.
+// G_TEXT calls this for both immediate and retained rendering.
+gf_emit_char,
+        dap gf_emit_ret
+        lac gf_recording
+        sza
+        jmp gf_store_char
+        jsp gf_draw_char
+        jmp gf_emit_ret
+gf_store_char,
+        lac gf_fault
+        sza
+        jmp gf_emit_ret
+        lac gf_high
+        sub [5]
+        sub gf_low
+        spa
+        jmp gf_full_char
+        lac gf_high
+        sub [5]
+        dac gf_high
+        dac gf_copy_dst
+        law gf_char_format
+        dac gf_copy_src
+        law i 5
+        dac gf_copy_left
+gf_copy_char,
+        lac i gf_copy_src
+        dac i gf_copy_dst
+        idx gf_copy_src
+        idx gf_copy_dst
+        isp gf_copy_left
+        jmp gf_copy_char
+        idx gf_chars
+        jmp gf_emit_ret
+gf_full_char,
+        law 2
+        dac gf_fault
+gf_emit_ret, jmp .
+
+gf_draw_char,
+        dap gf_draw_ret
+        lio gf_char_format
+        iot 2026           // Type 33 GLF; no autospacing (absolute positions)
+        lio gf_char_y
+        lac gf_char_x
+        iot 2207           // SDB, intensity field 2, reposition without a dot
+        lio gf_char_left
+        iot 12027          // GPL, synchronous left 17 positions
+        lio gf_char_right
+        iot 10027          // GPR, synchronous right 18 positions
+gf_draw_ret, jmp .
+
+gframe_refresh,
+        dap gf_refresh_ret
+        lac gf_recording
+        sza
+        jmp gf_unfinished
+        lac gf_fault
+        sza
+        jmp gf_refresh_ret
+        lac gf_points
+        sza i
+        jmp gf_refresh_text
+        cma
+        dac gf_left
+        lac gf_base
+        dac gf_read
+gf_replay_point,
+        lio i gf_read
+        idx gf_read
+        lac i gf_read
+        dpy 200
+        idx gf_read
+        isp gf_left
+        jmp gf_replay_point
+gf_refresh_text,
+        lac gf_chars
+        sza i
+        jmp gf_refresh_done
+        cma
+        dac gf_left
+        lac gf_end
+        dac gf_text_read
+gf_replay_char,
+        lac gf_text_read
+        sub [5]
+        dac gf_text_read
+        dac gf_read
+        lio i gf_read
+        iot 2026
+        idx gf_read
+        lio i gf_read
+        idx gf_read
+        lac i gf_read
+        iot 2207
+        idx gf_read
+        lio i gf_read
+        iot 12027
+        idx gf_read
+        lio i gf_read
+        iot 10027
+        isp gf_left
+        jmp gf_replay_char
+gf_refresh_done,
+        lac gf_fault
+gf_refresh_ret, jmp .
+gf_unfinished,
+        law 3
+        dac gf_fault
+        jmp gf_refresh_ret
+
+gf_char_format, 0
+gf_char_y, 0
+gf_char_x, 0
+gf_char_left, 0
+gf_char_right, 0
+gf_recording, 0
+gf_fault, 0
+gf_points, 0
+gf_chars, 0
+gf_base, 0
+gf_capacity, 0
+gf_low, 0
+gf_high, 0
+gf_end, 0
+gf_begin_ret, 0
+gf_read, 0
+gf_text_read, 0
+gf_left, 0
+gf_copy_src, 0
+gf_copy_dst, 0
+gf_copy_left, 0

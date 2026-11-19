@@ -1,0 +1,12 @@
+{
+  "demo_pages": 11,
+  "demo_points": 821,
+  "demo_cpu": "cycles=118155 simulated_ns=590775000 pc=000157 overflow=0 extend=0",
+  "cases": 277,
+  "points": 143151,
+  "clipped_cases": 127,
+  "seed": "0x43315243",
+  "comparison": "every point and IOT word; unique symmetry points; viewport clipping; device zero clamp",
+  "isa": "original PDP-1; extensions disabled",
+  "timing": "immediate device completion, not live timing"
+}

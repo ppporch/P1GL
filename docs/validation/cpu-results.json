@@ -1,0 +1,12 @@
+[
+  {
+    "program": "calibrate-once",
+    "points": 45,
+    "cpu": "cycles=2256 simulated_ns=11280000 pc=000314 overflow=0 extend=0"
+  },
+  {
+    "program": "coordinate_sweep",
+    "points": 1024,
+    "cpu": "cycles=51206 simulated_ns=256030000 pc=006104 overflow=0 extend=0"
+  }
+]

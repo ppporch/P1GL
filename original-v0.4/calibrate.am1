@@ -1,0 +1,43 @@
+/ P1GL Type 30 calibration - AM1 candidate source, NOT ASSEMBLED
+/ PDP-1 Type 30 uses AC for X and IO for Y.
+/ Coordinates below are signed display coordinates in octal.
+/ Confirm coordinate scaling and DPY instruction against local AM1 docs.
+/
+        org 0100
+start,  lio zero
+        lac zero
+        dpy-i 4200       / center
+        lio zero
+        lac posx
+        dpy-i 4200       / right
+        lio zero
+        lac negx
+        dpy-i 4200       / left
+        lio posy
+        lac zero
+        dpy-i 4200       / top
+        lio negy
+        lac zero
+        dpy-i 4200       / bottom
+        lio posy
+        lac posx
+        dpy-i 4200       / upper right
+        lio posy
+        lac negx
+        dpy-i 4200       / upper left
+        lio negy
+        lac posx
+        dpy-i 4200       / lower right
+        lio negy
+        lac negx
+        dpy-i 4200       / lower left
+        jmp start        / refresh continuously
+/
+/ Signed 18-bit one's-complement values. 020000 = 8192 decimal;
+/ the exact Type 30 usable coordinate range remains to be verified.
+zero,   0
+posx,   020000
+negx,   757777
+posy,   020000
+negy,   757777
+        end start

@@ -1,0 +1,24 @@
+P1GL five point calibration using literal logical coordinates
+100/
+go,     lem
+        lsm
+        cbs
+loop,   jda gplot
+        0d512
+        0d512
+        jda gplot
+        0d912
+        0d512
+        jda gplot
+        0d112
+        0d512
+        jda gplot
+        0d512
+        0d912
+        jda gplot
+        0d512
+        0d112
+        jmp loop
+#include "../src/gplot.am1"
+constants
+start go

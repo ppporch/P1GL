@@ -1,0 +1,16 @@
+{
+  "snapshot": "/tmp/p1gl-first-test-20261119/P1GL/build/snapshots/20261119T201659Z-frames",
+  "frames": 436,
+  "elapsed_seconds": 10.000052237999626,
+  "mean_frame_ms": 22.935899628439508,
+  "page": 0,
+  "run": true,
+  "fault": 0,
+  "buffer_guard": "123456",
+  "frame_fault": 0,
+  "max_draw_ms": 22,
+  "points": 82,
+  "characters": 20,
+  "demo": "three retained scenes: Type 33 labels, circle, radius line, center point; 22 ms clock pacing",
+  "limit": "Mean frame-counter rate, not maximum frame latency or client rendering rate"
+}

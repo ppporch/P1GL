@@ -1,0 +1,27 @@
+/ P1GL: simple center and cardinal-point calibration, candidate AM1 source.
+/ Build with gplot.am1 combined into the same assembly translation unit.
+/ The example's coordinates are provisional, not guaranteed to map to edges.
+        org 0100
+start,  jda gplot
+        zero
+        zero
+        jda gplot
+        posx
+        zero
+        jda gplot
+        negx
+        zero
+        jda gplot
+        zero
+        posy
+        jda gplot
+        zero
+        negy
+        jmp start
+
+zero,   0
+posx,   020000
+negx,   757777
+posy,   020000
+negy,   757777
+/ Append src/gplot.am1 here until AM1 include syntax is verified.

@@ -1,0 +1,128 @@
+{
+  "cases": 24,
+  "iot_events": 998,
+  "results": [
+    {
+      "name": "empty",
+      "iot_events": 0,
+      "fault": 0
+    },
+    {
+      "name": "recording-is-silent",
+      "iot_events": 0,
+      "fault": 0
+    },
+    {
+      "name": "exact-fit-mixed-reordered",
+      "iot_events": 5,
+      "fault": 0
+    },
+    {
+      "name": "two-refreshes",
+      "iot_events": 10,
+      "fault": 0
+    },
+    {
+      "name": "point-overflow",
+      "iot_events": 0,
+      "fault": 2
+    },
+    {
+      "name": "text-overflow",
+      "iot_events": 0,
+      "fault": 2
+    },
+    {
+      "name": "partial-frame-is-not-replayed",
+      "iot_events": 0,
+      "fault": 2
+    },
+    {
+      "name": "refresh-during-build",
+      "iot_events": 0,
+      "fault": 3
+    },
+    {
+      "name": "capacity-zero",
+      "iot_events": 0,
+      "fault": 1
+    },
+    {
+      "name": "capacity-negative",
+      "iot_events": 0,
+      "fault": 1
+    },
+    {
+      "name": "buffer-crosses-bank",
+      "iot_events": 0,
+      "fault": 1
+    },
+    {
+      "name": "begin-clears-error-and-old-scene",
+      "iot_events": 4,
+      "fault": 0
+    },
+    {
+      "name": "immediate-outside-frame",
+      "iot_events": 5,
+      "fault": 0
+    },
+    {
+      "name": "empty-text",
+      "iot_events": 0,
+      "fault": 0
+    },
+    {
+      "name": "odd-packed-text",
+      "iot_events": 12,
+      "fault": 0
+    },
+    {
+      "name": "even-packed-text",
+      "iot_events": 8,
+      "fault": 0
+    },
+    {
+      "name": "unsupported-code-question",
+      "iot_events": 4,
+      "fault": 0
+    },
+    {
+      "name": "text-right-clipping",
+      "iot_events": 0,
+      "fault": 0
+    },
+    {
+      "name": "text-top-clipping",
+      "iot_events": 0,
+      "fault": 0
+    },
+    {
+      "name": "text-exact-right-edge",
+      "iot_events": 4,
+      "fault": 0
+    },
+    {
+      "name": "invalid-size",
+      "iot_events": 0,
+      "fault": 1
+    },
+    {
+      "name": "unterminated-limit",
+      "iot_events": 0,
+      "fault": 1
+    },
+    {
+      "name": "all-printable-ascii",
+      "iot_events": 380,
+      "fault": 0
+    },
+    {
+      "name": "combined-frame-demo",
+      "iot_events": 566,
+      "fault": 0
+    }
+  ],
+  "font_source": "/opt/pidp1-mods/Am1Includes/SYMGEN/ascchars.ac",
+  "timing": "IOT transaction capture only; real character generation and pacing require live test"
+}

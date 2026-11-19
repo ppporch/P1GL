@@ -1,0 +1,12 @@
+{
+  "snapshot": "/tmp/p1gl-first-test-20261119/P1GL/build/snapshots/20261119T200056Z-circles",
+  "frames": 702,
+  "elapsed_seconds": 16.000079273013398,
+  "mean_frame_ms": 22.792135716543303,
+  "page": 0,
+  "run": true,
+  "fault": 0,
+  "buffer_guard": "123456",
+  "demo": "11 pages: four radii, four clipped edges, two clipped corners, radius zero; retained raw points; 22 ms clock pacing",
+  "limit": "Mean frame-counter rate, not maximum frame latency or client rendering rate"
+}

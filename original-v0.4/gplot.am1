@@ -1,0 +1,26 @@
+/ P1GL G_PLOT v0.2 — AM1 candidate; not yet assembled.
+/ Calling convention (Bill Ezell's inline-argument JDA pattern):
+/   jda gplot
+/   xword             / 18-bit pre-encoded Type 30 X word
+/   yword             / 18-bit pre-encoded Type 30 Y word
+/ Clobbers AC and IO. Uses a self-modifying return pointer.
+/ Non-reentrant; caller and callee must be in a compatible memory bank.
+/ The coordinate encoding and dpy-i 4200 instruction remain provisional.
+/ Caller must arrange repeated drawing for phosphor refresh.
+/
+gplot,  0
+        dac gp_ret       / AC contains address of first inline argument
+        lac i gp_ret     / fetch X
+        dac gp_x
+        idx gp_ret
+        lac i gp_ret     / fetch Y
+        dac gp_y
+        idx gp_ret       / point at instruction after arguments
+        lio gp_y
+        lac gp_x
+        dpy-i 4200       / verify Type 30 mode / intensity on target
+        jmp i gp_ret
+
+gp_x,   0
+gp_y,   0
+gp_ret, 0

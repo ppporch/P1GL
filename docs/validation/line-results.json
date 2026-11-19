@@ -1,0 +1,12 @@
+{
+  "demo_pages": 32,
+  "demo_points": 1056,
+  "demo_cpu": "cycles=146887 simulated_ns=734435000 pc=000146 overflow=0 extend=0",
+  "cases": 581,
+  "points": 153017,
+  "batches": 73,
+  "seed": "0x5031474c",
+  "isa": "original PDP-1; PDP-1D extensions disabled",
+  "comparison": "every emitted point equals host Bresenham reference after documented coordinate-zero clamp",
+  "timing": "immediate IOT completion; no real display timing claim"
+}

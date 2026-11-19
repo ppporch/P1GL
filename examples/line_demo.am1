@@ -1,0 +1,217 @@
+P1GL G_LINE visual test: magnified pixel steps, all octants and reversals
+100/
+go,     lem
+        lsm
+        cbs
+        dzm frames
+        dzm page
+        law line_table
+        dac table_pointer
+new_page,
+#ifdef DEMO_CPU_TEST
+        law i 1
+#else
+        law i 0d40
+#endif
+        dac repeats
+        lac i table_pointer
+        dac demo_x0
+        idx table_pointer
+        lac i table_pointer
+        dac demo_y0
+        idx table_pointer
+        lac i table_pointer
+        dac demo_x1
+        idx table_pointer
+        lac i table_pointer
+        dac demo_y1
+        idx table_pointer
+frame,
+        jda gline
+demo_x0, 0
+demo_y0, 0
+demo_x1, 0
+demo_y1, 0
+        idx frames
+        law i 0d100
+        dac delay_count
+delay,  isp delay_count
+        jmp delay
+        isp repeats
+        jmp frame
+        idx page
+        sad [0d32]
+        jmp restart
+        jmp new_page
+restart,
+#ifdef DEMO_CPU_TEST
+        hlt
+#endif
+        dzm page
+        law line_table
+        dac table_pointer
+        jmp new_page
+frames, 0
+page, 0
+repeats, 0
+delay_count, 0
+table_pointer, 0
+line_table,
+0d512
+0d512
+0d544
+0d524
+0d512
+0d512
+0d524
+0d544
+0d512
+0d512
+0d500
+0d544
+0d512
+0d512
+0d480
+0d524
+0d512
+0d512
+0d480
+0d500
+0d512
+0d512
+0d500
+0d480
+0d512
+0d512
+0d524
+0d480
+0d512
+0d512
+0d544
+0d500
+0d512
+0d512
+0d544
+0d512
+0d512
+0d512
+0d512
+0d544
+0d512
+0d512
+0d480
+0d512
+0d512
+0d512
+0d512
+0d480
+0d512
+0d512
+0d544
+0d544
+0d512
+0d512
+0d480
+0d544
+0d512
+0d512
+0d480
+0d480
+0d512
+0d512
+0d544
+0d480
+0d544
+0d524
+0d512
+0d512
+0d524
+0d544
+0d512
+0d512
+0d500
+0d544
+0d512
+0d512
+0d480
+0d524
+0d512
+0d512
+0d480
+0d500
+0d512
+0d512
+0d500
+0d480
+0d512
+0d512
+0d524
+0d480
+0d512
+0d512
+0d544
+0d500
+0d512
+0d512
+0d544
+0d512
+0d512
+0d512
+0d512
+0d544
+0d512
+0d512
+0d480
+0d512
+0d512
+0d512
+0d512
+0d480
+0d512
+0d512
+0d544
+0d544
+0d512
+0d512
+0d480
+0d544
+0d512
+0d512
+0d480
+0d480
+0d512
+0d512
+0d544
+0d480
+0d512
+0d512
+
+// Demo-only view transform: magnify logical points 8x around the center.
+// G_LINE itself is unchanged. Eight device pixels separate adjacent points.
+// This makes the integer stair steps visible without drawing long dense lines.
+gplot, 0
+        dac view_ret
+        lac i view_ret
+        sub [0d512]
+        sal 3s
+        add [0d512]
+        dac view_x
+        idx view_ret
+        lac i view_ret
+        sub [0d512]
+        sal 3s
+        add [0d512]
+        dac view_y
+        idx view_ret
+        jda device_plot
+view_x, 0
+view_y, 0
+        jmp i view_ret
+view_ret, 0
+
+#include "../src/gline.am1"
+#define gplot device_plot
+#include "../src/gplot.am1"
+#undef gplot
+constants
+start go

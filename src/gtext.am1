@@ -1,0 +1,152 @@
+// jda gtext; X; Y; SIZE; PACKED_ASCII_ADDRESS
+// X/Y baseline bottom left 0..1023; size 0..3, dot pitch 2+size.
+// AM1 ascii packing: two 9-bit characters per word, NUL terminates.
+// Up to 256 characters; unsupported printing codes become '?'.
+// Whole glyphs outside the viewport are omitted; no wrapped hardware strokes.
+// Requires gframe.am1 and gplot.am1. ASCII shapes supplied by Bill's table.
+gtext, 0
+        dac gt_ret
+        lac i gt_ret
+        dac gt_x
+        idx gt_ret
+        lac i gt_ret
+        dac gt_y
+        idx gt_ret
+        lac i gt_ret
+        dac gt_size
+        idx gt_ret
+        lac i gt_ret
+        dac gt_pointer
+        idx gt_ret
+        dzm gt_half
+        dzm gt_count
+        lac gt_x
+        spa
+        jmp gt_bad
+        sub [0d1023]
+        sma sza
+        jmp gt_bad
+        lac gt_y
+        spa
+        jmp gt_bad
+        sub [0d1023]
+        sma sza
+        jmp gt_bad
+        lac gt_size
+        spa
+        jmp gt_bad
+        sub [3]
+        sma sza
+        jmp gt_bad
+        lac gt_size
+        add [2]
+        dac gt_pitch
+        sal 2s
+        dac gt_width
+        lac gt_pitch
+        sal 1s
+        add gt_width
+        dac gt_height
+        lac gt_height       // advance = 6*size+14 = 6*pitch+2
+        add [2]
+        dac gt_advance
+gt_next,
+        lac gt_half
+        sza
+        jmp gt_right
+        lac gt_pointer
+        spa
+        jmp gt_bad
+        sub [07777]
+        sma sza
+        jmp gt_bad
+        lac i gt_pointer
+        dac gt_word
+        sar 9s
+        and [0777]
+        dac gt_char
+        law 1
+        dac gt_half
+        jmp gt_character
+gt_right,
+        lac gt_word
+        and [0777]
+        dac gt_char
+        dzm gt_half
+        idx gt_pointer
+gt_character,
+        lac gt_char
+        sza i
+        jmp i gt_ret
+        lac gt_count
+        sad [0d256]
+        jmp gt_bad
+        idx gt_count
+        lac gt_char
+        sub [0d32]
+        spa
+        jmp gt_question
+        lac gt_char
+        sub [0d126]
+        sma sza
+        jmp gt_question
+        jmp gt_glyph
+gt_question,
+        law 0d63
+        dac gt_char
+gt_glyph,
+        lac gt_x
+        add gt_width
+        sub [0d1023]
+        sma sza
+        jmp gt_advance_x
+        lac gt_y
+        add gt_height
+        sub [0d1023]
+        sma sza
+        jmp gt_advance_x
+        lac gt_y
+        dac gc_value
+        jsp gcoord
+        dac gf_char_y
+        lac gt_x
+        dac gc_value
+        jsp gcoord
+        dac gf_char_x
+        lac gt_size
+        dac gf_char_format
+        lac gt_char
+        sub [0d32]
+        sal 1s
+        add [t33ascchrs]
+        dac gt_glyph_pointer
+        lac i gt_glyph_pointer
+        dac gf_char_left
+        idx gt_glyph_pointer
+        lac i gt_glyph_pointer
+        dac gf_char_right
+        jsp gf_emit_char
+gt_advance_x,
+        lac gt_x
+        add gt_advance
+        dac gt_x
+        jmp gt_next
+gt_bad,
+        law 1
+        dac gf_fault
+        jmp i gt_ret
+gt_ret, 0
+gt_x, 0
+gt_y, 0
+gt_size, 0
+gt_pointer, 0
+gt_half, 0
+gt_count, 0
+gt_word, 0
+gt_char, 0
+gt_pitch, 0
+gt_width, 0
+gt_height, 0
+gt_advance, 0
+gt_glyph_pointer, 0
+#include <SYMGEN/ascchars.ac>

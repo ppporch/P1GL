@@ -1,0 +1,108 @@
+// P1GL G_LINE: endpoint-inclusive Bresenham, matching reference/gline.py.
+// jda gline; X0_VALUE; Y0_VALUE; X1_VALUE; Y1_VALUE (literal integers).
+// Same-bank, non-reentrant, writable code; AC and IO clobbered.
+// Caller guarantees each coordinate is 0..1023; no clipping.
+// Error terms are bounded by +/-2046, well inside signed 18-bit range.
+gline, 0
+        dac gl_ret
+        lac i gl_ret
+        dac gl_x
+        idx gl_ret
+        lac i gl_ret
+        dac gl_y
+        idx gl_ret
+        lac i gl_ret
+        dac gl_xend
+        idx gl_ret
+        lac i gl_ret
+        dac gl_yend
+        idx gl_ret
+
+        lac gl_xend
+        sub gl_x
+        spa
+        jmp gl_xnegative
+        dac gl_dx
+        law 1
+        dac gl_sx
+        jmp gl_ysetup
+gl_xnegative,
+        cma
+        dac gl_dx
+        law i 1
+        dac gl_sx
+gl_ysetup,
+        lac gl_yend
+        sub gl_y
+        spa
+        jmp gl_ynegative
+        dac gl_dy
+        law 1
+        dac gl_sy
+        jmp gl_error
+gl_ynegative,
+        cma
+        dac gl_dy
+        law i 1
+        dac gl_sy
+gl_error,
+        lac gl_dx
+        sub gl_dy
+        dac gl_err
+
+gl_plot,
+        lac gl_x
+        dac gl_plotx
+        lac gl_y
+        dac gl_ploty
+        jda gplot
+gl_plotx, 0
+gl_ploty, 0
+        lac gl_x
+        sas gl_xend
+        jmp gl_advance
+        lac gl_y
+        sas gl_yend
+        jmp gl_advance
+        jmp i gl_ret
+
+gl_advance,
+        lac gl_err
+        sal 1s
+        dac gl_e2          // retain original e2 for BOTH comparisons
+        add gl_dy
+        sma sza            // step X iff e2 > -dy (strict inequality)
+        jmp gl_stepx
+        jmp gl_testy
+gl_stepx,
+        lac gl_err
+        sub gl_dy
+        dac gl_err
+        lac gl_x
+        add gl_sx
+        dac gl_x
+gl_testy,
+        lac gl_e2
+        sub gl_dx
+        add [0]            // canonicalize zero before strict sign test
+        sma                // step Y iff e2 < dx (strict inequality)
+        jmp gl_plot
+        lac gl_err
+        add gl_dx
+        dac gl_err
+        lac gl_y
+        add gl_sy
+        dac gl_y
+        jmp gl_plot
+
+gl_ret, 0
+gl_x, 0
+gl_y, 0
+gl_xend, 0
+gl_yend, 0
+gl_dx, 0
+gl_dy, 0
+gl_sx, 0
+gl_sy, 0
+gl_err, 0
+gl_e2, 0

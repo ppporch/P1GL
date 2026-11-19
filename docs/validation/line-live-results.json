@@ -1,0 +1,10 @@
+{
+  "snapshot": "/tmp/p1gl-first-test-20261119/P1GL/build/snapshots/20261119T195107Z-lines",
+  "frames": 125,
+  "elapsed_seconds": 3.000028901034966,
+  "mean_frame_ms": 24.00023120827973,
+  "page": 3,
+  "run": true,
+  "demo": "32 pages, all octants, axial and diagonal, forward/reverse, 8x view magnification",
+  "limit": "Mean frame-counter rate, not maximum frame latency or client rendering rate"
+}

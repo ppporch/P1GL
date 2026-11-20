@@ -3077,5 +3077,6 @@ jda gplot
 0d0
 hlt
 #include "../src/gplot.am1"
+#include "../src/gframe.am1"
 constants
 start go

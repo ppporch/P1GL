@@ -1,34 +1,34 @@
-# G_TEXT — v0.8
+# G_TEXT — v0.9 Type 342
 
-`jda gtext` takes four inline literal arguments: X, Y, SIZE, STRING_ADDRESS.
-X/Y are bottom-left baseline coordinates 0..1023; SIZE is 0..3. Text is AM1
-`ascii "..."` packing, two nine-bit characters per word, ending at the first
-NUL. The string must lie in the same bank and terminate within 256 characters.
-Bank crossing, bad input coordinates/size, or a nonterminated 256-character
-limit sets gf_fault=1. Printable ASCII 32..126 is drawn; any other nonzero code
-is replaced by '?'. ASCII NUL always terminates.
+`jda gtext; X; Y; SIZE; STRING_ADDRESS` accepts AM1 ASCII packing, two nine-bit
+characters per word, terminated by NUL. The string must fit in the current bank
+and terminate within 256 characters. X/Y are logical baseline coordinates
+0..1023; SIZE is 0..3. Invalid arguments or a missing terminator set gf_fault=1.
 
-The Type 33 dot spacing is 2+SIZE. Glyphs span four spacings horizontally and
-six vertically, and the cursor advances 6*(2+SIZE)+2 per character. X increases
-to the right; glyph rows increase Y from the baseline. A glyph crossing the
-right/top viewport edge is omitted as a whole; text does not wrap. Unsupported
-input positions are rejected rather than sent to the device. G_PLOT's logical
-zero-to-one device mapping also applies to text origin coordinates.
+The hardware scale is 1<<SIZE: 1,2,4,8 pixels. It differs from the Type 33 size
+mapping in v0.8. Cursor advance is seven scaled units. A complete glyph, its
+final cursor advance and any lower-case descender must fit the screen or that
+glyph is omitted. There is no line wrapping. Subsequent logical cursor positions
+still advance for omitted glyphs. Lower-case g/j/p/q/y descend two scaled units.
 
-Font data is Bill Ezell's Am1Includes/SYMGEN/ascchars.ac, included directly from
-pidp1-mods so no copy of his table is maintained here. Configure AM1's include
-search with -I/opt/pidp1-mods/Am1Includes. Requires gplot.am1/gcoord and gframe.am1.
-Compile with P1GL_FRAME for integrated geometry capture. All calls use writable,
-non-reentrant same-bank code in ordinary memory mode and clobber AC/IO.
+Native Type 342 character groups replace the Type 33 bitmap generator. ASCII
+conversion follows Bill's AM1 asciiToType340/type340Shift conventions in eval.c;
+paired table entries hold a native character word and a descender marker. The
+glyph shapes live in the display device, not in P1GL. Native letters, digits,
+punctuation and alternate-set symbols are supported. Caret and grave accent
+have hardware overstrike semantics rather than standalone glyphs, so this API
+maps them to '?'; other unsupported nonzero codes also become '?'.
 
-The glyph is positioned explicitly using SDB at intensity field 2. GLF sets size
-without autospacing; GPL and GPR each wait for completion. This avoids inherited
-character format/spacing state. Labels use the real Type 33 matrix timing, not
-one CPU DPY per text dot. When recording, the five-word glyph payload is saved;
-the string and font table need not be read again during refresh.
+Each stored character group sets its absolute position, enters CHARACTER mode
+at the desired scale with the dual charset enabled, emits shift/character/escape,
+then restores default scale zero and POINT mode. The grouping is atomic for
+buffer reservation and immediate scratch streaming. It does not depend on
+previous glyph state or hardware autospacing. No Type 30/33 IOT is used.
 
-CPU tests check odd/even packing, empty strings, unsupported codes, invalid size,
-string length, whole-glyph clipping, exact edge placement, and all printable
-characters against Bill's actual font words. They also verify immediate labels
-and retained labels in combination with points. Live screenshot inspection shows
-clear P1GL GRAPHICS and FRAME 1 labels; Phillip confirmed that the combined demo and labels look good.
+This remains a native dot-matrix font, which can look dotted at large scales.
+A separate continuous-stroke vector font has been discussed and is not yet
+implemented. It can coexist with the faster compact hardware font.
+
+All calls require gframe.am1, writable non-reentrant linkage and same-bank data
+in ordinary memory mode. AC/IO are clobbered. See TYPE340.md for verification
+limits, and legacy/type30 for the earlier character implementation.

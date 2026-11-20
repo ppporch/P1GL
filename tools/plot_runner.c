@@ -18,6 +18,7 @@ extern bool lailiaEnabled, core1DEnabled, all1DEnabled;
 _Atomic int ad1Work;
 static FILE *trace;
 static FILE *events;
+static FILE *lists;
 static unsigned tape[65536*2], tapeCount, tapeIndex;
 static int tapeMode;
 void ad1Service(PDP1 *p) { (void)p; }
@@ -33,6 +34,38 @@ int dynamicIotProcessor(PDP1 *p, int dev, int pulse, int completion)
 {
     (void)completion;
     if (pulse) fprintf(events,"%02o %06o %06o %06o\n",dev,p->ac,p->io,p->mb);
+#ifdef P1GL_TYPE340_TEST
+    if (dev==015) {
+        if (pulse) {
+            unsigned mode=0,addr=p->io,done=0;
+            if (addr>=MAXMEM) exit(5);
+            fprintf(lists,"BEGIN %06o\n",addr);
+            for (unsigned i=0;i<4096;i++) {
+                if(addr+i>=MAXMEM) exit(5);
+                unsigned w=p->core[addr+i];
+                fprintf(lists,"%06o\n",w);
+                if (mode==0) {
+                    if(w&02000) {done=1;break;}
+                    mode=(w>>13)&7;
+                } else if(mode==1) mode=(w>>13)&7;
+                else if(mode==4) {if(w&0400000) mode=0;}
+                else if(mode==3) {
+                    for(unsigned k=0;k<3;k++) if(((w>>(12-6*k))&077)==037) {mode=0;break;}
+                } else {fprintf(stderr,"Unexpected display mode %u\n",mode);exit(5);}
+            }
+            if(!done) {fprintf(stderr,"Unterminated display list\n");exit(5);}
+            fprintf(lists,"END\n");
+        }
+        return 1;
+    }
+    if(dev==017) {
+        if(pulse && ((p->mb>>6)&077)==2) p->pc=(p->pc+1)&07777;
+        return 1;
+    }
+    if(dev==007 || dev==026 || dev==027) {
+        fprintf(stderr,"Type 30/33 IOT in Type 340 test\n");exit(5);
+    }
+#endif
     if (dev == 026 || dev == 027) {
         if (pulse) p->ios=1;
         return 1;  /* Event capture only: real Type 33 timing is not simulated. */
@@ -79,6 +112,8 @@ int main(int argc, char **argv)
     if (!trace) return 2;
     events=fopen("events.trace","w");
     if (!events) return 2;
+    lists=fopen("lists.trace","w");
+    if (!lists) return 2;
     if (argc != 5 && argc != 6) { fprintf(stderr,"cpu_runner image.mem input.mem output.mem start_octal [loader.words]\n"); return 2; }
     load(&p,argv[1]);
     if (argc==6) {
@@ -115,6 +150,7 @@ int main(int argc, char **argv)
     fclose(f);
     fclose(trace);
     fclose(events);
+    fclose(lists);
     printf("cycles=%llu simulated_ns=%llu pc=%06o overflow=%d extend=%d\n",
         (unsigned long long)cycles,(unsigned long long)p.simtime,p.epc|p.pc,p.ov1,p.exd);
     return 0;

@@ -1,0 +1,156 @@
+// P1GL nine cross calibration: logical coordinates, synchronous Type 30
+100/
+go, lem
+lsm
+cbs
+frame,
+jda gplot
+0d112
+0d112
+jda gplot
+0d109
+0d112
+jda gplot
+0d115
+0d112
+jda gplot
+0d112
+0d109
+jda gplot
+0d112
+0d115
+jda gplot
+0d512
+0d112
+jda gplot
+0d509
+0d112
+jda gplot
+0d515
+0d112
+jda gplot
+0d512
+0d109
+jda gplot
+0d512
+0d115
+jda gplot
+0d912
+0d112
+jda gplot
+0d909
+0d112
+jda gplot
+0d915
+0d112
+jda gplot
+0d912
+0d109
+jda gplot
+0d912
+0d115
+jda gplot
+0d112
+0d512
+jda gplot
+0d109
+0d512
+jda gplot
+0d115
+0d512
+jda gplot
+0d112
+0d509
+jda gplot
+0d112
+0d515
+jda gplot
+0d512
+0d512
+jda gplot
+0d509
+0d512
+jda gplot
+0d515
+0d512
+jda gplot
+0d512
+0d509
+jda gplot
+0d512
+0d515
+jda gplot
+0d912
+0d512
+jda gplot
+0d909
+0d512
+jda gplot
+0d915
+0d512
+jda gplot
+0d912
+0d509
+jda gplot
+0d912
+0d515
+jda gplot
+0d112
+0d912
+jda gplot
+0d109
+0d912
+jda gplot
+0d115
+0d912
+jda gplot
+0d112
+0d909
+jda gplot
+0d112
+0d915
+jda gplot
+0d512
+0d912
+jda gplot
+0d509
+0d912
+jda gplot
+0d515
+0d912
+jda gplot
+0d512
+0d909
+jda gplot
+0d512
+0d915
+jda gplot
+0d912
+0d912
+jda gplot
+0d909
+0d912
+jda gplot
+0d915
+0d912
+jda gplot
+0d912
+0d909
+jda gplot
+0d912
+0d915
+idx frames
+#ifdef SINGLE_FRAME
+hlt
+#else
+law i 0d500
+dac delay_count
+delay, isp delay_count
+jmp delay
+jmp frame
+#endif
+frames, 0
+delay_count, 0
+#include "gplot.am1"
+constants
+start go

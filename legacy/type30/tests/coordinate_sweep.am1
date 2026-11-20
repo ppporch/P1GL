@@ -1,0 +1,3081 @@
+P1GL complete logical coordinate sweep
+100/
+go, lem
+lsm
+cbs
+jda gplot
+0d0
+0d1023
+jda gplot
+0d1
+0d1022
+jda gplot
+0d2
+0d1021
+jda gplot
+0d3
+0d1020
+jda gplot
+0d4
+0d1019
+jda gplot
+0d5
+0d1018
+jda gplot
+0d6
+0d1017
+jda gplot
+0d7
+0d1016
+jda gplot
+0d8
+0d1015
+jda gplot
+0d9
+0d1014
+jda gplot
+0d10
+0d1013
+jda gplot
+0d11
+0d1012
+jda gplot
+0d12
+0d1011
+jda gplot
+0d13
+0d1010
+jda gplot
+0d14
+0d1009
+jda gplot
+0d15
+0d1008
+jda gplot
+0d16
+0d1007
+jda gplot
+0d17
+0d1006
+jda gplot
+0d18
+0d1005
+jda gplot
+0d19
+0d1004
+jda gplot
+0d20
+0d1003
+jda gplot
+0d21
+0d1002
+jda gplot
+0d22
+0d1001
+jda gplot
+0d23
+0d1000
+jda gplot
+0d24
+0d999
+jda gplot
+0d25
+0d998
+jda gplot
+0d26
+0d997
+jda gplot
+0d27
+0d996
+jda gplot
+0d28
+0d995
+jda gplot
+0d29
+0d994
+jda gplot
+0d30
+0d993
+jda gplot
+0d31
+0d992
+jda gplot
+0d32
+0d991
+jda gplot
+0d33
+0d990
+jda gplot
+0d34
+0d989
+jda gplot
+0d35
+0d988
+jda gplot
+0d36
+0d987
+jda gplot
+0d37
+0d986
+jda gplot
+0d38
+0d985
+jda gplot
+0d39
+0d984
+jda gplot
+0d40
+0d983
+jda gplot
+0d41
+0d982
+jda gplot
+0d42
+0d981
+jda gplot
+0d43
+0d980
+jda gplot
+0d44
+0d979
+jda gplot
+0d45
+0d978
+jda gplot
+0d46
+0d977
+jda gplot
+0d47
+0d976
+jda gplot
+0d48
+0d975
+jda gplot
+0d49
+0d974
+jda gplot
+0d50
+0d973
+jda gplot
+0d51
+0d972
+jda gplot
+0d52
+0d971
+jda gplot
+0d53
+0d970
+jda gplot
+0d54
+0d969
+jda gplot
+0d55
+0d968
+jda gplot
+0d56
+0d967
+jda gplot
+0d57
+0d966
+jda gplot
+0d58
+0d965
+jda gplot
+0d59
+0d964
+jda gplot
+0d60
+0d963
+jda gplot
+0d61
+0d962
+jda gplot
+0d62
+0d961
+jda gplot
+0d63
+0d960
+jda gplot
+0d64
+0d959
+jda gplot
+0d65
+0d958
+jda gplot
+0d66
+0d957
+jda gplot
+0d67
+0d956
+jda gplot
+0d68
+0d955
+jda gplot
+0d69
+0d954
+jda gplot
+0d70
+0d953
+jda gplot
+0d71
+0d952
+jda gplot
+0d72
+0d951
+jda gplot
+0d73
+0d950
+jda gplot
+0d74
+0d949
+jda gplot
+0d75
+0d948
+jda gplot
+0d76
+0d947
+jda gplot
+0d77
+0d946
+jda gplot
+0d78
+0d945
+jda gplot
+0d79
+0d944
+jda gplot
+0d80
+0d943
+jda gplot
+0d81
+0d942
+jda gplot
+0d82
+0d941
+jda gplot
+0d83
+0d940
+jda gplot
+0d84
+0d939
+jda gplot
+0d85
+0d938
+jda gplot
+0d86
+0d937
+jda gplot
+0d87
+0d936
+jda gplot
+0d88
+0d935
+jda gplot
+0d89
+0d934
+jda gplot
+0d90
+0d933
+jda gplot
+0d91
+0d932
+jda gplot
+0d92
+0d931
+jda gplot
+0d93
+0d930
+jda gplot
+0d94
+0d929
+jda gplot
+0d95
+0d928
+jda gplot
+0d96
+0d927
+jda gplot
+0d97
+0d926
+jda gplot
+0d98
+0d925
+jda gplot
+0d99
+0d924
+jda gplot
+0d100
+0d923
+jda gplot
+0d101
+0d922
+jda gplot
+0d102
+0d921
+jda gplot
+0d103
+0d920
+jda gplot
+0d104
+0d919
+jda gplot
+0d105
+0d918
+jda gplot
+0d106
+0d917
+jda gplot
+0d107
+0d916
+jda gplot
+0d108
+0d915
+jda gplot
+0d109
+0d914
+jda gplot
+0d110
+0d913
+jda gplot
+0d111
+0d912
+jda gplot
+0d112
+0d911
+jda gplot
+0d113
+0d910
+jda gplot
+0d114
+0d909
+jda gplot
+0d115
+0d908
+jda gplot
+0d116
+0d907
+jda gplot
+0d117
+0d906
+jda gplot
+0d118
+0d905
+jda gplot
+0d119
+0d904
+jda gplot
+0d120
+0d903
+jda gplot
+0d121
+0d902
+jda gplot
+0d122
+0d901
+jda gplot
+0d123
+0d900
+jda gplot
+0d124
+0d899
+jda gplot
+0d125
+0d898
+jda gplot
+0d126
+0d897
+jda gplot
+0d127
+0d896
+jda gplot
+0d128
+0d895
+jda gplot
+0d129
+0d894
+jda gplot
+0d130
+0d893
+jda gplot
+0d131
+0d892
+jda gplot
+0d132
+0d891
+jda gplot
+0d133
+0d890
+jda gplot
+0d134
+0d889
+jda gplot
+0d135
+0d888
+jda gplot
+0d136
+0d887
+jda gplot
+0d137
+0d886
+jda gplot
+0d138
+0d885
+jda gplot
+0d139
+0d884
+jda gplot
+0d140
+0d883
+jda gplot
+0d141
+0d882
+jda gplot
+0d142
+0d881
+jda gplot
+0d143
+0d880
+jda gplot
+0d144
+0d879
+jda gplot
+0d145
+0d878
+jda gplot
+0d146
+0d877
+jda gplot
+0d147
+0d876
+jda gplot
+0d148
+0d875
+jda gplot
+0d149
+0d874
+jda gplot
+0d150
+0d873
+jda gplot
+0d151
+0d872
+jda gplot
+0d152
+0d871
+jda gplot
+0d153
+0d870
+jda gplot
+0d154
+0d869
+jda gplot
+0d155
+0d868
+jda gplot
+0d156
+0d867
+jda gplot
+0d157
+0d866
+jda gplot
+0d158
+0d865
+jda gplot
+0d159
+0d864
+jda gplot
+0d160
+0d863
+jda gplot
+0d161
+0d862
+jda gplot
+0d162
+0d861
+jda gplot
+0d163
+0d860
+jda gplot
+0d164
+0d859
+jda gplot
+0d165
+0d858
+jda gplot
+0d166
+0d857
+jda gplot
+0d167
+0d856
+jda gplot
+0d168
+0d855
+jda gplot
+0d169
+0d854
+jda gplot
+0d170
+0d853
+jda gplot
+0d171
+0d852
+jda gplot
+0d172
+0d851
+jda gplot
+0d173
+0d850
+jda gplot
+0d174
+0d849
+jda gplot
+0d175
+0d848
+jda gplot
+0d176
+0d847
+jda gplot
+0d177
+0d846
+jda gplot
+0d178
+0d845
+jda gplot
+0d179
+0d844
+jda gplot
+0d180
+0d843
+jda gplot
+0d181
+0d842
+jda gplot
+0d182
+0d841
+jda gplot
+0d183
+0d840
+jda gplot
+0d184
+0d839
+jda gplot
+0d185
+0d838
+jda gplot
+0d186
+0d837
+jda gplot
+0d187
+0d836
+jda gplot
+0d188
+0d835
+jda gplot
+0d189
+0d834
+jda gplot
+0d190
+0d833
+jda gplot
+0d191
+0d832
+jda gplot
+0d192
+0d831
+jda gplot
+0d193
+0d830
+jda gplot
+0d194
+0d829
+jda gplot
+0d195
+0d828
+jda gplot
+0d196
+0d827
+jda gplot
+0d197
+0d826
+jda gplot
+0d198
+0d825
+jda gplot
+0d199
+0d824
+jda gplot
+0d200
+0d823
+jda gplot
+0d201
+0d822
+jda gplot
+0d202
+0d821
+jda gplot
+0d203
+0d820
+jda gplot
+0d204
+0d819
+jda gplot
+0d205
+0d818
+jda gplot
+0d206
+0d817
+jda gplot
+0d207
+0d816
+jda gplot
+0d208
+0d815
+jda gplot
+0d209
+0d814
+jda gplot
+0d210
+0d813
+jda gplot
+0d211
+0d812
+jda gplot
+0d212
+0d811
+jda gplot
+0d213
+0d810
+jda gplot
+0d214
+0d809
+jda gplot
+0d215
+0d808
+jda gplot
+0d216
+0d807
+jda gplot
+0d217
+0d806
+jda gplot
+0d218
+0d805
+jda gplot
+0d219
+0d804
+jda gplot
+0d220
+0d803
+jda gplot
+0d221
+0d802
+jda gplot
+0d222
+0d801
+jda gplot
+0d223
+0d800
+jda gplot
+0d224
+0d799
+jda gplot
+0d225
+0d798
+jda gplot
+0d226
+0d797
+jda gplot
+0d227
+0d796
+jda gplot
+0d228
+0d795
+jda gplot
+0d229
+0d794
+jda gplot
+0d230
+0d793
+jda gplot
+0d231
+0d792
+jda gplot
+0d232
+0d791
+jda gplot
+0d233
+0d790
+jda gplot
+0d234
+0d789
+jda gplot
+0d235
+0d788
+jda gplot
+0d236
+0d787
+jda gplot
+0d237
+0d786
+jda gplot
+0d238
+0d785
+jda gplot
+0d239
+0d784
+jda gplot
+0d240
+0d783
+jda gplot
+0d241
+0d782
+jda gplot
+0d242
+0d781
+jda gplot
+0d243
+0d780
+jda gplot
+0d244
+0d779
+jda gplot
+0d245
+0d778
+jda gplot
+0d246
+0d777
+jda gplot
+0d247
+0d776
+jda gplot
+0d248
+0d775
+jda gplot
+0d249
+0d774
+jda gplot
+0d250
+0d773
+jda gplot
+0d251
+0d772
+jda gplot
+0d252
+0d771
+jda gplot
+0d253
+0d770
+jda gplot
+0d254
+0d769
+jda gplot
+0d255
+0d768
+jda gplot
+0d256
+0d767
+jda gplot
+0d257
+0d766
+jda gplot
+0d258
+0d765
+jda gplot
+0d259
+0d764
+jda gplot
+0d260
+0d763
+jda gplot
+0d261
+0d762
+jda gplot
+0d262
+0d761
+jda gplot
+0d263
+0d760
+jda gplot
+0d264
+0d759
+jda gplot
+0d265
+0d758
+jda gplot
+0d266
+0d757
+jda gplot
+0d267
+0d756
+jda gplot
+0d268
+0d755
+jda gplot
+0d269
+0d754
+jda gplot
+0d270
+0d753
+jda gplot
+0d271
+0d752
+jda gplot
+0d272
+0d751
+jda gplot
+0d273
+0d750
+jda gplot
+0d274
+0d749
+jda gplot
+0d275
+0d748
+jda gplot
+0d276
+0d747
+jda gplot
+0d277
+0d746
+jda gplot
+0d278
+0d745
+jda gplot
+0d279
+0d744
+jda gplot
+0d280
+0d743
+jda gplot
+0d281
+0d742
+jda gplot
+0d282
+0d741
+jda gplot
+0d283
+0d740
+jda gplot
+0d284
+0d739
+jda gplot
+0d285
+0d738
+jda gplot
+0d286
+0d737
+jda gplot
+0d287
+0d736
+jda gplot
+0d288
+0d735
+jda gplot
+0d289
+0d734
+jda gplot
+0d290
+0d733
+jda gplot
+0d291
+0d732
+jda gplot
+0d292
+0d731
+jda gplot
+0d293
+0d730
+jda gplot
+0d294
+0d729
+jda gplot
+0d295
+0d728
+jda gplot
+0d296
+0d727
+jda gplot
+0d297
+0d726
+jda gplot
+0d298
+0d725
+jda gplot
+0d299
+0d724
+jda gplot
+0d300
+0d723
+jda gplot
+0d301
+0d722
+jda gplot
+0d302
+0d721
+jda gplot
+0d303
+0d720
+jda gplot
+0d304
+0d719
+jda gplot
+0d305
+0d718
+jda gplot
+0d306
+0d717
+jda gplot
+0d307
+0d716
+jda gplot
+0d308
+0d715
+jda gplot
+0d309
+0d714
+jda gplot
+0d310
+0d713
+jda gplot
+0d311
+0d712
+jda gplot
+0d312
+0d711
+jda gplot
+0d313
+0d710
+jda gplot
+0d314
+0d709
+jda gplot
+0d315
+0d708
+jda gplot
+0d316
+0d707
+jda gplot
+0d317
+0d706
+jda gplot
+0d318
+0d705
+jda gplot
+0d319
+0d704
+jda gplot
+0d320
+0d703
+jda gplot
+0d321
+0d702
+jda gplot
+0d322
+0d701
+jda gplot
+0d323
+0d700
+jda gplot
+0d324
+0d699
+jda gplot
+0d325
+0d698
+jda gplot
+0d326
+0d697
+jda gplot
+0d327
+0d696
+jda gplot
+0d328
+0d695
+jda gplot
+0d329
+0d694
+jda gplot
+0d330
+0d693
+jda gplot
+0d331
+0d692
+jda gplot
+0d332
+0d691
+jda gplot
+0d333
+0d690
+jda gplot
+0d334
+0d689
+jda gplot
+0d335
+0d688
+jda gplot
+0d336
+0d687
+jda gplot
+0d337
+0d686
+jda gplot
+0d338
+0d685
+jda gplot
+0d339
+0d684
+jda gplot
+0d340
+0d683
+jda gplot
+0d341
+0d682
+jda gplot
+0d342
+0d681
+jda gplot
+0d343
+0d680
+jda gplot
+0d344
+0d679
+jda gplot
+0d345
+0d678
+jda gplot
+0d346
+0d677
+jda gplot
+0d347
+0d676
+jda gplot
+0d348
+0d675
+jda gplot
+0d349
+0d674
+jda gplot
+0d350
+0d673
+jda gplot
+0d351
+0d672
+jda gplot
+0d352
+0d671
+jda gplot
+0d353
+0d670
+jda gplot
+0d354
+0d669
+jda gplot
+0d355
+0d668
+jda gplot
+0d356
+0d667
+jda gplot
+0d357
+0d666
+jda gplot
+0d358
+0d665
+jda gplot
+0d359
+0d664
+jda gplot
+0d360
+0d663
+jda gplot
+0d361
+0d662
+jda gplot
+0d362
+0d661
+jda gplot
+0d363
+0d660
+jda gplot
+0d364
+0d659
+jda gplot
+0d365
+0d658
+jda gplot
+0d366
+0d657
+jda gplot
+0d367
+0d656
+jda gplot
+0d368
+0d655
+jda gplot
+0d369
+0d654
+jda gplot
+0d370
+0d653
+jda gplot
+0d371
+0d652
+jda gplot
+0d372
+0d651
+jda gplot
+0d373
+0d650
+jda gplot
+0d374
+0d649
+jda gplot
+0d375
+0d648
+jda gplot
+0d376
+0d647
+jda gplot
+0d377
+0d646
+jda gplot
+0d378
+0d645
+jda gplot
+0d379
+0d644
+jda gplot
+0d380
+0d643
+jda gplot
+0d381
+0d642
+jda gplot
+0d382
+0d641
+jda gplot
+0d383
+0d640
+jda gplot
+0d384
+0d639
+jda gplot
+0d385
+0d638
+jda gplot
+0d386
+0d637
+jda gplot
+0d387
+0d636
+jda gplot
+0d388
+0d635
+jda gplot
+0d389
+0d634
+jda gplot
+0d390
+0d633
+jda gplot
+0d391
+0d632
+jda gplot
+0d392
+0d631
+jda gplot
+0d393
+0d630
+jda gplot
+0d394
+0d629
+jda gplot
+0d395
+0d628
+jda gplot
+0d396
+0d627
+jda gplot
+0d397
+0d626
+jda gplot
+0d398
+0d625
+jda gplot
+0d399
+0d624
+jda gplot
+0d400
+0d623
+jda gplot
+0d401
+0d622
+jda gplot
+0d402
+0d621
+jda gplot
+0d403
+0d620
+jda gplot
+0d404
+0d619
+jda gplot
+0d405
+0d618
+jda gplot
+0d406
+0d617
+jda gplot
+0d407
+0d616
+jda gplot
+0d408
+0d615
+jda gplot
+0d409
+0d614
+jda gplot
+0d410
+0d613
+jda gplot
+0d411
+0d612
+jda gplot
+0d412
+0d611
+jda gplot
+0d413
+0d610
+jda gplot
+0d414
+0d609
+jda gplot
+0d415
+0d608
+jda gplot
+0d416
+0d607
+jda gplot
+0d417
+0d606
+jda gplot
+0d418
+0d605
+jda gplot
+0d419
+0d604
+jda gplot
+0d420
+0d603
+jda gplot
+0d421
+0d602
+jda gplot
+0d422
+0d601
+jda gplot
+0d423
+0d600
+jda gplot
+0d424
+0d599
+jda gplot
+0d425
+0d598
+jda gplot
+0d426
+0d597
+jda gplot
+0d427
+0d596
+jda gplot
+0d428
+0d595
+jda gplot
+0d429
+0d594
+jda gplot
+0d430
+0d593
+jda gplot
+0d431
+0d592
+jda gplot
+0d432
+0d591
+jda gplot
+0d433
+0d590
+jda gplot
+0d434
+0d589
+jda gplot
+0d435
+0d588
+jda gplot
+0d436
+0d587
+jda gplot
+0d437
+0d586
+jda gplot
+0d438
+0d585
+jda gplot
+0d439
+0d584
+jda gplot
+0d440
+0d583
+jda gplot
+0d441
+0d582
+jda gplot
+0d442
+0d581
+jda gplot
+0d443
+0d580
+jda gplot
+0d444
+0d579
+jda gplot
+0d445
+0d578
+jda gplot
+0d446
+0d577
+jda gplot
+0d447
+0d576
+jda gplot
+0d448
+0d575
+jda gplot
+0d449
+0d574
+jda gplot
+0d450
+0d573
+jda gplot
+0d451
+0d572
+jda gplot
+0d452
+0d571
+jda gplot
+0d453
+0d570
+jda gplot
+0d454
+0d569
+jda gplot
+0d455
+0d568
+jda gplot
+0d456
+0d567
+jda gplot
+0d457
+0d566
+jda gplot
+0d458
+0d565
+jda gplot
+0d459
+0d564
+jda gplot
+0d460
+0d563
+jda gplot
+0d461
+0d562
+jda gplot
+0d462
+0d561
+jda gplot
+0d463
+0d560
+jda gplot
+0d464
+0d559
+jda gplot
+0d465
+0d558
+jda gplot
+0d466
+0d557
+jda gplot
+0d467
+0d556
+jda gplot
+0d468
+0d555
+jda gplot
+0d469
+0d554
+jda gplot
+0d470
+0d553
+jda gplot
+0d471
+0d552
+jda gplot
+0d472
+0d551
+jda gplot
+0d473
+0d550
+jda gplot
+0d474
+0d549
+jda gplot
+0d475
+0d548
+jda gplot
+0d476
+0d547
+jda gplot
+0d477
+0d546
+jda gplot
+0d478
+0d545
+jda gplot
+0d479
+0d544
+jda gplot
+0d480
+0d543
+jda gplot
+0d481
+0d542
+jda gplot
+0d482
+0d541
+jda gplot
+0d483
+0d540
+jda gplot
+0d484
+0d539
+jda gplot
+0d485
+0d538
+jda gplot
+0d486
+0d537
+jda gplot
+0d487
+0d536
+jda gplot
+0d488
+0d535
+jda gplot
+0d489
+0d534
+jda gplot
+0d490
+0d533
+jda gplot
+0d491
+0d532
+jda gplot
+0d492
+0d531
+jda gplot
+0d493
+0d530
+jda gplot
+0d494
+0d529
+jda gplot
+0d495
+0d528
+jda gplot
+0d496
+0d527
+jda gplot
+0d497
+0d526
+jda gplot
+0d498
+0d525
+jda gplot
+0d499
+0d524
+jda gplot
+0d500
+0d523
+jda gplot
+0d501
+0d522
+jda gplot
+0d502
+0d521
+jda gplot
+0d503
+0d520
+jda gplot
+0d504
+0d519
+jda gplot
+0d505
+0d518
+jda gplot
+0d506
+0d517
+jda gplot
+0d507
+0d516
+jda gplot
+0d508
+0d515
+jda gplot
+0d509
+0d514
+jda gplot
+0d510
+0d513
+jda gplot
+0d511
+0d512
+jda gplot
+0d512
+0d511
+jda gplot
+0d513
+0d510
+jda gplot
+0d514
+0d509
+jda gplot
+0d515
+0d508
+jda gplot
+0d516
+0d507
+jda gplot
+0d517
+0d506
+jda gplot
+0d518
+0d505
+jda gplot
+0d519
+0d504
+jda gplot
+0d520
+0d503
+jda gplot
+0d521
+0d502
+jda gplot
+0d522
+0d501
+jda gplot
+0d523
+0d500
+jda gplot
+0d524
+0d499
+jda gplot
+0d525
+0d498
+jda gplot
+0d526
+0d497
+jda gplot
+0d527
+0d496
+jda gplot
+0d528
+0d495
+jda gplot
+0d529
+0d494
+jda gplot
+0d530
+0d493
+jda gplot
+0d531
+0d492
+jda gplot
+0d532
+0d491
+jda gplot
+0d533
+0d490
+jda gplot
+0d534
+0d489
+jda gplot
+0d535
+0d488
+jda gplot
+0d536
+0d487
+jda gplot
+0d537
+0d486
+jda gplot
+0d538
+0d485
+jda gplot
+0d539
+0d484
+jda gplot
+0d540
+0d483
+jda gplot
+0d541
+0d482
+jda gplot
+0d542
+0d481
+jda gplot
+0d543
+0d480
+jda gplot
+0d544
+0d479
+jda gplot
+0d545
+0d478
+jda gplot
+0d546
+0d477
+jda gplot
+0d547
+0d476
+jda gplot
+0d548
+0d475
+jda gplot
+0d549
+0d474
+jda gplot
+0d550
+0d473
+jda gplot
+0d551
+0d472
+jda gplot
+0d552
+0d471
+jda gplot
+0d553
+0d470
+jda gplot
+0d554
+0d469
+jda gplot
+0d555
+0d468
+jda gplot
+0d556
+0d467
+jda gplot
+0d557
+0d466
+jda gplot
+0d558
+0d465
+jda gplot
+0d559
+0d464
+jda gplot
+0d560
+0d463
+jda gplot
+0d561
+0d462
+jda gplot
+0d562
+0d461
+jda gplot
+0d563
+0d460
+jda gplot
+0d564
+0d459
+jda gplot
+0d565
+0d458
+jda gplot
+0d566
+0d457
+jda gplot
+0d567
+0d456
+jda gplot
+0d568
+0d455
+jda gplot
+0d569
+0d454
+jda gplot
+0d570
+0d453
+jda gplot
+0d571
+0d452
+jda gplot
+0d572
+0d451
+jda gplot
+0d573
+0d450
+jda gplot
+0d574
+0d449
+jda gplot
+0d575
+0d448
+jda gplot
+0d576
+0d447
+jda gplot
+0d577
+0d446
+jda gplot
+0d578
+0d445
+jda gplot
+0d579
+0d444
+jda gplot
+0d580
+0d443
+jda gplot
+0d581
+0d442
+jda gplot
+0d582
+0d441
+jda gplot
+0d583
+0d440
+jda gplot
+0d584
+0d439
+jda gplot
+0d585
+0d438
+jda gplot
+0d586
+0d437
+jda gplot
+0d587
+0d436
+jda gplot
+0d588
+0d435
+jda gplot
+0d589
+0d434
+jda gplot
+0d590
+0d433
+jda gplot
+0d591
+0d432
+jda gplot
+0d592
+0d431
+jda gplot
+0d593
+0d430
+jda gplot
+0d594
+0d429
+jda gplot
+0d595
+0d428
+jda gplot
+0d596
+0d427
+jda gplot
+0d597
+0d426
+jda gplot
+0d598
+0d425
+jda gplot
+0d599
+0d424
+jda gplot
+0d600
+0d423
+jda gplot
+0d601
+0d422
+jda gplot
+0d602
+0d421
+jda gplot
+0d603
+0d420
+jda gplot
+0d604
+0d419
+jda gplot
+0d605
+0d418
+jda gplot
+0d606
+0d417
+jda gplot
+0d607
+0d416
+jda gplot
+0d608
+0d415
+jda gplot
+0d609
+0d414
+jda gplot
+0d610
+0d413
+jda gplot
+0d611
+0d412
+jda gplot
+0d612
+0d411
+jda gplot
+0d613
+0d410
+jda gplot
+0d614
+0d409
+jda gplot
+0d615
+0d408
+jda gplot
+0d616
+0d407
+jda gplot
+0d617
+0d406
+jda gplot
+0d618
+0d405
+jda gplot
+0d619
+0d404
+jda gplot
+0d620
+0d403
+jda gplot
+0d621
+0d402
+jda gplot
+0d622
+0d401
+jda gplot
+0d623
+0d400
+jda gplot
+0d624
+0d399
+jda gplot
+0d625
+0d398
+jda gplot
+0d626
+0d397
+jda gplot
+0d627
+0d396
+jda gplot
+0d628
+0d395
+jda gplot
+0d629
+0d394
+jda gplot
+0d630
+0d393
+jda gplot
+0d631
+0d392
+jda gplot
+0d632
+0d391
+jda gplot
+0d633
+0d390
+jda gplot
+0d634
+0d389
+jda gplot
+0d635
+0d388
+jda gplot
+0d636
+0d387
+jda gplot
+0d637
+0d386
+jda gplot
+0d638
+0d385
+jda gplot
+0d639
+0d384
+jda gplot
+0d640
+0d383
+jda gplot
+0d641
+0d382
+jda gplot
+0d642
+0d381
+jda gplot
+0d643
+0d380
+jda gplot
+0d644
+0d379
+jda gplot
+0d645
+0d378
+jda gplot
+0d646
+0d377
+jda gplot
+0d647
+0d376
+jda gplot
+0d648
+0d375
+jda gplot
+0d649
+0d374
+jda gplot
+0d650
+0d373
+jda gplot
+0d651
+0d372
+jda gplot
+0d652
+0d371
+jda gplot
+0d653
+0d370
+jda gplot
+0d654
+0d369
+jda gplot
+0d655
+0d368
+jda gplot
+0d656
+0d367
+jda gplot
+0d657
+0d366
+jda gplot
+0d658
+0d365
+jda gplot
+0d659
+0d364
+jda gplot
+0d660
+0d363
+jda gplot
+0d661
+0d362
+jda gplot
+0d662
+0d361
+jda gplot
+0d663
+0d360
+jda gplot
+0d664
+0d359
+jda gplot
+0d665
+0d358
+jda gplot
+0d666
+0d357
+jda gplot
+0d667
+0d356
+jda gplot
+0d668
+0d355
+jda gplot
+0d669
+0d354
+jda gplot
+0d670
+0d353
+jda gplot
+0d671
+0d352
+jda gplot
+0d672
+0d351
+jda gplot
+0d673
+0d350
+jda gplot
+0d674
+0d349
+jda gplot
+0d675
+0d348
+jda gplot
+0d676
+0d347
+jda gplot
+0d677
+0d346
+jda gplot
+0d678
+0d345
+jda gplot
+0d679
+0d344
+jda gplot
+0d680
+0d343
+jda gplot
+0d681
+0d342
+jda gplot
+0d682
+0d341
+jda gplot
+0d683
+0d340
+jda gplot
+0d684
+0d339
+jda gplot
+0d685
+0d338
+jda gplot
+0d686
+0d337
+jda gplot
+0d687
+0d336
+jda gplot
+0d688
+0d335
+jda gplot
+0d689
+0d334
+jda gplot
+0d690
+0d333
+jda gplot
+0d691
+0d332
+jda gplot
+0d692
+0d331
+jda gplot
+0d693
+0d330
+jda gplot
+0d694
+0d329
+jda gplot
+0d695
+0d328
+jda gplot
+0d696
+0d327
+jda gplot
+0d697
+0d326
+jda gplot
+0d698
+0d325
+jda gplot
+0d699
+0d324
+jda gplot
+0d700
+0d323
+jda gplot
+0d701
+0d322
+jda gplot
+0d702
+0d321
+jda gplot
+0d703
+0d320
+jda gplot
+0d704
+0d319
+jda gplot
+0d705
+0d318
+jda gplot
+0d706
+0d317
+jda gplot
+0d707
+0d316
+jda gplot
+0d708
+0d315
+jda gplot
+0d709
+0d314
+jda gplot
+0d710
+0d313
+jda gplot
+0d711
+0d312
+jda gplot
+0d712
+0d311
+jda gplot
+0d713
+0d310
+jda gplot
+0d714
+0d309
+jda gplot
+0d715
+0d308
+jda gplot
+0d716
+0d307
+jda gplot
+0d717
+0d306
+jda gplot
+0d718
+0d305
+jda gplot
+0d719
+0d304
+jda gplot
+0d720
+0d303
+jda gplot
+0d721
+0d302
+jda gplot
+0d722
+0d301
+jda gplot
+0d723
+0d300
+jda gplot
+0d724
+0d299
+jda gplot
+0d725
+0d298
+jda gplot
+0d726
+0d297
+jda gplot
+0d727
+0d296
+jda gplot
+0d728
+0d295
+jda gplot
+0d729
+0d294
+jda gplot
+0d730
+0d293
+jda gplot
+0d731
+0d292
+jda gplot
+0d732
+0d291
+jda gplot
+0d733
+0d290
+jda gplot
+0d734
+0d289
+jda gplot
+0d735
+0d288
+jda gplot
+0d736
+0d287
+jda gplot
+0d737
+0d286
+jda gplot
+0d738
+0d285
+jda gplot
+0d739
+0d284
+jda gplot
+0d740
+0d283
+jda gplot
+0d741
+0d282
+jda gplot
+0d742
+0d281
+jda gplot
+0d743
+0d280
+jda gplot
+0d744
+0d279
+jda gplot
+0d745
+0d278
+jda gplot
+0d746
+0d277
+jda gplot
+0d747
+0d276
+jda gplot
+0d748
+0d275
+jda gplot
+0d749
+0d274
+jda gplot
+0d750
+0d273
+jda gplot
+0d751
+0d272
+jda gplot
+0d752
+0d271
+jda gplot
+0d753
+0d270
+jda gplot
+0d754
+0d269
+jda gplot
+0d755
+0d268
+jda gplot
+0d756
+0d267
+jda gplot
+0d757
+0d266
+jda gplot
+0d758
+0d265
+jda gplot
+0d759
+0d264
+jda gplot
+0d760
+0d263
+jda gplot
+0d761
+0d262
+jda gplot
+0d762
+0d261
+jda gplot
+0d763
+0d260
+jda gplot
+0d764
+0d259
+jda gplot
+0d765
+0d258
+jda gplot
+0d766
+0d257
+jda gplot
+0d767
+0d256
+jda gplot
+0d768
+0d255
+jda gplot
+0d769
+0d254
+jda gplot
+0d770
+0d253
+jda gplot
+0d771
+0d252
+jda gplot
+0d772
+0d251
+jda gplot
+0d773
+0d250
+jda gplot
+0d774
+0d249
+jda gplot
+0d775
+0d248
+jda gplot
+0d776
+0d247
+jda gplot
+0d777
+0d246
+jda gplot
+0d778
+0d245
+jda gplot
+0d779
+0d244
+jda gplot
+0d780
+0d243
+jda gplot
+0d781
+0d242
+jda gplot
+0d782
+0d241
+jda gplot
+0d783
+0d240
+jda gplot
+0d784
+0d239
+jda gplot
+0d785
+0d238
+jda gplot
+0d786
+0d237
+jda gplot
+0d787
+0d236
+jda gplot
+0d788
+0d235
+jda gplot
+0d789
+0d234
+jda gplot
+0d790
+0d233
+jda gplot
+0d791
+0d232
+jda gplot
+0d792
+0d231
+jda gplot
+0d793
+0d230
+jda gplot
+0d794
+0d229
+jda gplot
+0d795
+0d228
+jda gplot
+0d796
+0d227
+jda gplot
+0d797
+0d226
+jda gplot
+0d798
+0d225
+jda gplot
+0d799
+0d224
+jda gplot
+0d800
+0d223
+jda gplot
+0d801
+0d222
+jda gplot
+0d802
+0d221
+jda gplot
+0d803
+0d220
+jda gplot
+0d804
+0d219
+jda gplot
+0d805
+0d218
+jda gplot
+0d806
+0d217
+jda gplot
+0d807
+0d216
+jda gplot
+0d808
+0d215
+jda gplot
+0d809
+0d214
+jda gplot
+0d810
+0d213
+jda gplot
+0d811
+0d212
+jda gplot
+0d812
+0d211
+jda gplot
+0d813
+0d210
+jda gplot
+0d814
+0d209
+jda gplot
+0d815
+0d208
+jda gplot
+0d816
+0d207
+jda gplot
+0d817
+0d206
+jda gplot
+0d818
+0d205
+jda gplot
+0d819
+0d204
+jda gplot
+0d820
+0d203
+jda gplot
+0d821
+0d202
+jda gplot
+0d822
+0d201
+jda gplot
+0d823
+0d200
+jda gplot
+0d824
+0d199
+jda gplot
+0d825
+0d198
+jda gplot
+0d826
+0d197
+jda gplot
+0d827
+0d196
+jda gplot
+0d828
+0d195
+jda gplot
+0d829
+0d194
+jda gplot
+0d830
+0d193
+jda gplot
+0d831
+0d192
+jda gplot
+0d832
+0d191
+jda gplot
+0d833
+0d190
+jda gplot
+0d834
+0d189
+jda gplot
+0d835
+0d188
+jda gplot
+0d836
+0d187
+jda gplot
+0d837
+0d186
+jda gplot
+0d838
+0d185
+jda gplot
+0d839
+0d184
+jda gplot
+0d840
+0d183
+jda gplot
+0d841
+0d182
+jda gplot
+0d842
+0d181
+jda gplot
+0d843
+0d180
+jda gplot
+0d844
+0d179
+jda gplot
+0d845
+0d178
+jda gplot
+0d846
+0d177
+jda gplot
+0d847
+0d176
+jda gplot
+0d848
+0d175
+jda gplot
+0d849
+0d174
+jda gplot
+0d850
+0d173
+jda gplot
+0d851
+0d172
+jda gplot
+0d852
+0d171
+jda gplot
+0d853
+0d170
+jda gplot
+0d854
+0d169
+jda gplot
+0d855
+0d168
+jda gplot
+0d856
+0d167
+jda gplot
+0d857
+0d166
+jda gplot
+0d858
+0d165
+jda gplot
+0d859
+0d164
+jda gplot
+0d860
+0d163
+jda gplot
+0d861
+0d162
+jda gplot
+0d862
+0d161
+jda gplot
+0d863
+0d160
+jda gplot
+0d864
+0d159
+jda gplot
+0d865
+0d158
+jda gplot
+0d866
+0d157
+jda gplot
+0d867
+0d156
+jda gplot
+0d868
+0d155
+jda gplot
+0d869
+0d154
+jda gplot
+0d870
+0d153
+jda gplot
+0d871
+0d152
+jda gplot
+0d872
+0d151
+jda gplot
+0d873
+0d150
+jda gplot
+0d874
+0d149
+jda gplot
+0d875
+0d148
+jda gplot
+0d876
+0d147
+jda gplot
+0d877
+0d146
+jda gplot
+0d878
+0d145
+jda gplot
+0d879
+0d144
+jda gplot
+0d880
+0d143
+jda gplot
+0d881
+0d142
+jda gplot
+0d882
+0d141
+jda gplot
+0d883
+0d140
+jda gplot
+0d884
+0d139
+jda gplot
+0d885
+0d138
+jda gplot
+0d886
+0d137
+jda gplot
+0d887
+0d136
+jda gplot
+0d888
+0d135
+jda gplot
+0d889
+0d134
+jda gplot
+0d890
+0d133
+jda gplot
+0d891
+0d132
+jda gplot
+0d892
+0d131
+jda gplot
+0d893
+0d130
+jda gplot
+0d894
+0d129
+jda gplot
+0d895
+0d128
+jda gplot
+0d896
+0d127
+jda gplot
+0d897
+0d126
+jda gplot
+0d898
+0d125
+jda gplot
+0d899
+0d124
+jda gplot
+0d900
+0d123
+jda gplot
+0d901
+0d122
+jda gplot
+0d902
+0d121
+jda gplot
+0d903
+0d120
+jda gplot
+0d904
+0d119
+jda gplot
+0d905
+0d118
+jda gplot
+0d906
+0d117
+jda gplot
+0d907
+0d116
+jda gplot
+0d908
+0d115
+jda gplot
+0d909
+0d114
+jda gplot
+0d910
+0d113
+jda gplot
+0d911
+0d112
+jda gplot
+0d912
+0d111
+jda gplot
+0d913
+0d110
+jda gplot
+0d914
+0d109
+jda gplot
+0d915
+0d108
+jda gplot
+0d916
+0d107
+jda gplot
+0d917
+0d106
+jda gplot
+0d918
+0d105
+jda gplot
+0d919
+0d104
+jda gplot
+0d920
+0d103
+jda gplot
+0d921
+0d102
+jda gplot
+0d922
+0d101
+jda gplot
+0d923
+0d100
+jda gplot
+0d924
+0d99
+jda gplot
+0d925
+0d98
+jda gplot
+0d926
+0d97
+jda gplot
+0d927
+0d96
+jda gplot
+0d928
+0d95
+jda gplot
+0d929
+0d94
+jda gplot
+0d930
+0d93
+jda gplot
+0d931
+0d92
+jda gplot
+0d932
+0d91
+jda gplot
+0d933
+0d90
+jda gplot
+0d934
+0d89
+jda gplot
+0d935
+0d88
+jda gplot
+0d936
+0d87
+jda gplot
+0d937
+0d86
+jda gplot
+0d938
+0d85
+jda gplot
+0d939
+0d84
+jda gplot
+0d940
+0d83
+jda gplot
+0d941
+0d82
+jda gplot
+0d942
+0d81
+jda gplot
+0d943
+0d80
+jda gplot
+0d944
+0d79
+jda gplot
+0d945
+0d78
+jda gplot
+0d946
+0d77
+jda gplot
+0d947
+0d76
+jda gplot
+0d948
+0d75
+jda gplot
+0d949
+0d74
+jda gplot
+0d950
+0d73
+jda gplot
+0d951
+0d72
+jda gplot
+0d952
+0d71
+jda gplot
+0d953
+0d70
+jda gplot
+0d954
+0d69
+jda gplot
+0d955
+0d68
+jda gplot
+0d956
+0d67
+jda gplot
+0d957
+0d66
+jda gplot
+0d958
+0d65
+jda gplot
+0d959
+0d64
+jda gplot
+0d960
+0d63
+jda gplot
+0d961
+0d62
+jda gplot
+0d962
+0d61
+jda gplot
+0d963
+0d60
+jda gplot
+0d964
+0d59
+jda gplot
+0d965
+0d58
+jda gplot
+0d966
+0d57
+jda gplot
+0d967
+0d56
+jda gplot
+0d968
+0d55
+jda gplot
+0d969
+0d54
+jda gplot
+0d970
+0d53
+jda gplot
+0d971
+0d52
+jda gplot
+0d972
+0d51
+jda gplot
+0d973
+0d50
+jda gplot
+0d974
+0d49
+jda gplot
+0d975
+0d48
+jda gplot
+0d976
+0d47
+jda gplot
+0d977
+0d46
+jda gplot
+0d978
+0d45
+jda gplot
+0d979
+0d44
+jda gplot
+0d980
+0d43
+jda gplot
+0d981
+0d42
+jda gplot
+0d982
+0d41
+jda gplot
+0d983
+0d40
+jda gplot
+0d984
+0d39
+jda gplot
+0d985
+0d38
+jda gplot
+0d986
+0d37
+jda gplot
+0d987
+0d36
+jda gplot
+0d988
+0d35
+jda gplot
+0d989
+0d34
+jda gplot
+0d990
+0d33
+jda gplot
+0d991
+0d32
+jda gplot
+0d992
+0d31
+jda gplot
+0d993
+0d30
+jda gplot
+0d994
+0d29
+jda gplot
+0d995
+0d28
+jda gplot
+0d996
+0d27
+jda gplot
+0d997
+0d26
+jda gplot
+0d998
+0d25
+jda gplot
+0d999
+0d24
+jda gplot
+0d1000
+0d23
+jda gplot
+0d1001
+0d22
+jda gplot
+0d1002
+0d21
+jda gplot
+0d1003
+0d20
+jda gplot
+0d1004
+0d19
+jda gplot
+0d1005
+0d18
+jda gplot
+0d1006
+0d17
+jda gplot
+0d1007
+0d16
+jda gplot
+0d1008
+0d15
+jda gplot
+0d1009
+0d14
+jda gplot
+0d1010
+0d13
+jda gplot
+0d1011
+0d12
+jda gplot
+0d1012
+0d11
+jda gplot
+0d1013
+0d10
+jda gplot
+0d1014
+0d9
+jda gplot
+0d1015
+0d8
+jda gplot
+0d1016
+0d7
+jda gplot
+0d1017
+0d6
+jda gplot
+0d1018
+0d5
+jda gplot
+0d1019
+0d4
+jda gplot
+0d1020
+0d3
+jda gplot
+0d1021
+0d2
+jda gplot
+0d1022
+0d1
+jda gplot
+0d1023
+0d0
+hlt
+#include "../src/gplot.am1"
+constants
+start go

@@ -1,3 +1,8 @@
+# Current status — v0.9 Type 340
+
+The default backend is now native Type 340/342; see TYPE340.md. The records below
+are chronological and older milestones describe their historical devices.
+
 # Verification record — November 19, 2026
 
 P1GL v0.5 point milestone passed assembly, isolated CPU execution, live Type 30
@@ -100,3 +105,56 @@ draw maximum is not a full frame-latency bound. Drum/tape images were unchanged.
 Screen capture shows readable P1GL GRAPHICS / FRAME 1 labels with a circle,
 radius line and center point. Phillip confirmed the combined demo and labels look good. Timing is diagnostic; clarity and correctness are the priority per
 Phillip and Bill's latest guidance.
+
+## v0.9 native Type 340 migration
+
+The backend now emits parameter, point, vector and character commands and uses
+explicit IOT 015/0217/0417/01017. No Type 30 or Type 33 device calls are accepted
+by the native CPU test runner. Native vectors preserve exact endpoints; hardware
+samples replace the former CPU Bresenham pixels. Circles preserve midpoint
+points and clipping, including true coordinate zero. Text uses Type 342 scale
+and repertoire; its look and spacing differ from the old Type 33 bitmap labels.
+
+The structural decoder and real CPU execute coordinate, vector, circle, text,
+frame, ownership and buffer cases, including all three actual demo programs.
+The initial test caught the required POINT-to-PARAMETER transition before HALT.
+CPU capture models completion immediately, so real device execution remains a
+separate required check, not an implication of the model tests.
+
+The Pi had a different program running when the loader first checked it. No
+replacement occurred until Phillip explicitly approved saving and replacing it.
+Its core/register diagnostic snapshot is:
+/tmp/p1gl-type340-20261119/P1GL/build/snapshots/20261120T025023Z-type340/.
+These are UTC-stamped paths; the test occurred November 19 in America/Chicago.
+A coarse native preview ran with no faults and sampled draw maximum 8 ms.
+
+Phillip then asked to remove the dotted geometry appearance. The combined demo
+was changed to full-resolution circles (96,128,160) and continuous native vector
+radius lines. Before reloading, the known coarse demo was identified and saved:
+/tmp/p1gl-type340-20261119/P1GL/build/snapshots/20261120T025328Z-type340/.
+Live sample: 264 frames in 10.00008 seconds, mean 37.8791 ms; largest sampled
+BBN draw duration 46 ms; program/frame faults zero, buffer guard 0123456 intact.
+The largest list is 1,923 words in a 2,048-word buffer. No drum/tape image changed.
+Phillip confirmed that the lines and circles look much better. Quality takes
+priority over a hard redraw threshold, per Phillip and Bill's guidance.
+
+The display client still says t30dpy3; it presents the Type 340 output as well.
+Native labels remain dot matrices. An optional vector-stroke font was discussed
+and is a separate next feature, not part of this migration.
+
+The tested v0.8 source/tests are preserved under legacy/type30. The native
+Type 340 migration is the v0.9 default backend.
+
+Final clean build and `make test` passed in a separate directory:
+/tmp/p1gl-type340-final-20261119/P1GL/.
+Eleven host function checks passed. Native CPU verification completed 381 test
+executions covering 549 lines, 277 circles and all 1,024 coordinate values;
+6,860 captured display lists contained 329,199 native words. All default demo
+programs assembled. Frame, line and circle demo drivers were executed to their
+CPU-test termination as well as checking their library primitives.
+
+Installed Type 340 device IOT_15.so SHA256:
+24132d492e12f9909e1b68e8350956eeb82f80a24f5d5723f435ab4d8d4f50ed.
+Installed type340emu.c SHA256:
+6d29e2d61dba33872f00ec7e8b9d55a690275c4fd03f230d8dfc9248846a5f14.
+See docs/validation/type340-results.json and type340-live-results.json.

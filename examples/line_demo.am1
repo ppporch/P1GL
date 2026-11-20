@@ -1,217 +1,237 @@
-P1GL G_LINE visual test: magnified pixel steps, all octants and reversals
+P1GL Type 340 line demo
 100/
-go,     lem
-        lsm
-        cbs
-        dzm frames
-        dzm page
-        law line_table
-        dac table_pointer
-new_page,
-#ifdef DEMO_CPU_TEST
-        law i 1
-#else
-        law i 0d40
+go, lem
+lsm
+cbs
+#ifndef DEMO_CPU_TEST
+lac [2000]
+iot 2032
 #endif
-        dac repeats
-        lac i table_pointer
-        dac demo_x0
-        idx table_pointer
-        lac i table_pointer
-        dac demo_y0
-        idx table_pointer
-        lac i table_pointer
-        dac demo_x1
-        idx table_pointer
-        lac i table_pointer
-        dac demo_y1
-        idx table_pointer
+dzm frames
+dzm page
+law scene_table
+dac table_pointer
+new_page,
+lac i table_pointer
+dac arg0
+idx table_pointer
+lac i table_pointer
+dac arg1
+idx table_pointer
+lac i table_pointer
+dac arg2
+idx table_pointer
+lac i table_pointer
+dac arg3
+idx table_pointer
+jda gframe_begin
+frame_buffer
+0d512
+jda gline
+arg0, 0
+arg1, 0
+arg2, 0
+arg3, 0
+jda gtext
+0d288
+0d840
+2
+heading
+jsp gframe_end
+lac gf_fault
+sza
+jmp demo_fault
+#ifdef DEMO_CPU_TEST
+law i 1
+#else
+law i 0d60
+#endif
+dac repeats
 frame,
-        jda gline
-demo_x0, 0
-demo_y0, 0
-demo_x1, 0
-demo_y1, 0
-        idx frames
-        law i 0d100
-        dac delay_count
-delay,  isp delay_count
-        jmp delay
-        isp repeats
-        jmp frame
-        idx page
-        sad [0d32]
-        jmp restart
-        jmp new_page
+#ifndef DEMO_CPU_TEST
+iot 32
+dio frame_start
+#endif
+jsp gframe_refresh
+lac gf_fault
+sza
+jmp demo_fault
+#ifndef DEMO_CPU_TEST
+wait_frame,
+iot 32
+dio now_ms
+lac now_ms
+sub frame_start
+spa
+add [0d60000]
+sub [0d22]
+spa
+jmp wait_frame
+#endif
+idx frames
+isp repeats
+jmp frame
+idx page
+sad [0d32]
+jmp restart
+jmp new_page
 restart,
 #ifdef DEMO_CPU_TEST
-        hlt
+hlt
 #endif
-        dzm page
-        law line_table
-        dac table_pointer
-        jmp new_page
+dzm page
+law scene_table
+dac table_pointer
+jmp new_page
+demo_fault,
+law 1
+dac fault
+hlt
 frames, 0
 page, 0
 repeats, 0
-delay_count, 0
+fault, 0
+frame_start, 0
+now_ms, 0
 table_pointer, 0
-line_table,
+scene_table,
 0d512
 0d512
-0d544
-0d524
+0d912
+0d662
 0d512
 0d512
-0d524
-0d544
+0d662
+0d912
 0d512
 0d512
-0d500
-0d544
+0d362
+0d912
 0d512
 0d512
-0d480
-0d524
+0d112
+0d662
 0d512
 0d512
-0d480
-0d500
+0d112
+0d362
 0d512
 0d512
-0d500
-0d480
+0d362
+0d112
 0d512
 0d512
-0d524
-0d480
+0d662
+0d112
 0d512
 0d512
-0d544
-0d500
+0d912
+0d362
 0d512
 0d512
-0d544
+0d912
 0d512
 0d512
 0d512
 0d512
-0d544
+0d912
 0d512
 0d512
-0d480
+0d112
 0d512
 0d512
 0d512
 0d512
-0d480
+0d112
 0d512
 0d512
-0d544
-0d544
+0d912
+0d912
 0d512
 0d512
-0d480
-0d544
+0d112
+0d912
 0d512
 0d512
-0d480
-0d480
+0d112
+0d112
 0d512
 0d512
-0d544
-0d480
-0d544
-0d524
+0d912
+0d112
+0d912
+0d662
 0d512
 0d512
-0d524
-0d544
+0d662
+0d912
 0d512
 0d512
-0d500
-0d544
+0d362
+0d912
 0d512
 0d512
-0d480
-0d524
+0d112
+0d662
 0d512
 0d512
-0d480
-0d500
+0d112
+0d362
 0d512
 0d512
-0d500
-0d480
+0d362
+0d112
 0d512
 0d512
-0d524
-0d480
+0d662
+0d112
 0d512
 0d512
-0d544
-0d500
+0d912
+0d362
 0d512
 0d512
-0d544
+0d912
 0d512
 0d512
 0d512
 0d512
-0d544
+0d912
 0d512
 0d512
-0d480
+0d112
 0d512
 0d512
 0d512
 0d512
-0d480
+0d112
 0d512
 0d512
-0d544
-0d544
+0d912
+0d912
 0d512
 0d512
-0d480
-0d544
+0d112
+0d912
 0d512
 0d512
-0d480
-0d480
+0d112
+0d112
 0d512
 0d512
-0d544
-0d480
+0d912
+0d112
 0d512
 0d512
-
-// Demo-only view transform: magnify logical points 8x around the center.
-// G_LINE itself is unchanged. Eight device pixels separate adjacent points.
-// This makes the integer stair steps visible without drawing long dense lines.
-gplot, 0
-        dac view_ret
-        lac i view_ret
-        sub [0d512]
-        sal 3s
-        add [0d512]
-        dac view_x
-        idx view_ret
-        lac i view_ret
-        sub [0d512]
-        sal 3s
-        add [0d512]
-        dac view_y
-        idx view_ret
-        jda device_plot
-view_x, 0
-view_y, 0
-        jmp i view_ret
-view_ret, 0
-
-#include "../src/gline.am1"
-#define gplot device_plot
+heading, ascii "TYPE 340 LINES"
 #include "../src/gplot.am1"
-#undef gplot
+#include "../src/gline.am1"
+#include "../src/gcircle.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
 constants
+frame_buffer, 0
+frame_buffer + 0d512/
+buffer_guard, 0123456
+assert . < 07751, "demo exceeds one bank"
 start go

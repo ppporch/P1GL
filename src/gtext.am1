@@ -1,9 +1,10 @@
 // jda gtext; X; Y; SIZE; PACKED_ASCII_ADDRESS
-// X/Y baseline bottom left 0..1023; size 0..3, dot pitch 2+size.
+// X/Y baseline bottom left 0..1023; size 0..3, dot pitch 1,2,4,8.
 // AM1 ascii packing: two 9-bit characters per word, NUL terminates.
 // Up to 256 characters; unsupported printing codes become '?'.
 // Whole glyphs outside the viewport are omitted; no wrapped hardware strokes.
-// Requires gframe.am1 and gplot.am1. ASCII shapes supplied by Bill's table.
+// Requires gframe.am1 and gplot.am1. Native Type 342 characters; no Type 33 bitmaps or IOTs.
+#include "type340.ah"
 gtext, 0
         dac gt_ret
         lac i gt_ret
@@ -18,6 +19,7 @@ gtext, 0
         lac i gt_ret
         dac gt_pointer
         idx gt_ret
+        jsp gf_enter
         dzm gt_half
         dzm gt_count
         lac gt_x
@@ -39,7 +41,9 @@ gtext, 0
         sma sza
         jmp gt_bad
         lac gt_size
-        add [2]
+        add [gt_scales]
+        dac gt_glyph_pointer
+        lac i gt_glyph_pointer
         dac gt_pitch
         sal 2s
         dac gt_width
@@ -47,8 +51,7 @@ gtext, 0
         sal 1s
         add gt_width
         dac gt_height
-        lac gt_height       // advance = 6*size+14 = 6*pitch+2
-        add [2]
+        add gt_pitch
         dac gt_advance
 gt_next,
         lac gt_half
@@ -77,7 +80,7 @@ gt_right,
 gt_character,
         lac gt_char
         sza i
-        jmp i gt_ret
+        jmp gt_done
         lac gt_count
         sad [0d256]
         jmp gt_bad
@@ -95,8 +98,27 @@ gt_question,
         law 0d63
         dac gt_char
 gt_glyph,
+        lac gt_char
+        sub [0d32]
+        sal 1s
+        add [gt_char_map]
+        dac gt_glyph_pointer
+        lac i gt_glyph_pointer
+        dac gt_native
+        idx gt_glyph_pointer
+        lac i gt_glyph_pointer
+        sza i
+        jmp gt_check_bounds
+        lac gt_pitch
+        sal 1s
+        dac gt_descent
+        lac gt_y
+        sub gt_descent
+        spa
+        jmp gt_advance_x
+gt_check_bounds,
         lac gt_x
-        add gt_width
+        add gt_advance       // include the 342's final cursor advance
         sub [0d1023]
         sma sza
         jmp gt_advance_x
@@ -105,27 +127,34 @@ gt_glyph,
         sub [0d1023]
         sma sza
         jmp gt_advance_x
+        law 5
+        dac gf_need
+        jsp gf_reserve
+        lac gf_fault
+        sza
+        jmp gt_advance_x
         lac gt_y
-        dac gc_value
-        jsp gcoord
-        dac gf_char_y
-        lac gt_x
-        dac gc_value
-        jsp gcoord
-        dac gf_char_x
+        ior [T_Y | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gt_x            // leave POINT for PARAMETER without drawing
+        dac i gf_write
+        idx gf_write
         lac gt_size
-        dac gf_char_format
-        lac gt_char
-        sub [0d32]
-        sal 1s
-        add [t33ascchrs]
-        dac gt_glyph_pointer
-        lac i gt_glyph_pointer
-        dac gf_char_left
-        idx gt_glyph_pointer
-        lac i gt_glyph_pointer
-        dac gf_char_right
-        jsp gf_emit_char
+        sal 4s
+        ior [T_PARAMETER | 0600 | T_CHARACTER]
+        dac i gf_write
+        idx gf_write
+        lac gt_native
+        dac i gf_write
+        idx gf_write
+        lac [T_PARAMETER | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gf_recording
+        sza
+        idx gf_chars
+
 gt_advance_x,
         lac gt_x
         add gt_advance
@@ -134,6 +163,9 @@ gt_advance_x,
 gt_bad,
         law 1
         dac gf_fault
+        jmp gt_done
+gt_done,
+        jsp gf_leave
         jmp i gt_ret
 gt_ret, 0
 gt_x, 0
@@ -149,4 +181,7 @@ gt_width, 0
 gt_height, 0
 gt_advance, 0
 gt_glyph_pointer, 0
-#include <SYMGEN/ascchars.ac>
+gt_native, 0
+gt_descent, 0
+gt_scales, 1; 2; 4; 010
+#include "type342-map.ac"

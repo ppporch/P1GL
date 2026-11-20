@@ -1,0 +1,146 @@
+// G_CIRCLE: midpoint integer circle, unique symmetry points, viewport clipping.
+// jda gcircle; CX_VALUE; CY_VALUE; RADIUS_VALUE (literal 0..1023).
+// Logical points outside 0..1023 are discarded before G_PLOT.
+// Radius zero emits the center once. Axis/diagonal duplicates are suppressed.
+// AC/IO clobbered; same-bank, non-reentrant, writable code required.
+gcircle, 0
+        dac cc_ret
+        lac i cc_ret
+        dac cc_cx
+        idx cc_ret
+        lac i cc_ret
+        dac cc_cy
+        idx cc_ret
+        lac i cc_ret
+        dac cc_x
+        idx cc_ret
+        dzm cc_y
+        law 1
+        sub cc_x
+        dac cc_d
+cc_loop,
+        lac cc_y
+        sub cc_x
+        sma sza
+        jmp i cc_ret
+        lac cc_cx
+        add cc_x
+        dac cc_plotx
+        lac cc_cy
+        add cc_y
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_x
+        sza i
+        jmp cc_advance     // x=y=0: only the center
+        lac cc_cx
+        sub cc_x
+        dac cc_plotx
+        lac cc_cy
+        add cc_y
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_y
+        sza i
+        jmp cc_swap
+        lac cc_cx
+        add cc_x
+        dac cc_plotx
+        lac cc_cy
+        sub cc_y
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_cx
+        sub cc_x
+        dac cc_plotx
+        lac cc_cy
+        sub cc_y
+        dac cc_ploty
+        jsp cc_emit
+cc_swap,
+        lac cc_x
+        sas cc_y
+        jmp cc_swapped
+        jmp cc_advance     // x=y: four diagonal points already emitted
+cc_swapped,
+        lac cc_cx
+        add cc_y
+        dac cc_plotx
+        lac cc_cy
+        add cc_x
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_cx
+        add cc_y
+        dac cc_plotx
+        lac cc_cy
+        sub cc_x
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_y
+        sza i
+        jmp cc_advance     // y=0: do not double-plot axis points
+        lac cc_cx
+        sub cc_y
+        dac cc_plotx
+        lac cc_cy
+        add cc_x
+        dac cc_ploty
+        jsp cc_emit
+        lac cc_cx
+        sub cc_y
+        dac cc_plotx
+        lac cc_cy
+        sub cc_x
+        dac cc_ploty
+        jsp cc_emit
+cc_advance,
+        idx cc_y
+        lac cc_d
+        sma
+        jmp cc_shrink
+        lac cc_y
+        sal 1s
+        add [1]
+        add cc_d
+        dac cc_d
+        jmp cc_loop
+cc_shrink,
+        lac cc_x
+        sub [1]
+        dac cc_x
+        lac cc_y
+        sub cc_x
+        sal 1s
+        add [1]
+        add cc_d
+        dac cc_d
+        jmp cc_loop
+
+// Clip before issuing any display IOT; normalize zeros before sign tests.
+cc_emit,
+        dap cc_emit_ret
+        lac cc_plotx
+        add [0]
+        spa
+        jmp cc_emit_ret
+        sub [0d1023]
+        sma sza
+        jmp cc_emit_ret
+        lac cc_ploty
+        add [0]
+        spa
+        jmp cc_emit_ret
+        sub [0d1023]
+        sma sza
+        jmp cc_emit_ret
+        jda gplot
+cc_plotx, 0
+cc_ploty, 0
+cc_emit_ret, jmp .
+cc_ret, 0
+cc_cx, 0
+cc_cy, 0
+cc_x, 0
+cc_y, 0
+cc_d, 0

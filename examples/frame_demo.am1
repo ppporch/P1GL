@@ -1,4 +1,4 @@
-P1GL combined retained frame demo: labels, line, circle, center point
+P1GL Type 340 native retained-list demo
 #define P1GL_FRAME
 100/
 go,     lem
@@ -25,7 +25,7 @@ new_page,
         dac line_end_x
         jda gframe_begin
         frame_buffer
-        0d512
+        0d2048
         jda gcircle
         0d512
         0d512
@@ -39,12 +39,12 @@ line_end_x, 0
         0d512
         0d512
         jda gtext
-        0d304
+        0d330
         0d840
-        3
+        2
         heading
         jda gtext
-        0d420
+        0d414
         0d140
         2
 scene_footer, 0
@@ -111,26 +111,6 @@ demo_fault,
         dac fault
         hlt
 
-// Demo-only magnification of geometry, text stays in screen coordinates.
-view_plot, 0
-        dac view_ret
-        lac i view_ret
-        sub [0d512]
-        sal 3s
-        add [0d512]
-        dac view_x
-        idx view_ret
-        lac i view_ret
-        sub [0d512]
-        sal 3s
-        add [0d512]
-        dac view_y
-        idx view_ret
-        jda gplot
-view_x, 0
-view_y, 0
-        jmp i view_ret
-view_ret, 0
 frames, 0
 page, 0
 repeats, 0
@@ -141,23 +121,21 @@ draw_ms, 0
 max_draw_ms, 0
 table_pointer, 0
 scene_table,
-        0d12; footer_one
-        0d16; footer_two
-        0d20; footer_three
-heading, ascii "P1GL GRAPHICS"
+        0d96; footer_one
+        0d128; footer_two
+        0d160; footer_three
+heading, ascii "P1GL TYPE 340"
 footer_one, ascii "FRAME 1"
 footer_two, ascii "FRAME 2"
 footer_three, ascii "FRAME 3"
-#define gplot view_plot
 #include "../src/gcircle.am1"
 #include "../src/gline.am1"
-#undef gplot
 #include "../src/gplot.am1"
 #include "../src/gframe.am1"
 #include "../src/gtext.am1"
 constants
 frame_buffer, 0
-frame_buffer + 0d512/
+frame_buffer + 0d2048/
 buffer_guard, 0123456
 assert . < 07751, "frame demo exceeds one bank or loader space"
 start go

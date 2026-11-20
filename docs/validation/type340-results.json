@@ -1,0 +1,2302 @@
+{
+  "executions": 381,
+  "line_cases": 549,
+  "circle_cases": 277,
+  "coordinate_cases": 1024,
+  "display_lists": 6860,
+  "native_words": 329199,
+  "demo_words": [
+    1199,
+    1563,
+    1923
+  ],
+  "scope": "CPU plus structural native decoder; hardware vector pixels, glyph rendering and real timing require live tests",
+  "results": [
+    {
+      "name": "empty",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "silent-build",
+      "lists": 0,
+      "words": 0,
+      "fault": 0
+    },
+    {
+      "name": "exact-fit-point-char",
+      "lists": 1,
+      "words": 10,
+      "fault": 0
+    },
+    {
+      "name": "point-overflow",
+      "lists": 0,
+      "words": 0,
+      "fault": 2
+    },
+    {
+      "name": "char-overflow",
+      "lists": 0,
+      "words": 0,
+      "fault": 2
+    },
+    {
+      "name": "partial-scene",
+      "lists": 0,
+      "words": 0,
+      "fault": 2
+    },
+    {
+      "name": "refresh-unfinished",
+      "lists": 0,
+      "words": 0,
+      "fault": 3
+    },
+    {
+      "name": "zero-capacity",
+      "lists": 0,
+      "words": 0,
+      "fault": 1
+    },
+    {
+      "name": "cross-bank",
+      "lists": 0,
+      "words": 0,
+      "fault": 1
+    },
+    {
+      "name": "end-without-begin",
+      "lists": 0,
+      "words": 0,
+      "fault": 3
+    },
+    {
+      "name": "refresh-without-scene",
+      "lists": 0,
+      "words": 0,
+      "fault": 3
+    },
+    {
+      "name": "repeat-and-immediate",
+      "lists": 3,
+      "words": 15,
+      "fault": 0
+    },
+    {
+      "name": "recovery",
+      "lists": 1,
+      "words": 8,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-0",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-128",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-256",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-384",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-512",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-640",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-768",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "coordinate-896",
+      "lists": 128,
+      "words": 640,
+      "fault": 0
+    },
+    {
+      "name": "lines-0",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-8",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-16",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-24",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-32",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-40",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-48",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-56",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-64",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-72",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-80",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-88",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-96",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-104",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-112",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-120",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-128",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-136",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-144",
+      "lists": 8,
+      "words": 68,
+      "fault": 0
+    },
+    {
+      "name": "lines-152",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-160",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-168",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-176",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-184",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-192",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-200",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-208",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-216",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-224",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-232",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-240",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-248",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-256",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-264",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-272",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-280",
+      "lists": 8,
+      "words": 72,
+      "fault": 0
+    },
+    {
+      "name": "lines-288",
+      "lists": 8,
+      "words": 236,
+      "fault": 0
+    },
+    {
+      "name": "lines-296",
+      "lists": 8,
+      "words": 192,
+      "fault": 0
+    },
+    {
+      "name": "lines-304",
+      "lists": 8,
+      "words": 208,
+      "fault": 0
+    },
+    {
+      "name": "lines-312",
+      "lists": 8,
+      "words": 212,
+      "fault": 0
+    },
+    {
+      "name": "lines-320",
+      "lists": 8,
+      "words": 176,
+      "fault": 0
+    },
+    {
+      "name": "lines-328",
+      "lists": 8,
+      "words": 196,
+      "fault": 0
+    },
+    {
+      "name": "lines-336",
+      "lists": 8,
+      "words": 140,
+      "fault": 0
+    },
+    {
+      "name": "lines-344",
+      "lists": 8,
+      "words": 192,
+      "fault": 0
+    },
+    {
+      "name": "lines-352",
+      "lists": 8,
+      "words": 160,
+      "fault": 0
+    },
+    {
+      "name": "lines-360",
+      "lists": 8,
+      "words": 208,
+      "fault": 0
+    },
+    {
+      "name": "lines-368",
+      "lists": 8,
+      "words": 228,
+      "fault": 0
+    },
+    {
+      "name": "lines-376",
+      "lists": 8,
+      "words": 168,
+      "fault": 0
+    },
+    {
+      "name": "lines-384",
+      "lists": 8,
+      "words": 204,
+      "fault": 0
+    },
+    {
+      "name": "lines-392",
+      "lists": 8,
+      "words": 204,
+      "fault": 0
+    },
+    {
+      "name": "lines-400",
+      "lists": 8,
+      "words": 144,
+      "fault": 0
+    },
+    {
+      "name": "lines-408",
+      "lists": 8,
+      "words": 136,
+      "fault": 0
+    },
+    {
+      "name": "lines-416",
+      "lists": 8,
+      "words": 172,
+      "fault": 0
+    },
+    {
+      "name": "lines-424",
+      "lists": 8,
+      "words": 184,
+      "fault": 0
+    },
+    {
+      "name": "lines-432",
+      "lists": 8,
+      "words": 228,
+      "fault": 0
+    },
+    {
+      "name": "lines-440",
+      "lists": 8,
+      "words": 164,
+      "fault": 0
+    },
+    {
+      "name": "lines-448",
+      "lists": 8,
+      "words": 140,
+      "fault": 0
+    },
+    {
+      "name": "lines-456",
+      "lists": 8,
+      "words": 196,
+      "fault": 0
+    },
+    {
+      "name": "lines-464",
+      "lists": 8,
+      "words": 192,
+      "fault": 0
+    },
+    {
+      "name": "lines-472",
+      "lists": 8,
+      "words": 156,
+      "fault": 0
+    },
+    {
+      "name": "lines-480",
+      "lists": 8,
+      "words": 140,
+      "fault": 0
+    },
+    {
+      "name": "lines-488",
+      "lists": 8,
+      "words": 180,
+      "fault": 0
+    },
+    {
+      "name": "lines-496",
+      "lists": 8,
+      "words": 140,
+      "fault": 0
+    },
+    {
+      "name": "lines-504",
+      "lists": 8,
+      "words": 112,
+      "fault": 0
+    },
+    {
+      "name": "lines-512",
+      "lists": 8,
+      "words": 148,
+      "fault": 0
+    },
+    {
+      "name": "lines-520",
+      "lists": 8,
+      "words": 208,
+      "fault": 0
+    },
+    {
+      "name": "lines-528",
+      "lists": 8,
+      "words": 188,
+      "fault": 0
+    },
+    {
+      "name": "lines-536",
+      "lists": 8,
+      "words": 180,
+      "fault": 0
+    },
+    {
+      "name": "lines-544",
+      "lists": 5,
+      "words": 105,
+      "fault": 0
+    },
+    {
+      "name": "circle-0",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-1",
+      "lists": 1,
+      "words": 11,
+      "fault": 0
+    },
+    {
+      "name": "circle-2",
+      "lists": 1,
+      "words": 27,
+      "fault": 0
+    },
+    {
+      "name": "circle-3",
+      "lists": 1,
+      "words": 35,
+      "fault": 0
+    },
+    {
+      "name": "circle-4",
+      "lists": 1,
+      "words": 51,
+      "fault": 0
+    },
+    {
+      "name": "circle-5",
+      "lists": 1,
+      "words": 59,
+      "fault": 0
+    },
+    {
+      "name": "circle-6",
+      "lists": 2,
+      "words": 70,
+      "fault": 0
+    },
+    {
+      "name": "circle-7",
+      "lists": 2,
+      "words": 86,
+      "fault": 0
+    },
+    {
+      "name": "circle-8",
+      "lists": 2,
+      "words": 94,
+      "fault": 0
+    },
+    {
+      "name": "circle-9",
+      "lists": 2,
+      "words": 110,
+      "fault": 0
+    },
+    {
+      "name": "circle-10",
+      "lists": 2,
+      "words": 118,
+      "fault": 0
+    },
+    {
+      "name": "circle-11",
+      "lists": 3,
+      "words": 137,
+      "fault": 0
+    },
+    {
+      "name": "circle-12",
+      "lists": 3,
+      "words": 145,
+      "fault": 0
+    },
+    {
+      "name": "circle-13",
+      "lists": 3,
+      "words": 153,
+      "fault": 0
+    },
+    {
+      "name": "circle-14",
+      "lists": 3,
+      "words": 169,
+      "fault": 0
+    },
+    {
+      "name": "circle-15",
+      "lists": 3,
+      "words": 177,
+      "fault": 0
+    },
+    {
+      "name": "circle-16",
+      "lists": 4,
+      "words": 196,
+      "fault": 0
+    },
+    {
+      "name": "circle-17",
+      "lists": 4,
+      "words": 204,
+      "fault": 0
+    },
+    {
+      "name": "circle-18",
+      "lists": 4,
+      "words": 212,
+      "fault": 0
+    },
+    {
+      "name": "circle-19",
+      "lists": 4,
+      "words": 228,
+      "fault": 0
+    },
+    {
+      "name": "circle-20",
+      "lists": 4,
+      "words": 236,
+      "fault": 0
+    },
+    {
+      "name": "circle-21",
+      "lists": 4,
+      "words": 252,
+      "fault": 0
+    },
+    {
+      "name": "circle-22",
+      "lists": 5,
+      "words": 263,
+      "fault": 0
+    },
+    {
+      "name": "circle-23",
+      "lists": 5,
+      "words": 279,
+      "fault": 0
+    },
+    {
+      "name": "circle-24",
+      "lists": 5,
+      "words": 287,
+      "fault": 0
+    },
+    {
+      "name": "circle-25",
+      "lists": 5,
+      "words": 295,
+      "fault": 0
+    },
+    {
+      "name": "circle-26",
+      "lists": 5,
+      "words": 311,
+      "fault": 0
+    },
+    {
+      "name": "circle-27",
+      "lists": 6,
+      "words": 322,
+      "fault": 0
+    },
+    {
+      "name": "circle-28",
+      "lists": 6,
+      "words": 338,
+      "fault": 0
+    },
+    {
+      "name": "circle-29",
+      "lists": 6,
+      "words": 346,
+      "fault": 0
+    },
+    {
+      "name": "circle-30",
+      "lists": 6,
+      "words": 354,
+      "fault": 0
+    },
+    {
+      "name": "circle-31",
+      "lists": 6,
+      "words": 370,
+      "fault": 0
+    },
+    {
+      "name": "circle-32",
+      "lists": 6,
+      "words": 378,
+      "fault": 0
+    },
+    {
+      "name": "circle-33",
+      "lists": 7,
+      "words": 397,
+      "fault": 0
+    },
+    {
+      "name": "circle-34",
+      "lists": 7,
+      "words": 405,
+      "fault": 0
+    },
+    {
+      "name": "circle-35",
+      "lists": 7,
+      "words": 413,
+      "fault": 0
+    },
+    {
+      "name": "circle-36",
+      "lists": 7,
+      "words": 429,
+      "fault": 0
+    },
+    {
+      "name": "circle-37",
+      "lists": 7,
+      "words": 437,
+      "fault": 0
+    },
+    {
+      "name": "circle-38",
+      "lists": 8,
+      "words": 456,
+      "fault": 0
+    },
+    {
+      "name": "circle-39",
+      "lists": 8,
+      "words": 464,
+      "fault": 0
+    },
+    {
+      "name": "circle-40",
+      "lists": 8,
+      "words": 480,
+      "fault": 0
+    },
+    {
+      "name": "circle-41",
+      "lists": 8,
+      "words": 488,
+      "fault": 0
+    },
+    {
+      "name": "circle-42",
+      "lists": 8,
+      "words": 496,
+      "fault": 0
+    },
+    {
+      "name": "circle-43",
+      "lists": 9,
+      "words": 515,
+      "fault": 0
+    },
+    {
+      "name": "circle-44",
+      "lists": 9,
+      "words": 523,
+      "fault": 0
+    },
+    {
+      "name": "circle-45",
+      "lists": 9,
+      "words": 539,
+      "fault": 0
+    },
+    {
+      "name": "circle-46",
+      "lists": 9,
+      "words": 547,
+      "fault": 0
+    },
+    {
+      "name": "circle-47",
+      "lists": 9,
+      "words": 555,
+      "fault": 0
+    },
+    {
+      "name": "circle-48",
+      "lists": 10,
+      "words": 574,
+      "fault": 0
+    },
+    {
+      "name": "circle-49",
+      "lists": 10,
+      "words": 582,
+      "fault": 0
+    },
+    {
+      "name": "circle-50",
+      "lists": 10,
+      "words": 598,
+      "fault": 0
+    },
+    {
+      "name": "circle-51",
+      "lists": 10,
+      "words": 606,
+      "fault": 0
+    },
+    {
+      "name": "circle-52",
+      "lists": 10,
+      "words": 622,
+      "fault": 0
+    },
+    {
+      "name": "circle-53",
+      "lists": 10,
+      "words": 630,
+      "fault": 0
+    },
+    {
+      "name": "circle-54",
+      "lists": 11,
+      "words": 641,
+      "fault": 0
+    },
+    {
+      "name": "circle-55",
+      "lists": 11,
+      "words": 657,
+      "fault": 0
+    },
+    {
+      "name": "circle-56",
+      "lists": 11,
+      "words": 665,
+      "fault": 0
+    },
+    {
+      "name": "circle-57",
+      "lists": 11,
+      "words": 681,
+      "fault": 0
+    },
+    {
+      "name": "circle-58",
+      "lists": 11,
+      "words": 689,
+      "fault": 0
+    },
+    {
+      "name": "circle-59",
+      "lists": 12,
+      "words": 700,
+      "fault": 0
+    },
+    {
+      "name": "circle-60",
+      "lists": 12,
+      "words": 716,
+      "fault": 0
+    },
+    {
+      "name": "circle-61",
+      "lists": 12,
+      "words": 724,
+      "fault": 0
+    },
+    {
+      "name": "circle-62",
+      "lists": 12,
+      "words": 740,
+      "fault": 0
+    },
+    {
+      "name": "circle-63",
+      "lists": 12,
+      "words": 748,
+      "fault": 0
+    },
+    {
+      "name": "circle-64",
+      "lists": 13,
+      "words": 767,
+      "fault": 0
+    },
+    {
+      "name": "circle-65",
+      "lists": 13,
+      "words": 775,
+      "fault": 0
+    },
+    {
+      "name": "circle-66",
+      "lists": 13,
+      "words": 783,
+      "fault": 0
+    },
+    {
+      "name": "circle-67",
+      "lists": 13,
+      "words": 799,
+      "fault": 0
+    },
+    {
+      "name": "circle-68",
+      "lists": 13,
+      "words": 807,
+      "fault": 0
+    },
+    {
+      "name": "circle-69",
+      "lists": 14,
+      "words": 826,
+      "fault": 0
+    },
+    {
+      "name": "circle-70",
+      "lists": 14,
+      "words": 834,
+      "fault": 0
+    },
+    {
+      "name": "circle-71",
+      "lists": 14,
+      "words": 842,
+      "fault": 0
+    },
+    {
+      "name": "circle-72",
+      "lists": 14,
+      "words": 858,
+      "fault": 0
+    },
+    {
+      "name": "circle-73",
+      "lists": 14,
+      "words": 866,
+      "fault": 0
+    },
+    {
+      "name": "circle-74",
+      "lists": 14,
+      "words": 882,
+      "fault": 0
+    },
+    {
+      "name": "circle-75",
+      "lists": 15,
+      "words": 893,
+      "fault": 0
+    },
+    {
+      "name": "circle-76",
+      "lists": 15,
+      "words": 901,
+      "fault": 0
+    },
+    {
+      "name": "circle-77",
+      "lists": 15,
+      "words": 917,
+      "fault": 0
+    },
+    {
+      "name": "circle-78",
+      "lists": 15,
+      "words": 925,
+      "fault": 0
+    },
+    {
+      "name": "circle-79",
+      "lists": 15,
+      "words": 941,
+      "fault": 0
+    },
+    {
+      "name": "circle-80",
+      "lists": 16,
+      "words": 952,
+      "fault": 0
+    },
+    {
+      "name": "circle-81",
+      "lists": 16,
+      "words": 968,
+      "fault": 0
+    },
+    {
+      "name": "circle-82",
+      "lists": 16,
+      "words": 976,
+      "fault": 0
+    },
+    {
+      "name": "circle-83",
+      "lists": 16,
+      "words": 984,
+      "fault": 0
+    },
+    {
+      "name": "circle-84",
+      "lists": 16,
+      "words": 1000,
+      "fault": 0
+    },
+    {
+      "name": "circle-85",
+      "lists": 16,
+      "words": 1008,
+      "fault": 0
+    },
+    {
+      "name": "circle-86",
+      "lists": 17,
+      "words": 1027,
+      "fault": 0
+    },
+    {
+      "name": "circle-87",
+      "lists": 17,
+      "words": 1035,
+      "fault": 0
+    },
+    {
+      "name": "circle-88",
+      "lists": 17,
+      "words": 1043,
+      "fault": 0
+    },
+    {
+      "name": "circle-89",
+      "lists": 17,
+      "words": 1059,
+      "fault": 0
+    },
+    {
+      "name": "circle-90",
+      "lists": 17,
+      "words": 1067,
+      "fault": 0
+    },
+    {
+      "name": "circle-91",
+      "lists": 18,
+      "words": 1086,
+      "fault": 0
+    },
+    {
+      "name": "circle-92",
+      "lists": 18,
+      "words": 1094,
+      "fault": 0
+    },
+    {
+      "name": "circle-93",
+      "lists": 18,
+      "words": 1110,
+      "fault": 0
+    },
+    {
+      "name": "circle-94",
+      "lists": 18,
+      "words": 1118,
+      "fault": 0
+    },
+    {
+      "name": "circle-95",
+      "lists": 18,
+      "words": 1126,
+      "fault": 0
+    },
+    {
+      "name": "circle-96",
+      "lists": 19,
+      "words": 1145,
+      "fault": 0
+    },
+    {
+      "name": "circle-97",
+      "lists": 19,
+      "words": 1153,
+      "fault": 0
+    },
+    {
+      "name": "circle-98",
+      "lists": 19,
+      "words": 1169,
+      "fault": 0
+    },
+    {
+      "name": "circle-99",
+      "lists": 19,
+      "words": 1177,
+      "fault": 0
+    },
+    {
+      "name": "circle-100",
+      "lists": 19,
+      "words": 1185,
+      "fault": 0
+    },
+    {
+      "name": "circle-101",
+      "lists": 20,
+      "words": 1204,
+      "fault": 0
+    },
+    {
+      "name": "circle-102",
+      "lists": 20,
+      "words": 1212,
+      "fault": 0
+    },
+    {
+      "name": "circle-103",
+      "lists": 20,
+      "words": 1228,
+      "fault": 0
+    },
+    {
+      "name": "circle-104",
+      "lists": 20,
+      "words": 1236,
+      "fault": 0
+    },
+    {
+      "name": "circle-105",
+      "lists": 20,
+      "words": 1244,
+      "fault": 0
+    },
+    {
+      "name": "circle-106",
+      "lists": 20,
+      "words": 1260,
+      "fault": 0
+    },
+    {
+      "name": "circle-107",
+      "lists": 21,
+      "words": 1271,
+      "fault": 0
+    },
+    {
+      "name": "circle-108",
+      "lists": 21,
+      "words": 1287,
+      "fault": 0
+    },
+    {
+      "name": "circle-109",
+      "lists": 21,
+      "words": 1295,
+      "fault": 0
+    },
+    {
+      "name": "circle-110",
+      "lists": 21,
+      "words": 1311,
+      "fault": 0
+    },
+    {
+      "name": "circle-111",
+      "lists": 21,
+      "words": 1319,
+      "fault": 0
+    },
+    {
+      "name": "circle-112",
+      "lists": 22,
+      "words": 1330,
+      "fault": 0
+    },
+    {
+      "name": "circle-113",
+      "lists": 22,
+      "words": 1346,
+      "fault": 0
+    },
+    {
+      "name": "circle-114",
+      "lists": 22,
+      "words": 1354,
+      "fault": 0
+    },
+    {
+      "name": "circle-115",
+      "lists": 22,
+      "words": 1370,
+      "fault": 0
+    },
+    {
+      "name": "circle-116",
+      "lists": 22,
+      "words": 1378,
+      "fault": 0
+    },
+    {
+      "name": "circle-117",
+      "lists": 22,
+      "words": 1386,
+      "fault": 0
+    },
+    {
+      "name": "circle-118",
+      "lists": 23,
+      "words": 1405,
+      "fault": 0
+    },
+    {
+      "name": "circle-119",
+      "lists": 23,
+      "words": 1413,
+      "fault": 0
+    },
+    {
+      "name": "circle-120",
+      "lists": 23,
+      "words": 1429,
+      "fault": 0
+    },
+    {
+      "name": "circle-121",
+      "lists": 23,
+      "words": 1437,
+      "fault": 0
+    },
+    {
+      "name": "circle-122",
+      "lists": 24,
+      "words": 1456,
+      "fault": 0
+    },
+    {
+      "name": "circle-123",
+      "lists": 24,
+      "words": 1464,
+      "fault": 0
+    },
+    {
+      "name": "circle-124",
+      "lists": 24,
+      "words": 1472,
+      "fault": 0
+    },
+    {
+      "name": "circle-125",
+      "lists": 24,
+      "words": 1488,
+      "fault": 0
+    },
+    {
+      "name": "circle-126",
+      "lists": 24,
+      "words": 1496,
+      "fault": 0
+    },
+    {
+      "name": "circle-127",
+      "lists": 24,
+      "words": 1512,
+      "fault": 0
+    },
+    {
+      "name": "circle-128",
+      "lists": 25,
+      "words": 1523,
+      "fault": 0
+    },
+    {
+      "name": "circle-129",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-130",
+      "lists": 1,
+      "words": 7,
+      "fault": 0
+    },
+    {
+      "name": "circle-131",
+      "lists": 1,
+      "words": 11,
+      "fault": 0
+    },
+    {
+      "name": "circle-132",
+      "lists": 1,
+      "words": 13,
+      "fault": 0
+    },
+    {
+      "name": "circle-133",
+      "lists": 1,
+      "words": 51,
+      "fault": 0
+    },
+    {
+      "name": "circle-134",
+      "lists": 2,
+      "words": 96,
+      "fault": 0
+    },
+    {
+      "name": "circle-135",
+      "lists": 7,
+      "words": 383,
+      "fault": 0
+    },
+    {
+      "name": "circle-136",
+      "lists": 25,
+      "words": 1523,
+      "fault": 0
+    },
+    {
+      "name": "circle-137",
+      "lists": 25,
+      "words": 1525,
+      "fault": 0
+    },
+    {
+      "name": "circle-138",
+      "lists": 49,
+      "words": 3043,
+      "fault": 0
+    },
+    {
+      "name": "circle-139",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-140",
+      "lists": 1,
+      "words": 9,
+      "fault": 0
+    },
+    {
+      "name": "circle-141",
+      "lists": 1,
+      "words": 17,
+      "fault": 0
+    },
+    {
+      "name": "circle-142",
+      "lists": 1,
+      "words": 21,
+      "fault": 0
+    },
+    {
+      "name": "circle-143",
+      "lists": 2,
+      "words": 100,
+      "fault": 0
+    },
+    {
+      "name": "circle-144",
+      "lists": 3,
+      "words": 187,
+      "fault": 0
+    },
+    {
+      "name": "circle-145",
+      "lists": 13,
+      "words": 761,
+      "fault": 0
+    },
+    {
+      "name": "circle-146",
+      "lists": 49,
+      "words": 3041,
+      "fault": 0
+    },
+    {
+      "name": "circle-147",
+      "lists": 48,
+      "words": 2996,
+      "fault": 0
+    },
+    {
+      "name": "circle-148",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-149",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-150",
+      "lists": 1,
+      "words": 9,
+      "fault": 0
+    },
+    {
+      "name": "circle-151",
+      "lists": 1,
+      "words": 17,
+      "fault": 0
+    },
+    {
+      "name": "circle-152",
+      "lists": 1,
+      "words": 21,
+      "fault": 0
+    },
+    {
+      "name": "circle-153",
+      "lists": 2,
+      "words": 100,
+      "fault": 0
+    },
+    {
+      "name": "circle-154",
+      "lists": 3,
+      "words": 187,
+      "fault": 0
+    },
+    {
+      "name": "circle-155",
+      "lists": 13,
+      "words": 761,
+      "fault": 0
+    },
+    {
+      "name": "circle-156",
+      "lists": 49,
+      "words": 3041,
+      "fault": 0
+    },
+    {
+      "name": "circle-157",
+      "lists": 48,
+      "words": 2996,
+      "fault": 0
+    },
+    {
+      "name": "circle-158",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-159",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-160",
+      "lists": 1,
+      "words": 7,
+      "fault": 0
+    },
+    {
+      "name": "circle-161",
+      "lists": 1,
+      "words": 11,
+      "fault": 0
+    },
+    {
+      "name": "circle-162",
+      "lists": 1,
+      "words": 13,
+      "fault": 0
+    },
+    {
+      "name": "circle-163",
+      "lists": 1,
+      "words": 51,
+      "fault": 0
+    },
+    {
+      "name": "circle-164",
+      "lists": 2,
+      "words": 96,
+      "fault": 0
+    },
+    {
+      "name": "circle-165",
+      "lists": 7,
+      "words": 383,
+      "fault": 0
+    },
+    {
+      "name": "circle-166",
+      "lists": 25,
+      "words": 1523,
+      "fault": 0
+    },
+    {
+      "name": "circle-167",
+      "lists": 25,
+      "words": 1525,
+      "fault": 0
+    },
+    {
+      "name": "circle-168",
+      "lists": 49,
+      "words": 3043,
+      "fault": 0
+    },
+    {
+      "name": "circle-169",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-170",
+      "lists": 1,
+      "words": 9,
+      "fault": 0
+    },
+    {
+      "name": "circle-171",
+      "lists": 1,
+      "words": 17,
+      "fault": 0
+    },
+    {
+      "name": "circle-172",
+      "lists": 1,
+      "words": 21,
+      "fault": 0
+    },
+    {
+      "name": "circle-173",
+      "lists": 2,
+      "words": 100,
+      "fault": 0
+    },
+    {
+      "name": "circle-174",
+      "lists": 3,
+      "words": 187,
+      "fault": 0
+    },
+    {
+      "name": "circle-175",
+      "lists": 13,
+      "words": 761,
+      "fault": 0
+    },
+    {
+      "name": "circle-176",
+      "lists": 49,
+      "words": 3041,
+      "fault": 0
+    },
+    {
+      "name": "circle-177",
+      "lists": 48,
+      "words": 2996,
+      "fault": 0
+    },
+    {
+      "name": "circle-178",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-179",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-180",
+      "lists": 1,
+      "words": 9,
+      "fault": 0
+    },
+    {
+      "name": "circle-181",
+      "lists": 1,
+      "words": 17,
+      "fault": 0
+    },
+    {
+      "name": "circle-182",
+      "lists": 1,
+      "words": 21,
+      "fault": 0
+    },
+    {
+      "name": "circle-183",
+      "lists": 2,
+      "words": 100,
+      "fault": 0
+    },
+    {
+      "name": "circle-184",
+      "lists": 3,
+      "words": 187,
+      "fault": 0
+    },
+    {
+      "name": "circle-185",
+      "lists": 13,
+      "words": 761,
+      "fault": 0
+    },
+    {
+      "name": "circle-186",
+      "lists": 49,
+      "words": 3041,
+      "fault": 0
+    },
+    {
+      "name": "circle-187",
+      "lists": 48,
+      "words": 2996,
+      "fault": 0
+    },
+    {
+      "name": "circle-188",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-189",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-190",
+      "lists": 1,
+      "words": 7,
+      "fault": 0
+    },
+    {
+      "name": "circle-191",
+      "lists": 1,
+      "words": 11,
+      "fault": 0
+    },
+    {
+      "name": "circle-192",
+      "lists": 1,
+      "words": 13,
+      "fault": 0
+    },
+    {
+      "name": "circle-193",
+      "lists": 1,
+      "words": 51,
+      "fault": 0
+    },
+    {
+      "name": "circle-194",
+      "lists": 2,
+      "words": 96,
+      "fault": 0
+    },
+    {
+      "name": "circle-195",
+      "lists": 7,
+      "words": 383,
+      "fault": 0
+    },
+    {
+      "name": "circle-196",
+      "lists": 25,
+      "words": 1523,
+      "fault": 0
+    },
+    {
+      "name": "circle-197",
+      "lists": 25,
+      "words": 1525,
+      "fault": 0
+    },
+    {
+      "name": "circle-198",
+      "lists": 49,
+      "words": 3043,
+      "fault": 0
+    },
+    {
+      "name": "circle-199",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-200",
+      "lists": 1,
+      "words": 7,
+      "fault": 0
+    },
+    {
+      "name": "circle-201",
+      "lists": 1,
+      "words": 11,
+      "fault": 0
+    },
+    {
+      "name": "circle-202",
+      "lists": 1,
+      "words": 13,
+      "fault": 0
+    },
+    {
+      "name": "circle-203",
+      "lists": 1,
+      "words": 51,
+      "fault": 0
+    },
+    {
+      "name": "circle-204",
+      "lists": 2,
+      "words": 96,
+      "fault": 0
+    },
+    {
+      "name": "circle-205",
+      "lists": 7,
+      "words": 383,
+      "fault": 0
+    },
+    {
+      "name": "circle-206",
+      "lists": 25,
+      "words": 1523,
+      "fault": 0
+    },
+    {
+      "name": "circle-207",
+      "lists": 25,
+      "words": 1525,
+      "fault": 0
+    },
+    {
+      "name": "circle-208",
+      "lists": 49,
+      "words": 3043,
+      "fault": 0
+    },
+    {
+      "name": "circle-209",
+      "lists": 39,
+      "words": 2437,
+      "fault": 0
+    },
+    {
+      "name": "circle-210",
+      "lists": 11,
+      "words": 653,
+      "fault": 0
+    },
+    {
+      "name": "circle-211",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "circle-212",
+      "lists": 44,
+      "words": 2764,
+      "fault": 0
+    },
+    {
+      "name": "circle-213",
+      "lists": 46,
+      "words": 2882,
+      "fault": 0
+    },
+    {
+      "name": "circle-214",
+      "lists": 62,
+      "words": 3860,
+      "fault": 0
+    },
+    {
+      "name": "circle-215",
+      "lists": 46,
+      "words": 2860,
+      "fault": 0
+    },
+    {
+      "name": "circle-216",
+      "lists": 17,
+      "words": 1023,
+      "fault": 0
+    },
+    {
+      "name": "circle-217",
+      "lists": 31,
+      "words": 1919,
+      "fault": 0
+    },
+    {
+      "name": "circle-218",
+      "lists": 45,
+      "words": 2815,
+      "fault": 0
+    },
+    {
+      "name": "circle-219",
+      "lists": 25,
+      "words": 1573,
+      "fault": 0
+    },
+    {
+      "name": "circle-220",
+      "lists": 35,
+      "words": 2203,
+      "fault": 0
+    },
+    {
+      "name": "circle-221",
+      "lists": 36,
+      "words": 2244,
+      "fault": 0
+    },
+    {
+      "name": "circle-222",
+      "lists": 62,
+      "words": 3888,
+      "fault": 0
+    },
+    {
+      "name": "circle-223",
+      "lists": 23,
+      "words": 1425,
+      "fault": 0
+    },
+    {
+      "name": "circle-224",
+      "lists": 36,
+      "words": 2212,
+      "fault": 0
+    },
+    {
+      "name": "circle-225",
+      "lists": 21,
+      "words": 1269,
+      "fault": 0
+    },
+    {
+      "name": "circle-226",
+      "lists": 60,
+      "words": 3756,
+      "fault": 0
+    },
+    {
+      "name": "circle-227",
+      "lists": 29,
+      "words": 1769,
+      "fault": 0
+    },
+    {
+      "name": "circle-228",
+      "lists": 29,
+      "words": 1827,
+      "fault": 0
+    },
+    {
+      "name": "circle-229",
+      "lists": 17,
+      "words": 1041,
+      "fault": 0
+    },
+    {
+      "name": "circle-230",
+      "lists": 27,
+      "words": 1665,
+      "fault": 0
+    },
+    {
+      "name": "circle-231",
+      "lists": 27,
+      "words": 1691,
+      "fault": 0
+    },
+    {
+      "name": "circle-232",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "circle-233",
+      "lists": 32,
+      "words": 1966,
+      "fault": 0
+    },
+    {
+      "name": "circle-234",
+      "lists": 40,
+      "words": 2514,
+      "fault": 0
+    },
+    {
+      "name": "circle-235",
+      "lists": 5,
+      "words": 269,
+      "fault": 0
+    },
+    {
+      "name": "circle-236",
+      "lists": 40,
+      "words": 2476,
+      "fault": 0
+    },
+    {
+      "name": "circle-237",
+      "lists": 34,
+      "words": 2100,
+      "fault": 0
+    },
+    {
+      "name": "circle-238",
+      "lists": 28,
+      "words": 1730,
+      "fault": 0
+    },
+    {
+      "name": "circle-239",
+      "lists": 31,
+      "words": 1923,
+      "fault": 0
+    },
+    {
+      "name": "circle-240",
+      "lists": 16,
+      "words": 994,
+      "fault": 0
+    },
+    {
+      "name": "circle-241",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-242",
+      "lists": 4,
+      "words": 198,
+      "fault": 0
+    },
+    {
+      "name": "circle-243",
+      "lists": 57,
+      "words": 3563,
+      "fault": 0
+    },
+    {
+      "name": "circle-244",
+      "lists": 36,
+      "words": 2232,
+      "fault": 0
+    },
+    {
+      "name": "circle-245",
+      "lists": 2,
+      "words": 118,
+      "fault": 0
+    },
+    {
+      "name": "circle-246",
+      "lists": 22,
+      "words": 1378,
+      "fault": 0
+    },
+    {
+      "name": "circle-247",
+      "lists": 19,
+      "words": 1179,
+      "fault": 0
+    },
+    {
+      "name": "circle-248",
+      "lists": 2,
+      "words": 94,
+      "fault": 0
+    },
+    {
+      "name": "circle-249",
+      "lists": 26,
+      "words": 1604,
+      "fault": 0
+    },
+    {
+      "name": "circle-250",
+      "lists": 53,
+      "words": 3305,
+      "fault": 0
+    },
+    {
+      "name": "circle-251",
+      "lists": 14,
+      "words": 840,
+      "fault": 0
+    },
+    {
+      "name": "circle-252",
+      "lists": 38,
+      "words": 2382,
+      "fault": 0
+    },
+    {
+      "name": "circle-253",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-254",
+      "lists": 12,
+      "words": 722,
+      "fault": 0
+    },
+    {
+      "name": "circle-255",
+      "lists": 16,
+      "words": 974,
+      "fault": 0
+    },
+    {
+      "name": "circle-256",
+      "lists": 41,
+      "words": 2557,
+      "fault": 0
+    },
+    {
+      "name": "circle-257",
+      "lists": 38,
+      "words": 2384,
+      "fault": 0
+    },
+    {
+      "name": "circle-258",
+      "lists": 46,
+      "words": 2840,
+      "fault": 0
+    },
+    {
+      "name": "circle-259",
+      "lists": 35,
+      "words": 2167,
+      "fault": 0
+    },
+    {
+      "name": "circle-260",
+      "lists": 35,
+      "words": 2159,
+      "fault": 0
+    },
+    {
+      "name": "circle-261",
+      "lists": 35,
+      "words": 2185,
+      "fault": 0
+    },
+    {
+      "name": "circle-262",
+      "lists": 29,
+      "words": 1815,
+      "fault": 0
+    },
+    {
+      "name": "circle-263",
+      "lists": 2,
+      "words": 70,
+      "fault": 0
+    },
+    {
+      "name": "circle-264",
+      "lists": 37,
+      "words": 2275,
+      "fault": 0
+    },
+    {
+      "name": "circle-265",
+      "lists": 35,
+      "words": 2153,
+      "fault": 0
+    },
+    {
+      "name": "circle-266",
+      "lists": 44,
+      "words": 2758,
+      "fault": 0
+    },
+    {
+      "name": "circle-267",
+      "lists": 40,
+      "words": 2468,
+      "fault": 0
+    },
+    {
+      "name": "circle-268",
+      "lists": 35,
+      "words": 2173,
+      "fault": 0
+    },
+    {
+      "name": "circle-269",
+      "lists": 47,
+      "words": 2935,
+      "fault": 0
+    },
+    {
+      "name": "circle-270",
+      "lists": 44,
+      "words": 2746,
+      "fault": 0
+    },
+    {
+      "name": "circle-271",
+      "lists": 47,
+      "words": 2913,
+      "fault": 0
+    },
+    {
+      "name": "circle-272",
+      "lists": 13,
+      "words": 781,
+      "fault": 0
+    },
+    {
+      "name": "circle-273",
+      "lists": 97,
+      "words": 6075,
+      "fault": 0
+    },
+    {
+      "name": "circle-274",
+      "lists": 94,
+      "words": 5894,
+      "fault": 0
+    },
+    {
+      "name": "circle-275",
+      "lists": 1,
+      "words": 5,
+      "fault": 0
+    },
+    {
+      "name": "circle-276",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "ascii-scale-0",
+      "lists": 95,
+      "words": 760,
+      "fault": 0
+    },
+    {
+      "name": "ascii-scale-1",
+      "lists": 95,
+      "words": 760,
+      "fault": 0
+    },
+    {
+      "name": "ascii-scale-2",
+      "lists": 95,
+      "words": 760,
+      "fault": 0
+    },
+    {
+      "name": "ascii-scale-3",
+      "lists": 95,
+      "words": 760,
+      "fault": 0
+    },
+    {
+      "name": "descender-clip",
+      "lists": 1,
+      "words": 13,
+      "fault": 0
+    },
+    {
+      "name": "right-clip",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "top-clip",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "zero-origin",
+      "lists": 1,
+      "words": 8,
+      "fault": 0
+    },
+    {
+      "name": "empty",
+      "lists": 1,
+      "words": 3,
+      "fault": 0
+    },
+    {
+      "name": "bad-text-size",
+      "lists": 0,
+      "words": 0,
+      "fault": 1
+    },
+    {
+      "name": "unterminated-text",
+      "lists": 0,
+      "words": 0,
+      "fault": 1
+    },
+    {
+      "name": "actual-demo",
+      "lists": 3,
+      "words": 4685,
+      "fault": 0
+    },
+    {
+      "name": "line-demo",
+      "lists": 32,
+      "words": 2912,
+      "fault": 0
+    },
+    {
+      "name": "circle-demo",
+      "lists": 11,
+      "words": 8899,
+      "fault": 0
+    }
+  ]
+}

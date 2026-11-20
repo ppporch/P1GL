@@ -1,4 +1,4 @@
-// G_CIRCLE: midpoint integer circle, unique symmetry points, viewport clipping.
+// Type 340 G_CIRCLE: midpoint integer circle, unique symmetry points, viewport clipping.
 // jda gcircle; CX_VALUE; CY_VALUE; RADIUS_VALUE (literal 0..1023).
 // Logical points outside 0..1023 are discarded before G_PLOT.
 // Radius zero emits the center once. Axis/diagonal duplicates are suppressed.
@@ -14,6 +14,7 @@ gcircle, 0
         lac i cc_ret
         dac cc_x
         idx cc_ret
+        jsp gf_enter
         dzm cc_y
         law 1
         sub cc_x
@@ -22,7 +23,7 @@ cc_loop,
         lac cc_y
         sub cc_x
         sma sza
-        jmp i cc_ret
+        jmp cc_finish
         lac cc_cx
         add cc_x
         dac cc_plotx
@@ -144,3 +145,7 @@ cc_cy, 0
 cc_x, 0
 cc_y, 0
 cc_d, 0
+
+cc_finish,
+        jsp gf_leave
+        jmp i cc_ret

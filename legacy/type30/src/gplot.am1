@@ -1,0 +1,48 @@
+// P1GL logical point primitive for Bill's Type 30 IOT 7.
+// jda gplot; X_VALUE; Y_VALUE (literal values, NOT addresses).
+// Coordinates: 0..1023, Y increases upwards. Pixel 0 aliases 1:
+// the current device converter cannot address pixel 0 (negative zero).
+// AC/IO clobbered; same-bank, non-reentrant, writable code required.
+// Synchronous DPY prevents the next call replacing a pending dot.
+gplot,  0
+        dac gp_ret
+        lac i gp_ret
+        dac gc_value
+        jsp gcoord
+        dac gp_x
+        idx gp_ret
+        lac i gp_ret
+        dac gc_value
+        jsp gcoord
+        dac gp_y
+        idx gp_ret
+#ifdef P1GL_FRAME
+        lac gf_recording
+        sza
+        jmp gp_record
+#endif
+        lio gp_y
+        lac gp_x
+        dpy 200             // intensity field 2; wait for completion
+        jmp i gp_ret
+#ifdef P1GL_FRAME
+gp_record,
+        jsp gf_append_point
+        jmp i gp_ret
+#endif
+gp_x,   0
+gp_y,   0
+gp_ret, 0
+
+// gc_value logical 0..1023 -> AC signed high-ten-bit coordinate.
+// JSP replaces AC with its return address, so input is stored separately.
+// Bounds are a caller precondition; zero clamps to one explicitly.
+gcoord,
+        dap gc_return
+        lac gc_value
+        sza i
+        law 1
+        sub [0d512]
+        sal 8s
+gc_return, jmp .
+gc_value, 0

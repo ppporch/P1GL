@@ -1,8 +1,10 @@
-// P1GL G_LINE: endpoint-inclusive Bresenham, matching reference/gline.py.
+// Native Type 340 G_LINE: bounded vector segments, exact endpoints.
+// Bresenham state chooses segment endpoints; the 340 draws each segment.
 // jda gline; X0_VALUE; Y0_VALUE; X1_VALUE; Y1_VALUE (literal integers).
 // Same-bank, non-reentrant, writable code; AC and IO clobbered.
 // Caller guarantees each coordinate is 0..1023; no clipping.
 // Error terms are bounded by +/-2046, well inside signed 18-bit range.
+#include "type340.ah"
 gline, 0
         dac gl_ret
         lac i gl_ret
@@ -18,6 +20,12 @@ gline, 0
         dac gl_yend
         idx gl_ret
 
+        jsp gf_enter
+        dzm gl_steps
+        lac gl_x
+        dac gl_lastx
+        lac gl_y
+        dac gl_lasty
         lac gl_xend
         sub gl_x
         spa
@@ -50,7 +58,7 @@ gl_error,
         sub gl_dy
         dac gl_err
 
-gl_plot,
+gl_start,
         lac gl_x
         dac gl_plotx
         lac gl_y
@@ -58,12 +66,17 @@ gl_plot,
         jda gplot
 gl_plotx, 0
 gl_ploty, 0
+gl_loop,
         lac gl_x
         sas gl_xend
         jmp gl_advance
         lac gl_y
         sas gl_yend
         jmp gl_advance
+        lac gl_steps
+        sza
+        jsp gl_emit
+        jsp gf_leave
         jmp i gl_ret
 
 gl_advance,
@@ -86,14 +99,14 @@ gl_testy,
         sub gl_dx
         add [0]            // canonicalize zero before strict sign test
         sma                // step Y iff e2 < dx (strict inequality)
-        jmp gl_plot
+        jmp gl_step_done
         lac gl_err
         add gl_dx
         dac gl_err
         lac gl_y
         add gl_sy
         dac gl_y
-        jmp gl_plot
+        jmp gl_step_done
 
 gl_ret, 0
 gl_x, 0
@@ -106,3 +119,84 @@ gl_sx, 0
 gl_sy, 0
 gl_err, 0
 gl_e2, 0
+
+gl_step_done,
+        idx gl_steps
+        sad [0d127]
+        jmp gl_segment
+        jmp gl_loop
+gl_segment,
+        jsp gl_emit
+        dzm gl_steps
+        jmp gl_loop
+
+// Current and last emitted endpoints differ by at most 127 on each axis.
+// Each group starts/ends in POINT mode, allowing safe immediate chunking.
+gl_emit,
+        dap gl_emit_ret
+        law 4
+        dac gf_need
+        jsp gf_reserve
+        lac gf_fault
+        sza
+        jmp gl_emit_ret
+        lac [T_VISIBLE | T_END]
+        dac gl_word
+        lac gl_x
+        sub gl_lastx
+        spa
+        jmp gl_left
+        jmp gl_dxword
+gl_left,
+        cma
+        dac gl_temp
+        lac gl_word
+        ior [0200]
+        dac gl_word
+        lac gl_temp
+gl_dxword,
+        ior gl_word
+        dac gl_word
+        lac gl_y
+        sub gl_lasty
+        spa
+        jmp gl_down
+        jmp gl_dyword
+gl_down,
+        cma
+        dac gl_temp
+        lac gl_word
+        ior [0100000]
+        dac gl_word
+        lac gl_temp
+gl_dyword,
+        sal 8s
+        ior gl_word
+        dac gl_word
+        lac gl_lasty
+        ior [T_Y | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gl_lastx
+        ior [T_VECTOR]
+        dac i gf_write
+        idx gf_write
+        lac gl_word
+        dac i gf_write
+        idx gf_write
+        lac [T_PARAMETER | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gl_x
+        dac gl_lastx
+        lac gl_y
+        dac gl_lasty
+        lac gf_recording
+        sza
+        idx gf_vectors
+gl_emit_ret, jmp .
+gl_steps, 0
+gl_lastx, 0
+gl_lasty, 0
+gl_word, 0
+gl_temp, 0

@@ -7,6 +7,8 @@ for p in sorted((Path(__file__).resolve().parents[1]/'tests').glob('test_*.py'))
     for name,fn in ns.items():
         if name.startswith('test_') and callable(fn): fn();n+=1
 suite=unittest.defaultTestLoader.discover(str(Path(__file__).resolve().parents[1]/'tests'))
-result=unittest.TextTestRunner(verbosity=1).run(suite)
-assert result.wasSuccessful()
-print(f'PASS: {n} function tests and {result.testsRun} unittest cases')
+cases=suite.countTestCases()
+if cases:
+    result=unittest.TextTestRunner(verbosity=1).run(suite)
+    assert result.wasSuccessful()
+print(f'PASS: {n} function tests and {cases} unittest cases')

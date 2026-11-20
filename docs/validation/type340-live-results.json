@@ -1,0 +1,20 @@
+{
+  "snapshot": "/tmp/p1gl-type340-20261119/P1GL/build/snapshots/20261120T025328Z-type340",
+  "frames": 264,
+  "elapsed_seconds": 10.00008066301234,
+  "mean_frame_ms": 37.87909342050129,
+  "run": true,
+  "values": {
+    "fault": 0,
+    "gf_fault": 0,
+    "buffer_guard": 42798,
+    "max_draw_ms": 46,
+    "gf_used": 1923,
+    "gf_points": 906,
+    "gf_vectors": 2,
+    "gf_chars": 20,
+    "page": 2
+  },
+  "backend": "native Type 340 display list, vectors and Type 342 characters",
+  "limit": "Mean includes scene changes; max_draw_ms is sampled BBN display-completion duration, not worst-case latency or client frame rate"
+}

@@ -161,3 +161,12 @@ Bill Ezell's repository supplies AM1, the emulator, device support and integrati
 examples. SignalAnalysis supplied the RIM decoder and isolated CPU-test harness.
 The optional Hershey font data has separate attribution and distribution terms;
 see fonts/HERSHEY-NOTICE.txt and fonts/README.md.
+
+## Embedding in an existing display engine
+
+`src/vector_sink.ac` provides a non-owning vector-word emitter for applications
+such as Signal Station that already manage their own display lists and interrupts.
+The host supplies an AC-word sink, positions the beam, selects VECTOR mode and
+unit scale, then calls `jsp p1gl_vector` with signed deltas and an optional END.
+No P1GL frame manager, font bank, or device IOT is involved. See
+[embedding API](docs/VECTOR-SINK.md). `make test-vector-sink` checks this component.

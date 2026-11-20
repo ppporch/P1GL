@@ -25,7 +25,7 @@ test-host:
 test-type340: build/type340_runner
 	AM1="$(AM1)" python3 tools/check_type340.py
 
-test: all test-host test-type340 test-vector-text
+test: all test-host test-type340 test-vector-text test-vector-sink
 
 
 build/vector_text_demo.rim: examples/vector_text_demo.am1 $(LIBS) generated/vector-font.ac | build
@@ -37,3 +37,8 @@ generated/vector-font.ac: fonts/futural.jhf tools/generate_vfont.py
 .PHONY: test-vector-text
 test-vector-text: build/type340_runner generated/vector-font.ac
 	AM1="$(AM1)" python3 tools/check_vector_text.py
+
+
+.PHONY: test-vector-sink
+test-vector-sink: build/type340_runner
+	AM1="$(AM1)" python3 tools/check_vector_sink.py

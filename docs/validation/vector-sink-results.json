@@ -1,0 +1,10 @@
+{
+  "cases": 4496,
+  "rejected_cases": 5,
+  "max_vector_words": 15,
+  "max_split_endpoint_deviation_pixels": 1.3108448033557283,
+  "axis_chunk_limit": 127,
+  "unit_spacing": true,
+  "tail_end_only_on_final_word": true,
+  "sink_clobbers_ac": true
+}

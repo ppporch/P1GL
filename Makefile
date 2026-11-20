@@ -2,7 +2,7 @@ AM1 ?= am1
 PDP1_ROOT ?= /opt/pidp1-mods
 CC ?= cc
 LIBS := $(wildcard src/*.am1 src/*.ah src/*.ac)
-DEMOS := frame_demo line_demo circle_demo gplot_demo
+DEMOS := frame_demo line_demo circle_demo gplot_demo vector_text_demo
 
 .PHONY: all test test-host test-type340
 all: $(addprefix build/,$(addsuffix .rim,$(DEMOS))) build/calibrate.rim
@@ -25,4 +25,15 @@ test-host:
 test-type340: build/type340_runner
 	AM1="$(AM1)" python3 tools/check_type340.py
 
-test: all test-host test-type340
+test: all test-host test-type340 test-vector-text
+
+
+build/vector_text_demo.rim: examples/vector_text_demo.am1 $(LIBS) generated/vector-font.ac | build
+	cd build && $(AM1) -d ../$<
+
+generated/vector-font.ac: fonts/futural.jhf tools/generate_vfont.py
+	python3 tools/generate_vfont.py
+
+.PHONY: test-vector-text
+test-vector-text: build/type340_runner generated/vector-font.ac
+	AM1="$(AM1)" python3 tools/check_vector_text.py

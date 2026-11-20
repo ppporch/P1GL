@@ -1,6 +1,6 @@
 # P1GL — PDP-1 Graphics Library
 
-P1GL v0.9 draws through the **Type 340 display processor and Type 342 character
+P1GL v0.10 draws through the **Type 340 display processor and Type 342 character
 generator** in [Bill Ezell's pidp1-mods](https://github.com/wjenh/pidp1-mods).
 It provides reusable AM1 routines for points, native vector lines, midpoint
 circles, text, and retained display frames.
@@ -65,10 +65,42 @@ Lines use connected hardware-vector segments with components no larger than
 127. Endpoints are exact; the intervening pixels use the Type 340 rate
 multiplier rather than the old CPU Bresenham rasterization.
 
-Code, data and the display list must occupy the same 4K bank in ordinary memory
-mode. Calls clobber AC/IO and use non-reentrant writable linkage. See
+The current implementation places code, data and the display list in bank 0,
+in ordinary memory mode. The optional vector font uses a separate memory bank. Calls clobber AC/IO and use non-reentrant writable linkage. See
 [API](docs/API.md), [Type 340 migration](docs/TYPE340.md),
 [frames](docs/G_FRAME.md), and [text](docs/G_TEXT.md).
+
+## Optional vector-stroke text
+
+`G_VTEXT` draws continuous Hershey strokes using native vectors, while `G_TEXT`
+remains the compact native Type 342 option. The vector font supports all 95
+printable ASCII characters, proportional spacing, lowercase and punctuation.
+
+```text
+        jda gvtext
+        0d100; 0d600; 1; caption
+```
+
+X/Y are baseline coordinates; size 0..3 selects 1,2,4,8 font units, with a nominal
+capital height of 21 units. Include src/gvtext.am1 alongside the point, line and
+frame modules. The font occupies 1,759 words in a separate memory bank (default
+bank 1), and requires extended memory. Programs that do not include this module
+load no font bank. Choose a free bank using P1GL_FONT_BANK; see
+[vector-text documentation](docs/G_VTEXT.md).
+
+After `make`, preview it on the powered-on, halted PiDP-1 with:
+
+```sh
+/opt/pidp1-mods/bin/fastload -y build/vector_text_demo.rim
+```
+
+It cycles through four pages of vector text and a native-font comparison. This
+replaces the current program, so save current work first. Phillip confirmed that
+the preview looks fantastic. All 24 new CPU test executions pass, covering 95
+glyphs at four scales, font banks 1/3/15, clipping, read-only font data, restored
+ordinary addressing, frame bounds and the exact demo. Previous graphics checks
+continue to pass. Stroke text uses more list space and drawing time; it is an
+optional choice rather than a replacement for native characters.
 
 ## Retained frames
 
@@ -113,9 +145,8 @@ circle points than the earlier coarse preview. Readability and correct geometry
 take priority over a strict redraw threshold. See [verification](docs/verification.md)
 and [recorded results](docs/validation/).
 
-Native character labels are still dot-matrix glyphs. An optional continuous
-stroke font is a possible next addition; it is not implemented in v0.9.
-Menu and popup-keyboard integration are also future work.
+Native character labels are still dot-matrix glyphs. Use optional G_VTEXT for
+continuous stroke lettering. Menu and popup-keyboard integration remain future work.
 
 The tested Type 30 v0.8 sources and tests remain under `legacy/type30/`; the
 original unassembled v0.4 prototype remains under `original-v0.4/`. These are
@@ -128,3 +159,5 @@ GPL-3.0; see LICENSE. Phillip Porch directs the project, suggests features and
 performs hardware/visual tests; ChatGPT/Codex writes and tests the implementation.
 Bill Ezell's repository supplies AM1, the emulator, device support and integration
 examples. SignalAnalysis supplied the RIM decoder and isolated CPU-test harness.
+The optional Hershey font data has separate attribution and distribution terms;
+see fonts/HERSHEY-NOTICE.txt and fonts/README.md.

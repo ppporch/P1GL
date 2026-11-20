@@ -1,0 +1,257 @@
+// Optional Hershey stroke text, using continuous Type 340 vectors.
+// jda gvtext; X; Y; SIZE; ASCII_ADDRESS. Size 0..3 -> 1,2,4,8 font units.
+// Baseline Y; capital height 21 units. Strings are NUL-terminated packed ASCII.
+// Whole-glyph bounds clipping; at most 256 characters. Font in a separate bank.
+#ifndef P1GL_VECTOR_TEXT
+#define P1GL_VECTOR_TEXT
+#ifndef P1GL_FONT_BANK
+#define P1GL_FONT_BANK 1
+#endif
+#if P1GL_FONT_BANK < 1 || P1GL_FONT_BANK > 15
+#error "P1GL_FONT_BANK must be a free extended-memory bank 1..15"
+#endif
+gvtext, 0
+        dac gv_ret
+        lac i gv_ret
+        dac gv_x
+        idx gv_ret
+        lac i gv_ret
+        dac gv_y
+        idx gv_ret
+        lac i gv_ret
+        dac gv_size
+        idx gv_ret
+        lac i gv_ret
+        dac gv_string
+        idx gv_ret
+        jsp gf_enter
+        dzm gv_half
+        dzm gv_count
+        lac gv_x
+        spa
+        jmp gv_bad
+        sub [0d1023]
+        sma sza
+        jmp gv_bad
+        lac gv_y
+        spa
+        jmp gv_bad
+        sub [0d1023]
+        sma sza
+        jmp gv_bad
+        lac gv_size
+        spa
+        jmp gv_bad
+        sub [3]
+        sma sza
+        jmp gv_bad
+        lac gv_size
+        add [gv_shifts]
+        dac gv_temp
+        lac i gv_temp
+        dac gv_shift
+gv_next,
+        lac gv_half
+        sza
+        jmp gv_right
+        lac gv_string
+        spa
+        jmp gv_bad
+        sub [07777]
+        sma sza
+        jmp gv_bad
+        lac i gv_string
+        dac gv_word
+        sar 9s
+        and [0777]
+        dac gv_char
+        law 1
+        dac gv_half
+        jmp gv_character
+gv_right,
+        lac gv_word
+        and [0777]
+        dac gv_char
+        dzm gv_half
+        idx gv_string
+gv_character,
+        lac gv_char
+        sza i
+        jmp gv_done
+        lac gv_count
+        sad [0d256]
+        jmp gv_bad
+        idx gv_count
+        lac gv_char
+        sub [0d32]
+        spa
+        jmp gv_question
+        lac gv_char
+        sub [0d126]
+        sma sza
+        jmp gv_question
+        jmp gv_lookup
+gv_question,
+        law 0d63
+        dac gv_char
+gv_lookup,
+        lac gv_char
+        sub [0d32]
+        dac gv_temp
+        sal 1s
+        add gv_temp
+        sal 1s               // six metadata words per character
+        add [gv_font_index:P1GL_FONT_BANK]
+        dac gv_far
+        law gv_glyph
+        dac gv_destination
+        law i 6
+        dac gv_meta_left
+gv_metadata,
+        eem
+        lac i gv_far
+        lem
+        dac i gv_destination
+        idx gv_far
+        idx gv_destination
+        isp gv_meta_left
+        jmp gv_metadata
+        lac gv_minx
+        xct gv_shift
+        add gv_x
+        spa
+        jmp gv_advance
+        lac gv_maxx
+        xct gv_shift
+        add gv_x
+        sub [0d1023]
+        sma sza
+        jmp gv_advance
+        lac gv_miny
+        xct gv_shift
+        add gv_y
+        spa
+        jmp gv_advance
+        lac gv_maxy
+        xct gv_shift
+        add gv_y
+        sub [0d1023]
+        sma sza
+        jmp gv_advance
+        dzm gv_have
+gv_vertex,
+        eem
+        lac i gv_glyph
+        lem
+        dac gv_vertex_word
+        idx gv_glyph
+        lac gv_vertex_word   // IDX changes AC; test the fetched vertex, not pointer
+        and [0400000]
+        sza
+        jmp gv_glyph_done
+        lac gv_vertex_word
+        and [077]
+        xct gv_shift
+        add gv_x
+        dac gv_current_x
+        lac gv_vertex_word
+        sar 6s
+        and [077]
+        sub [0d16]
+        xct gv_shift
+        add gv_y
+        dac gv_current_y
+        lac gv_vertex_word
+        and [010000]
+        sza
+        jmp gv_move
+        lac gv_have
+        sza i
+        jmp gv_move
+        lac gv_previous_x
+        dac gv_line_x0
+        lac gv_previous_y
+        dac gv_line_y0
+        lac gv_current_x
+        dac gv_line_x1
+        lac gv_current_y
+        dac gv_line_y1
+        jda gline
+gv_line_x0, 0
+gv_line_y0, 0
+gv_line_x1, 0
+gv_line_y1, 0
+        law 2
+        dac gv_have
+        jmp gv_save_vertex
+gv_move,
+        jsp gv_single_point
+        law 1
+        dac gv_have
+gv_save_vertex,
+        lac gv_current_x
+        dac gv_previous_x
+        lac gv_current_y
+        dac gv_previous_y
+        jmp gv_vertex
+gv_glyph_done,
+        jsp gv_single_point
+gv_advance,
+        lac gv_advance_width
+        xct gv_shift
+        add gv_x
+        dac gv_x
+        jmp gv_next
+gv_bad,
+        law 1
+        dac gf_fault
+gv_done,
+        jsp gf_leave
+        jmp i gv_ret
+
+// Preserve one-vertex strokes (e.g. a dot), but no extra point for a pen lift.
+gv_single_point,
+        dap gv_single_ret
+        lac gv_have
+        sad [1]
+        jmp gv_draw_single
+        jmp gv_single_ret
+gv_draw_single,
+        lac gv_previous_x
+        dac gv_point_x
+        lac gv_previous_y
+        dac gv_point_y
+        jda gplot
+gv_point_x, 0
+gv_point_y, 0
+gv_single_ret, jmp .
+
+gv_glyph, 0
+gv_advance_width, 0
+gv_minx, 0
+gv_maxx, 0
+gv_miny, 0
+gv_maxy, 0
+gv_ret, 0
+gv_x, 0
+gv_y, 0
+gv_size, 0
+gv_string, 0
+gv_half, 0
+gv_count, 0
+gv_word, 0
+gv_char, 0
+gv_temp, 0
+gv_far, 0
+gv_destination, 0
+gv_meta_left, 0
+gv_vertex_word, 0
+gv_current_x, 0
+gv_current_y, 0
+gv_previous_x, 0
+gv_previous_y, 0
+gv_have, 0
+gv_shift, nop
+gv_shifts, nop; sal 1s; sal 2s; sal 3s
+#include "../generated/vector-font.ac"
+#endif

@@ -1,0 +1,162 @@
+{
+  "executions": 24,
+  "glyphs": 95,
+  "scales": 4,
+  "vectors": 5122,
+  "demo_words": [
+    1854,
+    1524,
+    1680,
+    1440
+  ],
+  "font_bank": 1,
+  "read_only_font_verified": true,
+  "ordinary_mode_restored": true,
+  "scope": "real CPU, source-font geometry and native-list decoder; live rendering is separate",
+  "results": [
+    {
+      "name": "first-A",
+      "lists": 1,
+      "vectors": 3,
+      "fault": 0
+    },
+    {
+      "name": "all-ascii-scale-0",
+      "lists": 144,
+      "vectors": 907,
+      "fault": 0
+    },
+    {
+      "name": "all-ascii-scale-1",
+      "lists": 144,
+      "vectors": 907,
+      "fault": 0
+    },
+    {
+      "name": "all-ascii-scale-2",
+      "lists": 144,
+      "vectors": 915,
+      "fault": 0
+    },
+    {
+      "name": "all-ascii-scale-3",
+      "lists": 145,
+      "vectors": 982,
+      "fault": 0
+    },
+    {
+      "name": "mixed-case",
+      "lists": 5,
+      "vectors": 41,
+      "fault": 0
+    },
+    {
+      "name": "true-zero",
+      "lists": 1,
+      "vectors": 3,
+      "fault": 0
+    },
+    {
+      "name": "descenders",
+      "lists": 3,
+      "vectors": 21,
+      "fault": 0
+    },
+    {
+      "name": "top-clipping",
+      "lists": 1,
+      "vectors": 0,
+      "fault": 0
+    },
+    {
+      "name": "right-clipping",
+      "lists": 1,
+      "vectors": 0,
+      "fault": 0
+    },
+    {
+      "name": "caret-and-grave",
+      "lists": 1,
+      "vectors": 8,
+      "fault": 0
+    },
+    {
+      "name": "empty",
+      "lists": 1,
+      "vectors": 0,
+      "fault": 0
+    },
+    {
+      "name": "odd-string",
+      "lists": 4,
+      "vectors": 38,
+      "fault": 0
+    },
+    {
+      "name": "even-string",
+      "lists": 3,
+      "vectors": 21,
+      "fault": 0
+    },
+    {
+      "name": "punctuation",
+      "lists": 18,
+      "vectors": 171,
+      "fault": 0
+    },
+    {
+      "name": "alternate-font-bank",
+      "lists": 4,
+      "vectors": 34,
+      "fault": 0
+    },
+    {
+      "name": "highest-font-bank",
+      "lists": 4,
+      "vectors": 34,
+      "fault": 0
+    },
+    {
+      "name": "silent-build",
+      "lists": 0,
+      "vectors": 0,
+      "fault": 0
+    },
+    {
+      "name": "retained-twice",
+      "lists": 2,
+      "vectors": 6,
+      "fault": 0
+    },
+    {
+      "name": "capacity-failure",
+      "lists": 0,
+      "vectors": 0,
+      "fault": 2
+    },
+    {
+      "name": "invalid-size",
+      "lists": 0,
+      "vectors": 0,
+      "fault": 1
+    },
+    {
+      "name": "invalid-position",
+      "lists": 0,
+      "vectors": 0,
+      "fault": 1
+    },
+    {
+      "name": "string-limit",
+      "lists": 0,
+      "vectors": 0,
+      "fault": 1
+    },
+    {
+      "name": "actual-demo",
+      "lists": 4,
+      "vectors": 1031,
+      "fault": 0
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Current status — v0.9 Type 340
+# Current status — v0.10 Type 340 and optional vector text
 
 The default backend is now native Type 340/342; see TYPE340.md. The records below
 are chronological and older milestones describe their historical devices.
@@ -158,3 +158,29 @@ Installed Type 340 device IOT_15.so SHA256:
 Installed type340emu.c SHA256:
 6d29e2d61dba33872f00ec7e8b9d55a690275c4fd03f230d8dfc9248846a5f14.
 See docs/validation/type340-results.json and type340-live-results.json.
+
+## v0.10 optional vector-stroke text
+
+The native Type 340 version was committed and pushed as 771d0d5. G_VTEXT was
+then developed separately as an optional module, leaving G_TEXT unchanged.
+Bundled Hershey futural data and required notices are retained, with its source
+commit/hash recorded in generated/vector-font.json. The 95-glyph font occupies
+1,759 words in a separate bank, default bank 1; the CPU tests also use banks 3
+and 15. Native-only frame_demo.rim was checked to contain only bank-0 data.
+
+Twenty-four executed vector-text checks compare 5,122 vectors with source-font
+geometry, including all printable glyphs at four scales, single-point strokes,
+pen lifts, proportional advances, whole-glyph clipping, banked read-only data,
+ordinary-mode restoration, immediate chunks, retained replay and fault handling.
+The first isolated test caught an IDX clobber of AC before the end-marker test;
+that was fixed before live loading. All earlier native graphics checks passed
+from a clean build as well.
+
+Before loading the preview, the known native geometry demo was identified,
+halted and saved, including all core and register state, at:
+/tmp/p1gl-vtext-final-20261119/P1GL/build/snapshots/20261120T031312Z-vector-text/.
+This UTC-stamped test occurred November 19 in America/Chicago. The preview ran
+with zero program/frame faults, intact 0123456 guard and unchanged font data.
+The sampled rate was 327 frames in 14.00002 seconds, mean 42.8135 ms including
+scene construction; no hard frame-latency bound is claimed. Phillip confirmed
+that it looks fantastic. Source/binary results are under docs/validation/.

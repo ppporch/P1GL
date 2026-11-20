@@ -26,8 +26,8 @@ buffer reservation and immediate scratch streaming. It does not depend on
 previous glyph state or hardware autospacing. No Type 30/33 IOT is used.
 
 This remains a native dot-matrix font, which can look dotted at large scales.
-A separate continuous-stroke vector font has been discussed and is not yet
-implemented. It can coexist with the faster compact hardware font.
+The separate G_VTEXT routine now supplies optional continuous-stroke letters.
+It coexists with this compact hardware font; see G_VTEXT.md.
 
 All calls require gframe.am1, writable non-reentrant linkage and same-bank data
 in ordinary memory mode. AC/IO are clobbered. See TYPE340.md for verification

@@ -1,0 +1,20 @@
+{
+  "snapshot": "/tmp/p1gl-vtext-final-20261119/P1GL/build/snapshots/20261120T031312Z-vector-text",
+  "frames": 327,
+  "elapsed_seconds": 14.000023097964004,
+  "mean_frame_ms": 42.8135262934679,
+  "run": true,
+  "values": {
+    "fault": 0,
+    "gf_fault": 0,
+    "buffer_guard": 42798,
+    "gf_used": 1680,
+    "gf_points": 267,
+    "gf_vectors": 267,
+    "gf_chars": 15,
+    "page": 2
+  },
+  "font_bank_unchanged": true,
+  "backend": "optional Hershey stroke vectors plus native Type 342 comparison",
+  "limit": "Frame-counter mean includes scene construction; no worst-case latency or client rendering claim"
+}

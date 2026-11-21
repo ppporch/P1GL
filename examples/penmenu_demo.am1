@@ -1,0 +1,85 @@
+P1GL PENMENU demo -- display and light-pen controls
+#define PM_BAR(L,B) B(circle,"Circle",1) B(ellipse,"Ellipse",2) B(arc,"Arc",3)
+#include "../src/gpenmenu.ah"
+100/
+go,     lem
+        lsm
+        cbs
+        jsp gpen_init
+        law 1
+        dac selected
+build_scene,jda gframe_begin
+        scene; 0d420
+        jda gtext
+        0d332; 0d850; 2; title
+        jda gtext
+        0d295; 0d200; 1; hint
+        lac selected
+        sad [1]
+        jmp draw_circle
+        sad [2]
+        jmp draw_ellipse
+        jda garc
+        0d512; 0d536; 0d180; 0d128; 0d29; 0d197; 0d8
+        jmp publish
+draw_circle,jda gcircle_vector
+        0d512; 0d536; 0d130; 0d8
+        jmp publish
+draw_ellipse,jda gellipse_vector
+        0d512; 0d536; 0d180; 0d105; 0d8
+publish,jsp gframe_end
+        sza
+        hlt
+scan,   jsp gframe_refresh
+        sza
+        hlt
+        jsp gpen_service
+#ifdef DEMO_CPU_TEST
+        dac test_action
+        lac test_scans
+        add [test_history]
+        dac test_slot
+        lac test_action
+        dac i test_slot
+        idx test_scans
+        lac test_scans
+        sad [0d12]
+        hlt
+        lac test_action
+#endif
+        sza i
+        jmp scan
+        dac selected
+        jmp build_scene
+selected,0
+#ifdef DEMO_CPU_TEST
+test_scans,0
+test_action,0
+test_slot,0
+test_history,
+        table 0d12,0
+#endif
+title,ascii "P1GL LIGHT PEN"
+hint,ascii "CLICK A SHAPE IN THE TOP BAR"
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
+#include "../src/gview.am1"
+#include "../src/gtransform.am1"
+#include "../src/garc.am1"
+#include "../src/gpenmenu.am1"
+constants
+scene,
+        table 0d420,0
+assert . < 07751, "PENMENU demo exceeds field 0"
+bank 1
+0100/
+#include "../src/gpenmenu-list.ac"
+bank 2
+0000/
+#include <PENMENU/penmenu.ac>
+constants
+assert . < 010000, "PENMENU exceeds field 2"
+bank 0
+start go:0

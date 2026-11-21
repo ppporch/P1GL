@@ -6,6 +6,12 @@
 
 gframe_begin, 0
         dac gf_begin_ret
+#ifdef P1GL_RETAINED
+        lac gr_phase
+        sza
+        jmp gr_conflict_begin
+        idx gr_generation
+#endif
         lac i gf_begin_ret
         dac gf_base
         idx gf_begin_ret
@@ -47,6 +53,13 @@ gframe_begin, 0
         dac gf_active_size
         jsp gf_reset_list
         jmp i gf_begin_ret
+#ifdef P1GL_RETAINED
+gr_conflict_begin,law 3
+        dac gf_fault
+        idx gf_begin_ret
+        idx gf_begin_ret
+        jmp i gf_begin_ret
+#endif
 gf_begin_bad,
         law 1
         dac gf_fault
@@ -54,6 +67,11 @@ gf_begin_bad,
 
 gframe_end,
         dap gf_end_ret
+#ifdef P1GL_RETAINED
+        lac gr_phase
+        sza
+        jmp gf_end_bad
+#endif
         lac gf_recording
         sza i
         jmp gf_end_bad
@@ -189,6 +207,9 @@ gf_flush_ret, jmp .
 
 gf_run,
         dap gf_run_ret
+#ifdef P1GL_START_HOOK
+        P1GL_START_HOOK
+#endif
 #ifdef P1GL_DISPLAY_ENTRY
         lio [P1GL_DISPLAY_ENTRY]
 #else

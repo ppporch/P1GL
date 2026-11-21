@@ -1,0 +1,274 @@
+// Rectangular viewport and exact parametric line clipping.
+// Requires the Type 10 multiply/divide option and G_LINE.
+// All code, data and arguments are in the caller's field, with EEM off.
+#define GV_READ(dest) lac i gvc_return; add [0]; dac dest; idx gvc_return
+#define GV_SCREEN(value) lac value; spa; jmp gvc_bad_view; sub [0d1023]; sma sza; jmp gvc_bad_view
+#define GV_COORD(value) lac value; spa; cma; sub [0d8191]; sma sza; jmp gvc_bad_line
+#define GV_LOW(a,b,bound) lac a; sub bound; dac gvc_d0; lac b; sub bound; jda gvc_edge
+#define GV_HIGH(a,b,bound) lac bound; sub a; dac gvc_d0; lac bound; sub b; jda gvc_edge
+
+// jda gview_set; xmin; ymin; xmax; ymax. Inclusive device coordinates.
+// AC=1 for invalid rectangles. Preserve the previous viewport on error.
+gview_set,0
+        dac gvc_return
+        GV_READ(gvc_left)
+        GV_READ(gvc_bottom)
+        GV_READ(gvc_right)
+        GV_READ(gvc_top)
+        GV_SCREEN(gvc_left)
+        GV_SCREEN(gvc_bottom)
+        GV_SCREEN(gvc_right)
+        GV_SCREEN(gvc_top)
+        lac gvc_right
+        sub gvc_left
+        add [0]
+        spa
+        jmp gvc_bad_view
+        lac gvc_top
+        sub gvc_bottom
+        add [0]
+        spa
+        jmp gvc_bad_view
+        lac gvc_left
+        dac gvc_xmin
+        lac gvc_bottom
+        dac gvc_ymin
+        lac gvc_right
+        dac gvc_xmax
+        lac gvc_top
+        dac gvc_ymax
+        cla
+        jmp i gvc_return
+gvc_bad_view,law 1
+        jmp i gvc_return
+
+// jda gline_clip; x0; y0; x1; y1. Signed coordinates in -8191..8191.
+// G_LINE handles emission. Rejected lines emit nothing and return zero.
+gline_clip,0
+        dac gvc_return
+        GV_READ(gvc_x0)
+        GV_READ(gvc_y0)
+        GV_READ(gvc_x1)
+        GV_READ(gvc_y1)
+        lac gf_fault
+        sza
+        jmp i gvc_return
+        GV_COORD(gvc_x0)
+        GV_COORD(gvc_y0)
+        GV_COORD(gvc_x1)
+        GV_COORD(gvc_y1)
+        dzm gvc_enter_n
+        law 1
+        dac gvc_enter_d
+        dac gvc_exit_n
+        dac gvc_exit_d
+        GV_LOW(gvc_x0,gvc_x1,gvc_xmin)
+        GV_HIGH(gvc_x0,gvc_x1,gvc_xmax)
+        GV_LOW(gvc_y0,gvc_y1,gvc_ymin)
+        GV_HIGH(gvc_y0,gvc_y1,gvc_ymax)
+
+        // Verify the exact interval is nonempty before rounding endpoints.
+        lac gvc_enter_n
+        mul gvc_exit_d
+        dac gvc_product_hi
+        dio gvc_product_lo
+        lac gvc_exit_n
+        mul gvc_enter_d
+        jda gvc_compare
+        sma sza
+        jmp gvc_hidden
+
+        lac gvc_x1
+        sub gvc_x0
+        dac gvc_dx
+        lac gvc_y1
+        sub gvc_y0
+        dac gvc_dy
+        lac gvc_enter_n
+        dac gvc_n
+        lac gvc_enter_d
+        dac gvc_d
+        lac gvc_dx
+        jda gvc_scale
+        add gvc_x0
+        dac gvc_draw_x0
+        lac gvc_dy
+        jda gvc_scale
+        add gvc_y0
+        dac gvc_draw_y0
+        lac gvc_exit_n
+        dac gvc_n
+        lac gvc_exit_d
+        dac gvc_d
+        lac gvc_dx
+        jda gvc_scale
+        add gvc_x0
+        dac gvc_draw_x1
+        lac gvc_dy
+        jda gvc_scale
+        add gvc_y0
+        dac gvc_draw_y1
+        jda gline
+gvc_draw_x0,0
+gvc_draw_y0,0
+gvc_draw_x1,0
+gvc_draw_y1,0
+        lac gf_fault
+        jmp i gvc_return
+gvc_hidden,cla
+        jmp i gvc_return
+gvc_bad_line,law 1
+        dac gf_fault
+        jmp i gvc_return
+
+// For one edge, d0 and d1 are signed distances, nonnegative inside.
+// Only crossings constrain the interval. Parallel outside lines reject.
+gvc_edge,0
+        dap gvc_edge_ret
+        lac gvc_edge
+        add [0]
+        dac gvc_d1
+        lac gvc_d0
+        add [0]
+        dac gvc_d0
+        spa
+        jmp gvc_entering
+        lac gvc_d1
+        sma
+        jmp i gvc_edge_ret
+        lac gvc_d0
+        dac gvc_n
+        sub gvc_d1
+        dac gvc_d
+        lac gvc_exit_n
+        mul gvc_d
+        dac gvc_product_hi
+        dio gvc_product_lo
+        lac gvc_n
+        mul gvc_exit_d
+        jda gvc_compare
+        spa
+        jmp i gvc_edge_ret
+        lac gvc_n
+        dac gvc_exit_n
+        lac gvc_d
+        dac gvc_exit_d
+        jmp i gvc_edge_ret
+gvc_entering,lac gvc_d1
+        spa
+        jmp gvc_hidden
+        sub gvc_d0
+        dac gvc_d
+        lac gvc_d0
+        cma
+        dac gvc_n
+        lac gvc_enter_n
+        mul gvc_d
+        dac gvc_product_hi
+        dio gvc_product_lo
+        lac gvc_n
+        mul gvc_enter_d
+        jda gvc_compare
+        sma
+        jmp i gvc_edge_ret
+        lac gvc_n
+        dac gvc_enter_n
+        lac gvc_d
+        dac gvc_enter_d
+        jmp i gvc_edge_ret
+
+// Compare saved product against the incoming AC:IO product. The low
+// magnitude limb is left-shifted by MUL, with its least-significant bit zero.
+gvc_compare,0
+        dap gvc_cmp_ret
+        lac gvc_product_hi
+        sub gvc_compare
+        add [0]
+        sza
+        jmp i gvc_cmp_ret
+        dio gvc_in_lo
+        lac gvc_in_lo
+        rar 1s
+        dac gvc_in_lo
+        lac gvc_product_lo
+        rar 1s
+        sub gvc_in_lo
+        add [0]
+        jmp i gvc_cmp_ret
+
+// Scale a signed displacement by n/d. Divide magnitudes, then round to
+// nearest integer, with ties toward the positive coordinate.
+gvc_scale,0
+        dap gvc_scale_ret
+        lac gvc_n
+        sza i
+        jmp i gvc_scale_ret
+        sas gvc_d
+        jmp gvc_fraction
+        lac gvc_scale
+        jmp i gvc_scale_ret
+gvc_fraction,lac gvc_scale
+        spa
+        cma
+        mul gvc_n
+        div gvc_d
+        jmp gvc_bad_line      // impossible for a validated fraction
+        dac gvc_quotient
+        dio gvc_round
+        lac gvc_round
+        sal 1s
+        sub gvc_d
+        add [0]
+        dac gvc_round
+        lac gvc_scale
+        spa
+        jmp gvc_scale_negative
+        lac gvc_round
+        sma
+        idx gvc_quotient
+        lac gvc_quotient
+        jmp i gvc_scale_ret
+gvc_scale_negative,lac gvc_round
+        sma sza
+        idx gvc_quotient
+        lac gvc_quotient
+        cma
+        add [0]
+        jmp i gvc_scale_ret
+
+gvc_return,0
+gvc_edge_ret,0
+gvc_cmp_ret,0
+gvc_scale_ret,0
+gvc_left,0
+gvc_bottom,0
+gvc_right,0
+gvc_top,0
+gvc_xmin,0
+gvc_ymin,0
+gvc_xmax,0d1023
+gvc_ymax,0d1023
+gvc_x0,0
+gvc_y0,0
+gvc_x1,0
+gvc_y1,0
+gvc_dx,0
+gvc_dy,0
+gvc_d0,0
+gvc_d1,0
+gvc_enter_n,0
+gvc_enter_d,0
+gvc_exit_n,0
+gvc_exit_d,0
+gvc_n,0
+gvc_d,0
+gvc_product_hi,0
+gvc_product_lo,0
+gvc_in_lo,0
+gvc_quotient,0
+gvc_round,0
+#undef GV_READ
+#undef GV_SCREEN
+#undef GV_COORD
+#undef GV_LOW
+#undef GV_HIGH

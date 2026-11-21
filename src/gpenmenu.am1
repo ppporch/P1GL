@@ -1,0 +1,66 @@
+// Same-field CPU adapter. Drawing uses the normal G_FRAME entry points.
+
+// Initialize menu and enable the BBN millisecond clock once before drawing.
+gpen_init,dap gpen_init_ret
+        lac [2000]
+        iot 2032
+        dzm gpen_pending
+        cla
+        farjda(pmInit:P1GL_PEN_CODE_BANK)
+        lem
+        jmp i gpen_init_ret
+
+// G_FRAME has selected the actual scan address, including immediate scratch.
+// Patch the menu's return before DLA. The destination begins in parameter mode.
+gpen_prepare,dap gpen_prepare_ret
+        lac gf_run_address
+        ior [jump 0 next(parameter)]
+        eem
+        dac i [gpen_jump:P1GL_PEN_LIST_BANK]
+        lem
+        jmp i gpen_prepare_ret
+
+// The Type 340 pauses at a hit. Read its packed coordinates and resume
+// without mutating menu words during the scan. Keep the latest hit.
+gpen_poll,dap gpen_poll_ret
+        iot 0117
+        jmp i gpen_poll_ret
+        iot 0116
+        dio gpen_hit
+        iot 32
+        dio gpen_time
+        law 1
+        dac gpen_pending
+        iot 0115
+        jmp i gpen_poll_ret
+
+// After G_FRAME returns, handle one saved hit and tick the menu's idle timer.
+// AC returns the menu action or zero. Never call from the display poll hook.
+gpen_service,dap gpen_service_ret
+        dzm gpen_action
+        lac gpen_pending
+        sza i
+        jmp gpen_tick
+        dzm gpen_pending
+        lio gpen_hit
+        lac gpen_time
+        farjda(pmHit:P1GL_PEN_CODE_BANK)
+        lem
+        dac gpen_action
+gpen_tick,iot 32
+        dio gpen_now
+        lac gpen_now
+        farjda(pmTick:P1GL_PEN_CODE_BANK)
+        lem
+        lac gpen_action
+        jmp i gpen_service_ret
+
+gpen_init_ret,0
+gpen_prepare_ret,0
+gpen_poll_ret,0
+gpen_service_ret,0
+gpen_pending,0
+gpen_action,0
+gpen_hit,0
+gpen_time,0
+gpen_now,0

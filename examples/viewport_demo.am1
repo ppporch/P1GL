@@ -1,0 +1,173 @@
+P1GL viewport demo -- a moving diamond clipped against four edges
+#define P1GL_RETAINED
+100/
+go,     lem
+        lsm
+        cbs
+#ifndef DEMO_CPU_TEST
+        lac [2000]
+        iot 2032
+#endif
+        jda gview_set
+        0d256; 0d256; 0d768; 0d768
+        jda gframe_begin
+        scene; 0d400
+        jda gtext
+        0d318; 0d850; 2; title
+        // The ordinary line primitive draws the viewport outline.
+        jda gline
+        0d256; 0d256; 0d768; 0d256
+        jda gline
+        0d768; 0d256; 0d768; 0d768
+        jda gline
+        0d768; 0d768; 0d256; 0d768
+        jda gline
+        0d256; 0d768; 0d256; 0d256
+
+        jda ggroup_define
+        diamond; 0d32
+        jsp ggroup_end
+        jsp gframe_end
+        sza
+        hlt
+restart,
+        law route
+        dac leg
+next_leg,lac i leg
+        dac x
+        idx leg
+        lac i leg
+        dac y
+        idx leg
+        lac i leg
+        dac dx
+        idx leg
+        lac i leg
+        dac dy
+        idx leg
+        law i 0d70
+        dac remaining
+frame,
+#ifndef DEMO_CPU_TEST
+        iot 32
+        dio started
+#endif
+        jda ggroup_replace
+        diamond; scratch
+        sza
+        hlt
+
+        lac x
+        dac top_x
+        dac bottom_x
+        add [0d90]
+        dac right_x
+        lac x
+        sub [0d90]
+        dac left_x
+        lac y
+        add [0d90]
+        dac top_y
+        lac y
+        sub [0d90]
+        dac bottom_y
+        // Reuse the computed points in the four inline argument blocks.
+        lac y
+        dac left_y
+        dac right_y
+        dac right_y2
+        dac left_y2
+        lac right_x
+        dac right_x2
+        lac left_x
+        dac left_x2
+        lac top_x
+        dac top_x2
+        lac top_y
+        dac top_y2
+        lac bottom_x
+        dac bottom_x2
+        lac bottom_y
+        dac bottom_y2
+        jda gline_clip
+top_x, 0
+top_y, 0
+right_x,0
+right_y,0
+        jda gline_clip
+right_x2,0
+right_y2,0
+bottom_x,0
+bottom_y,0
+        jda gline_clip
+bottom_x2,0
+bottom_y2,0
+left_x,0
+left_y,0
+        jda gline_clip
+left_x2,0
+left_y2,0
+top_x2,0
+top_y2,0
+        jsp ggroup_end
+        sza
+        hlt
+        jsp gframe_refresh
+        sza
+        hlt
+#ifndef DEMO_CPU_TEST
+wait_frame,iot 32
+        dio now
+        lac now
+        sub started
+        spa
+        add [0d60000]
+        sub [0d25]
+        spa
+        jmp wait_frame
+#endif
+        lac dx
+        add x
+        dac x
+        lac dy
+        add y
+        dac y
+        isp remaining
+        jmp frame
+        lac leg
+        sad [route_end]
+#ifdef DEMO_CPU_TEST
+        hlt
+#else
+        jmp restart
+#endif
+        jmp next_leg
+x,0
+y,0
+dx,0
+dy,0
+leg,0
+remaining,0
+started,0
+now,0
+route,
+        0d232; 0d512; 4; 4
+        0d512; 0d792; 4; -4
+        0d792; 0d512; -4; -4
+        0d512; 0d232; -4; 4
+route_end,
+title, ascii "VIEWPORT CLIPPING"
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
+#include "../src/gview.am1"
+#include "../src/gretained.am1"
+constants
+diamond,0; 0; 0
+scratch,
+        table 0d32,0
+scene,
+        table 0d400,0
+assert . < 07751, "viewport demo exceeds field 0"
+start go

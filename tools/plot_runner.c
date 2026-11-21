@@ -11,7 +11,7 @@
 #include "configuration.h"
 
 #ifndef RUNNER_CYCLE_LIMIT
-#define RUNNER_CYCLE_LIMIT 2000000
+#define RUNNER_CYCLE_LIMIT 4000000
 #endif
 
 extern bool lailiaEnabled, core1DEnabled, all1DEnabled;
@@ -21,6 +21,22 @@ static FILE *events;
 static FILE *lists;
 static unsigned tape[65536*2], tapeCount, tapeIndex;
 static int tapeMode;
+#ifdef P1GL_TYPE340_TEST
+static FILE *penScript;
+static unsigned scanCount, penScan, penX, penY, penTime, penPending;
+
+static void next_pen(void)
+{
+    if (!penScript || fscanf(penScript, "%u %u %u %u", &penScan, &penX, &penY, &penTime)!=4) {
+        penScan=0;
+        return;
+    }
+    if (penScan<=scanCount || penX>1023 || penY>1023 || penTime>=60000) {
+        fprintf(stderr,"Invalid test pen event\n");
+        exit(5);
+    }
+}
+#endif
 void ad1Service(PDP1 *p) { (void)p; }
 void ad1ThrottleWait(PDP1 *p, uint64_t n) { (void)p; (void)n; }
 uint64_t gettime(void) { return 0; }
@@ -37,12 +53,20 @@ int dynamicIotProcessor(PDP1 *p, int dev, int pulse, int completion)
 #ifdef P1GL_TYPE340_TEST
     if (dev==015) {
         if (pulse) {
+            unsigned command=(p->mb>>6)&077;
+            if (command==1) {
+                penPending=0;
+                next_pen();
+                return 1;
+            }
+            if (command!=0) return 1;
+            penPending=(++scanCount==penScan);
             unsigned mode=0,addr=p->io,done=0;
             if (addr>=MAXMEM) exit(5);
             fprintf(lists,"BEGIN %06o\n",addr);
             for (unsigned i=0;i<4096;i++) {
-                if(addr+i>=MAXMEM) exit(5);
-                unsigned w=p->core[addr+i];
+                if(addr>=MAXMEM) exit(5);
+                unsigned w=p->core[addr++];
                 fprintf(lists,"%06o\n",w);
                 if (mode==0) {
                     if(w&02000) {done=1;break;}
@@ -51,6 +75,9 @@ int dynamicIotProcessor(PDP1 *p, int dev, int pulse, int completion)
                 else if(mode==4) {if(w&0400000) mode=0;}
                 else if(mode==3) {
                     for(unsigned k=0;k<3;k++) if(((w>>(12-6*k))&077)==037) {mode=0;break;}
+                } else if(mode==7 && (w>>16)==2) {
+                    addr=w&017777;
+                    mode=(w>>13)&7;
                 } else {fprintf(stderr,"Unexpected display mode %u\n",mode);exit(5);}
             }
             if(!done) {fprintf(stderr,"Unterminated display list\n");exit(5);}
@@ -58,8 +85,19 @@ int dynamicIotProcessor(PDP1 *p, int dev, int pulse, int completion)
         }
         return 1;
     }
+    if(dev==016) {
+        if(pulse && ((p->mb>>6)&077)==1 && penPending)
+            p->io=((penX>>1)<<9)|(penY>>1);
+        return 1;
+    }
     if(dev==017) {
-        if(pulse && ((p->mb>>6)&077)==2) p->pc=(p->pc+1)&07777;
+        unsigned command=(p->mb>>6)&077;
+        if(pulse && ((command==1 && penPending) || (command==2 && !penPending)))
+            p->pc=(p->pc+1)&07777;
+        return 1;
+    }
+    if(dev==032) {
+        if(pulse) p->io=penPending ? penTime : (p->simtime/1000000)%60000;
         return 1;
     }
     if(dev==007 || dev==026 || dev==027) {
@@ -114,6 +152,14 @@ int main(int argc, char **argv)
     if (!events) return 2;
     lists=fopen("lists.trace","w");
     if (!lists) return 2;
+#ifdef P1GL_TYPE340_TEST
+    const char *penPath=getenv("P1GL_TEST_PEN");
+    if(penPath) {
+        penScript=fopen(penPath,"r");
+        if(!penScript) { perror(penPath); return 2; }
+        next_pen();
+    }
+#endif
     if (argc != 5 && argc != 6) { fprintf(stderr,"cpu_runner image.mem input.mem output.mem start_octal [loader.words]\n"); return 2; }
     load(&p,argv[1]);
     if (argc==6) {

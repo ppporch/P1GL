@@ -1,0 +1,528 @@
+// Opt in with P1GL_RETAINED before gframe.am1. Groups and labels use
+// caller-owned three-word handles, initialized to zero.
+#ifndef P1GL_RETAINED
+#error "Define P1GL_RETAINED before including gframe.am1"
+#endif
+#include "type340.ah"
+
+// jda ggroup_define; handle; word capacity.
+// Record a bounded POINT-to-POINT slot inside an open frame.
+ggroup_define,0
+        dac gr_ret
+        jsp gr_arguments
+        lac gr_phase
+        sza
+        jmp gr_bad_state
+        lac gf_recording
+        sza i
+        jmp gr_bad_state
+        lac gf_fault
+        sza
+        jmp i gr_ret
+        jsp gr_check_handle
+        lac gr_arg
+        spa
+        jmp gr_bad_arg
+        sub [1]
+        spa
+        jmp gr_bad_arg
+        lac gr_arg
+        sub [010000]
+        sma
+        jmp gr_bad_arg
+        lac gf_write
+        add gr_arg
+        sub gf_limit
+        sma sza
+        jmp gr_no_room
+        lac gf_write
+        dac gr_start
+        jsp gr_stamp
+        lac gf_limit
+        dac gr_outer_limit
+        lac gr_start
+        add gr_arg
+        dac gf_limit
+        law 1
+        dac gr_phase
+        cla
+        jmp i gr_ret
+
+// jda ggroup_replace; handle; scratch address.
+// The scratch region must hold the original slot's capacity. It must be
+// disjoint from the whole frame and from library code and application data.
+ggroup_replace,0
+        dac gr_ret
+        jsp gr_arguments
+        jsp gr_idle
+        jsp gr_read_handle
+        lac gr_length
+        spa
+        jmp gr_bad_arg
+        lac gr_arg
+        spa
+        jmp gr_bad_arg
+        sub [010000]
+        sma
+        jmp gr_bad_arg
+        lac gr_arg
+        add gr_length
+        dac gr_stage_end
+        sub [010000]
+        sma sza
+        jmp gr_bad_arg
+        lac gr_stage_end
+        sub gf_base
+        sma sza
+        jmp gr_check_after
+        jmp gr_stage
+gr_check_after,lac gf_base
+        add gf_capacity
+        sub gr_arg
+        sma sza
+        jmp gr_bad_arg
+gr_stage,lac gf_points
+        dac gr_outer_points
+        lac gf_chars
+        dac gr_outer_chars
+        lac gf_vectors
+        dac gr_outer_vectors
+        lac gf_write
+        dac gr_outer_write
+        lac gf_limit
+        dac gr_outer_limit
+        lac gr_arg
+        dac gf_write
+        dac gr_stage_base
+        lac gr_stage_end
+        dac gf_limit
+        law 1
+        dac gf_recording
+        law 2
+        dac gr_phase
+        cla
+        jmp i gr_ret
+
+// jsp ggroup_end. Return the operation fault in AC. Failed replacement
+// leaves the old commands intact and the frame ready for refresh.
+ggroup_end,dap gr_endret
+        lac gr_phase
+        sza i
+        jmp gr_end_bad
+        lac gf_fault
+        dac gr_result
+        sza
+        jmp gr_finish
+gr_pad,lac gf_write
+        sad gf_limit
+        jmp gr_padded
+        lac [T_POINT]
+        dac i gf_write
+        idx gf_write
+        jmp gr_pad
+gr_padded,lac gr_phase
+        sad [2]
+        jmp gr_copy
+        jmp gr_finish
+gr_copy,lac i gr_stage_base
+        dac i gr_start
+        idx gr_start
+        idx gr_stage_base
+        lac gr_stage_base
+        sad gr_stage_end
+        jmp gr_finish
+        jmp gr_copy
+gr_finish,lac gr_outer_limit
+        dac gf_limit
+        lac gr_phase
+        sad [2]
+        jmp gr_restore
+        jmp gr_closed
+gr_restore,lac gr_outer_write
+        dac gf_write
+        lac gr_outer_points
+        dac gf_points
+        lac gr_outer_chars
+        dac gf_chars
+        lac gr_outer_vectors
+        dac gf_vectors
+        dzm gf_recording
+        dzm gf_fault
+gr_closed,dzm gr_phase
+        lac gr_result
+        jmp i gr_endret
+gr_end_bad,law 3
+        jmp i gr_endret
+
+gr_arguments,dap gr_argsret
+        lac i gr_ret
+        dac gr_handle
+        idx gr_ret
+        lac i gr_ret
+        dac gr_arg
+        idx gr_ret
+        jmp i gr_argsret
+gr_idle,dap gr_idleret
+        lac gf_recording
+        sza
+        jmp gr_bad_state
+        lac gf_ready
+        sza i
+        jmp gr_bad_state
+        lac gf_fault
+        sza
+        jmp i gr_ret
+        jmp i gr_idleret
+gr_check_handle,dap gr_checkret
+        lac gr_handle
+        spa
+        jmp gr_bad_arg
+        sub [07775]
+        sma sza
+        jmp gr_bad_arg
+        jmp i gr_checkret
+gr_stamp,dap gr_stampret
+        lac gr_generation
+        dac i gr_handle
+        idx gr_handle
+        lac gr_start
+        dac i gr_handle
+        idx gr_handle
+        lac gr_arg
+        dac i gr_handle
+        jmp i gr_stampret
+gr_read_handle,dap gr_readret
+        jsp gr_check_handle
+        lac i gr_handle
+        sas gr_generation
+        jmp gr_bad_arg
+        idx gr_handle
+        lac i gr_handle
+        dac gr_start
+        idx gr_handle
+        lac i gr_handle
+        dac gr_length
+        sza i
+        jmp gr_bad_arg
+        jmp i gr_readret
+gr_no_room,law 2
+        jmp gr_error
+gr_bad_state,law 3
+        jmp gr_error
+gr_bad_arg,law 1
+gr_error,dac gr_result
+        lac gf_recording
+        sza
+        jmp gr_record_error
+        lac gr_result
+        jmp i gr_ret
+gr_record_error,lac gr_result
+        dac gf_fault
+        jmp i gr_ret
+
+gr_generation,0
+gr_phase,0
+gr_ret,0
+gr_endret,0
+gr_argsret,0
+gr_idleret,0
+gr_checkret,0
+gr_stampret,0
+gr_readret,0
+gr_handle,0
+gr_arg,0
+gr_start,0
+gr_length,0
+gr_result,0
+gr_outer_limit,0
+gr_outer_write,0
+gr_outer_points,0
+gr_outer_chars,0
+gr_outer_vectors,0
+gr_stage_base,0
+gr_stage_end,0
+
+// jda glabel_define; handle; width; x; y; size.
+// Define fixed-width native text outside a group. Width is 1..32;
+// baseline y >= 16 accommodates descenders at all supported sizes.
+glabel_define,0
+        dac gr_ret
+        jsp gr_arguments
+        lac i gr_ret
+        dac gr_label_x
+        idx gr_ret
+        lac i gr_ret
+        dac gr_label_y
+        idx gr_ret
+        lac i gr_ret
+        dac gr_label_size
+        idx gr_ret
+        lac gr_phase
+        sza
+        jmp gr_bad_state
+        lac gf_recording
+        sza i
+        jmp gr_bad_state
+        jsp gr_check_handle
+        lac gr_arg
+        spa
+        jmp gr_bad_arg
+        sub [1]
+        spa
+        jmp gr_bad_arg
+        lac gr_arg
+        sub [0d32]
+        sma sza
+        jmp gr_bad_arg
+        lac gr_label_y
+        spa
+        jmp gr_bad_arg
+        sub [0d16]
+        spa
+        jmp gr_bad_arg
+        lac gr_arg
+        cma
+        dac gr_left
+        law gr_packed
+        dac gr_dst
+gr_blank,lac [040040]
+        dac i gr_dst
+        isp gr_left
+        jmp gr_blank_right
+        lac [040000]
+        dac i gr_dst
+        jmp gr_blank_end
+gr_blank_right,idx gr_dst
+        isp gr_left
+        jmp gr_blank
+        dzm i gr_dst
+gr_blank_end,lac gf_write
+        dac gr_start
+        jda gtext
+gr_label_x,0
+gr_label_y,0
+gr_label_size,0
+        gr_packed
+        lac gf_fault
+        sza
+        jmp i gr_ret
+        lac gr_arg
+        sal 2s
+        add gr_arg
+        add gr_start
+        sas gf_write
+        jmp gr_bad_arg
+        lac gr_arg
+        cma
+        dac gr_arg
+        jsp gr_stamp
+        cla
+        jmp i gr_ret
+
+// jda glabel_text; handle; packed ASCII address. Left-align and blank-fill.
+// Reject strings wider than the label before changing any display words.
+glabel_text,0
+        dac gr_ret
+        jsp gr_arguments
+        jsp gr_label_idle
+        lac gr_arg
+        spa
+        jmp gr_bad_arg
+        sub [07777]
+        sma sza
+        jmp gr_bad_arg
+        lac gr_arg
+        dac gr_src
+        dzm gr_half
+        dzm gr_count
+        law gr_chars
+        dac gr_dst
+gr_text_next,lac gr_half
+        sza
+        jmp gr_text_right
+        lac gr_src
+        sub [010000]
+        sma
+        jmp gr_bad_arg
+        lac i gr_src
+        dac gr_word
+        idx gr_half
+        lac gr_word
+        sar 9s
+        and [0777]
+        jmp gr_text_char
+gr_text_right,dzm gr_half
+        idx gr_src
+        lac gr_word
+        and [0777]
+gr_text_char,sza i
+        jmp gr_emit_text
+        dac gr_char
+        jsp gr_append
+        jmp gr_text_next
+
+// jda glabel_number; handle; signed integer; decimal places (0..5).
+// Right-align. E.g. -125 with 2 places displays -1.25.
+glabel_number,0
+        dac gr_ret
+        jsp gr_arguments
+        lac i gr_ret
+        dac gr_places
+        idx gr_ret
+        jsp gr_label_idle
+        lac gr_places
+        spa
+        jmp gr_bad_arg
+        sub [5]
+        sma sza
+        jmp gr_bad_arg
+        dzm gr_count
+        dzm gr_started
+        law gr_chars
+        dac gr_dst
+        lac gr_arg
+        add [0]            // canonicalize negative zero
+        spa
+        jmp gr_minus
+        dac gr_value
+        jmp gr_number_start
+gr_minus,cma
+        dac gr_value
+        law 0d45
+        dac gr_char
+        jsp gr_append
+gr_number_start,law gr_divisors
+        dac gr_src
+        law 5
+        dac gr_position
+gr_digit,dzm gr_digitvalue
+gr_subtract,lac gr_value
+        sub i gr_src
+        spa
+        jmp gr_digit_done
+        dac gr_value
+        idx gr_digitvalue
+        jmp gr_subtract
+gr_digit_done,lac gr_started
+        ior gr_digitvalue
+        sza
+        jmp gr_digit_emit
+        lac gr_position
+        sub gr_places
+        sma sza
+        jmp gr_digit_next
+gr_digit_emit,law 1
+        dac gr_started
+        lac gr_digitvalue
+        add [0d48]
+        dac gr_char
+        jsp gr_append
+        lac gr_places
+        sza i
+        jmp gr_digit_next
+        sas gr_position
+        jmp gr_digit_next
+        law 0d46
+        dac gr_char
+        jsp gr_append
+gr_digit_next,idx gr_src
+        lac gr_position
+        sza i
+        jmp gr_emit_number
+        sub [1]
+        dac gr_position
+        jmp gr_digit
+gr_emit_number,lac gr_length
+        sub gr_count
+        dac gr_padding
+        jmp gr_emit
+gr_emit_text,dzm gr_padding
+gr_emit,lac gr_start
+        add [3]
+        dac gr_target
+        law gr_chars
+        dac gr_src
+gr_emit_next,law 0d32
+        dac gr_char
+        lac gr_padding
+        sza
+        jmp gr_leading_space
+        lac gr_count
+        sza
+        jmp gr_emit_char
+        jmp gr_emit_glyph
+gr_leading_space,sub [1]
+        dac gr_padding
+        jmp gr_emit_glyph
+gr_emit_char,lac i gr_src
+        dac gr_char
+        idx gr_src
+        lac gr_count
+        sub [1]
+        dac gr_count
+gr_emit_glyph,lac gr_char
+        sub [0d32]
+        spa
+        jmp gr_question
+        lac gr_char
+        sub [0d126]
+        sma sza
+        jmp gr_question
+        lac gr_char
+        jmp gr_map
+gr_question,law 0d63
+gr_map,sub [0d32]
+        sal 1s
+        add [gt_char_map]
+        dac gr_map_ptr
+        lac i gr_map_ptr
+        dac i gr_target
+        lac gr_target
+        add [5]
+        dac gr_target
+        lac gr_length
+        sub [1]
+        dac gr_length
+        sza
+        jmp gr_emit_next
+        jmp i gr_ret
+gr_label_idle,dap gr_label_ret
+        jsp gr_idle
+        jsp gr_read_handle
+        lac gr_length
+        sma
+        jmp gr_bad_arg
+        cma
+        dac gr_length
+        jmp i gr_label_ret
+gr_append,dap gr_append_ret
+        lac gr_count
+        sad gr_length
+        jmp gr_bad_arg
+        lac gr_char
+        dac i gr_dst
+        idx gr_dst
+        idx gr_count
+        jmp i gr_append_ret
+gr_label_ret,0
+gr_append_ret,0
+gr_left,0
+gr_dst,0
+gr_src,0
+gr_count,0
+gr_half,0
+gr_word,0
+gr_char,0
+gr_places,0
+gr_value,0
+gr_started,0
+gr_position,0
+gr_digitvalue,0
+gr_padding,0
+gr_target,0
+gr_map_ptr,0
+gr_divisors,0d100000; 0d10000; 0d1000; 0d100; 0d10; 1
+gr_packed,
+        table 0d17,0
+gr_chars,
+        table 0d32,0

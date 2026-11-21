@@ -1,0 +1,177 @@
+P1GL transform demo -- orbit-style arrow rotating, scaling and translating
+#define P1GL_RETAINED
+100/
+go,     lem
+        lsm
+        cbs
+#ifndef DEMO_CPU_TEST
+        lac [2000]
+        iot 2032
+#endif
+        jda gview_set
+        0d256; 0d256; 0d768; 0d768
+        jda gframe_begin
+        scene; 0d400
+        jda gtext
+        0d248; 0d850; 2; title
+        jda gline
+        0d256; 0d256; 0d768; 0d256
+        jda gline
+        0d768; 0d256; 0d768; 0d768
+        jda gline
+        0d768; 0d768; 0d256; 0d768
+        jda gline
+        0d256; 0d768; 0d256; 0d256
+        jda ggroup_define
+        arrow; 0d80
+        jsp ggroup_end
+        jsp gframe_end
+        sza
+        hlt
+frame,
+#ifndef DEMO_CPU_TEST
+        iot 32
+        dio started
+#endif
+        lac angle
+        sub [0d128]
+        sma
+        jmp reverse
+        lac angle
+        jmp set_pose
+reverse,lac [0d256]
+        sub angle
+set_pose,dac phase
+        sal 1s
+        add phase
+        dac translation
+        lac phase
+        sar 1s
+        add translation
+        add [0d320]
+        dac origin_x
+        lac phase
+        sal 2s
+        add [0d512]
+        dac zoom_x
+        dac zoom_y
+        jda gtransform_set
+origin_x,0
+        0d512
+angle,0
+zoom_x,0
+zoom_y,0
+        sza
+        hlt
+        jda ggroup_replace
+        arrow; scratch
+        sza
+        hlt
+        // Transform the shared vertices once before drawing the outline.
+        jda gtransform_point
+        -0d60; 0d22
+        lac gtransform_x
+        dac ax
+        dac ax2
+        lac gtransform_y
+        dac ay
+        dac ay2
+        jda gtransform_point
+        0d60; 0
+        lac gtransform_x
+        dac bx
+        dac bx2
+        dac bx3
+        lac gtransform_y
+        dac by
+        dac by2
+        dac by3
+        jda gtransform_point
+        -0d60; -0d22
+        lac gtransform_x
+        dac cx
+        dac cx2
+        lac gtransform_y
+        dac cy
+        dac cy2
+        jda gtransform_point
+        -0d27; 0
+        lac gtransform_x
+        dac dx
+        dac dx2
+        dac dx3
+        lac gtransform_y
+        dac dy
+        dac dy2
+        dac dy3
+        jda gline_clip
+ax,0
+ay,0
+bx,0
+by,0
+        jda gline_clip
+bx2,0
+by2,0
+cx,0
+cy,0
+        jda gline_clip
+cx2,0
+cy2,0
+dx,0
+dy,0
+        jda gline_clip
+dx2,0
+dy2,0
+ax2,0
+ay2,0
+        jda gline_clip
+dx3,0
+dy3,0
+bx3,0
+by3,0
+        jsp ggroup_end
+        sza
+        hlt
+        jsp gframe_refresh
+        sza
+        hlt
+#ifndef DEMO_CPU_TEST
+wait_frame,iot 32
+        dio now
+        lac now
+        sub started
+        spa
+        add [0d60000]
+        sub [0d25]
+        spa
+        jmp wait_frame
+#endif
+        idx angle
+        lac angle
+        and [0377]
+        dac angle
+#ifdef DEMO_CPU_TEST
+        sza i
+        hlt
+#endif
+        jmp frame
+phase,0
+translation,0
+started,0
+now,0
+title,ascii "SCALE ROTATE TRANSLATE"
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
+#include "../src/gretained.am1"
+#include "../src/gview.am1"
+#include "../src/gtransform.am1"
+constants
+arrow,0; 0; 0
+scratch,
+        table 0d80,0
+scene,
+        table 0d400,0
+assert . < 07751, "transform demo exceeds field 0"
+start go

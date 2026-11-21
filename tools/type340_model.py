@@ -24,6 +24,9 @@ def decode(words):
             if w&0o100:scale=1<<((w>>4)&3)
             mode=(w>>13)&7
             if mode==3:shift=0
+        elif mode==7 and w >> 16 == 2:
+            # The runner has already followed this jump in scan order.
+            mode=(w>>13)&7
         elif mode==1:
             if w&0o200000:y=w&1023
             else:x=w&1023

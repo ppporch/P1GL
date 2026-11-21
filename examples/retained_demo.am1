@@ -1,0 +1,73 @@
+P1GL retained groups and updatable text
+#define P1GL_RETAINED
+100/
+go,     lem
+        lsm
+        cbs
+        jda gframe_begin
+        scene; 0d400
+        jda gtext
+        0d300; 0d820; 2; title
+        jda glabel_define
+        reading; 0d10; 0d440; 0d330; 2
+        jda ggroup_define
+        marker; 0d24
+        jda gline
+        0d410; 0d550; 0d440; 0d580
+        jsp ggroup_end
+        jsp gframe_end
+        sza i
+        jmp animate
+        hlt
+animate,jda glabel_number
+        reading
+value,  0
+        2
+        jda ggroup_replace
+        marker; scratch
+        jda gline
+mark_x, 0d410
+        0d550
+mark_end, 0d440
+        0d580
+        jsp ggroup_end
+        sza i
+        jmp replay
+        hlt
+replay, jsp gframe_refresh
+        sza i
+        jmp tick
+        hlt
+tick,   lac value
+        add [0d5]
+        dac value
+        lac mark_end
+        add [2]
+        dac mark_end
+        lac mark_x
+        add [2]
+        dac mark_x
+        sub [0d610]
+        spa
+        jmp animate
+        lac [0d410]
+        dac mark_x
+        lac [0d440]
+        dac mark_end
+        dzm value
+        jmp animate
+title,  ascii "RETAINED DRAWING"
+marker, 0; 0; 0
+reading,0; 0; 0
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
+#include "../src/gretained.am1"
+constants
+scratch,
+        table 0d24,0
+scene,
+        table 0d400,0
+assert . < 07751, "retained demo exceeds field 0"
+start go

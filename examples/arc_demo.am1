@@ -1,0 +1,60 @@
+P1GL vector curves -- circle, ellipse and two clipped arcs
+100/
+go,     lem
+        lsm
+        cbs
+        jda gview_set
+        0d88; 0d230; 0d936; 0d750
+        jda gframe_begin
+        scene; 0d950
+        jda gtext
+        0d318; 0d850; 2; title
+        jda gtext
+        0d146; 0d156; 1; circles
+        jda gtext
+        0d440; 0d156; 1; ellipses
+        jda gtext
+        0d770; 0d156; 1; arcs
+        jda gline
+        0d88; 0d230; 0d936; 0d230
+        jda gline
+        0d936; 0d230; 0d936; 0d750
+        jda gline
+        0d936; 0d750; 0d88; 0d750
+        jda gline
+        0d88; 0d750; 0d88; 0d230
+        jda gcircle_vector
+        0d193; 0d500; 0d80; 0d8
+        jda gellipse_vector
+        0d513; 0d500; 0d141; 0d83; 0d8
+        jda garc
+        0d874; 0d500; 0d118; 0d170; 0d232; -0d208; 0d8
+        jda garc
+        0d874; 0d500; 0d79; 0d112; 0d232; -0d208; 0d16
+        jsp gframe_end
+        sza
+        hlt
+refresh,jsp gframe_refresh
+        sza
+        hlt
+#ifndef DEMO_CPU_TEST
+        jmp refresh
+#else
+        hlt
+#endif
+title,ascii "VECTOR CURVES"
+circles,ascii "CIRCLE"
+ellipses,ascii "ELLIPSE"
+arcs,ascii "ARCS"
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gtext.am1"
+#include "../src/gframe.am1"
+#include "../src/gview.am1"
+#include "../src/gtransform.am1"
+#include "../src/garc.am1"
+constants
+scene,
+        table 0d950,0
+assert . < 07751, "arc demo exceeds field 0"
+start go

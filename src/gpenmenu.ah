@@ -1,0 +1,28 @@
+// Include after declaring PM_BAR and before gframe.am1.
+// The application places Bill's menu code and the adapter's display list.
+#ifndef P1GL_PENMENU_AH
+#define P1GL_PENMENU_AH
+#include <memory.ah>
+#include <TYPE340/type340alt.ah>
+
+#ifndef P1GL_PEN_LIST_BANK
+#define P1GL_PEN_LIST_BANK 1
+#endif
+#ifndef P1GL_PEN_CODE_BANK
+#define P1GL_PEN_CODE_BANK 2
+#endif
+#if P1GL_PEN_LIST_BANK < 0 || P1GL_PEN_LIST_BANK > 1
+#error "PENMENU display lists require field 0 or 1"
+#endif
+#if P1GL_PEN_CODE_BANK < 1 || P1GL_PEN_CODE_BANK > 15
+#error "Choose an extended field for PENMENU CPU code"
+#endif
+#if defined(PM_RETURN) || defined(P1GL_DISPLAY_ENTRY) || defined(P1GL_POLL_HOOK) || defined(P1GL_START_HOOK)
+#error "P1GL PENMENU adapter owns the menu return and display hooks"
+#endif
+#define PM_RETURN gpen_resume:P1GL_PEN_LIST_BANK
+#define P1GL_DISPLAY_ENTRY pmBar:P1GL_PEN_LIST_BANK
+#define P1GL_START_HOOK jsp gpen_prepare
+#define P1GL_POLL_HOOK jsp gpen_poll
+#include <PENMENU/penmenu.ah>
+#endif

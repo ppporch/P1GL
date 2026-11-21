@@ -1,0 +1,263 @@
+// Scale along local axes, rotate counterclockwise, then translate.
+// Q10 coefficients, 256 angles per turn, Type 10 multiply/divide.
+// Ordinary same-field addressing and non-reentrant scratch.
+#define GTF_READ(dest) lac i gtf_return; add [0]; dac dest; idx gtf_return
+#define GTF_RANGE(value,limit) lac value; spa; cma; sub [limit]; sma sza; jmp gtf_bad
+#define GTF_COEFF(trig,scale,out) lac scale; dac gtf_operand; lac trig; jda gtf_product; jda gtf_round; dac out
+
+// jda gtransform_set; tx; ty; angle; sx; sy. AC=0 or argument error 1.
+gtransform_set,0
+        dac gtf_return
+        GTF_READ(gtf_new_tx)
+        GTF_READ(gtf_new_ty)
+        GTF_READ(gtf_angle)
+        GTF_READ(gtf_sx)
+        GTF_READ(gtf_sy)
+        GTF_RANGE(gtf_new_tx,0d1023)
+        GTF_RANGE(gtf_new_ty,0d1023)
+        GTF_RANGE(gtf_sx,0d4096)
+        GTF_RANGE(gtf_sy,0d4096)
+        lac gtf_angle
+        spa
+        jmp gtf_bad
+        sub [0d255]
+        sma sza
+        jmp gtf_bad
+
+        lac gtf_angle
+        add [gtf_sine]
+        dac gtf_ptr
+        lac i gtf_ptr
+        dac gtf_sin
+        lac gtf_angle
+        add [0d64]
+        and [0377]
+        add [gtf_sine]
+        dac gtf_ptr
+        lac i gtf_ptr
+        dac gtf_cos
+        GTF_COEFF(gtf_cos,gtf_sx,gtf_xx)
+        GTF_COEFF(gtf_sin,gtf_sx,gtf_yx)
+        lac gtf_sin
+        cma
+        add [0]
+        dac gtf_sin
+        GTF_COEFF(gtf_sin,gtf_sy,gtf_xy)
+        GTF_COEFF(gtf_cos,gtf_sy,gtf_yy)
+        lac gtf_new_tx
+        dac gtf_tx
+        lac gtf_new_ty
+        dac gtf_ty
+        cla
+        jmp i gtf_return
+
+// jda gtransform_point; x; y. AC=0 on success, result in gtransform_x/y.
+// Inputs are signed integers in -1023..1023. Invalid input preserves results.
+gtransform_point,0
+        dac gtf_return
+        GTF_READ(gtf_local_x)
+        GTF_READ(gtf_local_y)
+        GTF_RANGE(gtf_local_x,0d1023)
+        GTF_RANGE(gtf_local_y,0d1023)
+        lac gtf_xx
+        dac gtf_a
+        lac gtf_xy
+        dac gtf_b
+        jsp gtf_dot
+        add gtf_tx
+        dac gtransform_x
+        lac gtf_yx
+        dac gtf_a
+        lac gtf_yy
+        dac gtf_b
+        jsp gtf_dot
+        add gtf_ty
+        dac gtransform_y
+        cla
+        jmp i gtf_return
+gtf_bad,law 1
+        jmp i gtf_return
+
+// jda gline_transform; x0; y0; x1; y1. Transform and clip before drawing.
+gline_transform,0
+        dac gtf_line_ret
+        lac i gtf_line_ret
+        dac gtf_line_x0
+        idx gtf_line_ret
+        lac i gtf_line_ret
+        dac gtf_line_y0
+        idx gtf_line_ret
+        lac i gtf_line_ret
+        dac gtf_line_x1
+        idx gtf_line_ret
+        lac i gtf_line_ret
+        dac gtf_line_y1
+        idx gtf_line_ret
+        jda gtransform_point
+gtf_line_x0,0
+gtf_line_y0,0
+        sza
+        jmp gtf_line_bad
+        lac gtransform_x
+        dac gtf_draw_x0
+        lac gtransform_y
+        dac gtf_draw_y0
+        jda gtransform_point
+gtf_line_x1,0
+gtf_line_y1,0
+        sza
+        jmp gtf_line_bad
+        lac gtransform_x
+        dac gtf_draw_x1
+        lac gtransform_y
+        dac gtf_draw_y1
+        jda gline_clip
+gtf_draw_x0,0
+gtf_draw_y0,0
+gtf_draw_x1,0
+gtf_draw_y1,0
+        jmp i gtf_line_ret
+gtf_line_bad,law 1
+        dac gf_fault
+        jmp i gtf_line_ret
+
+// Keep both products' fractional parts until the dot product is complete.
+gtf_dot,dap gtf_dot_ret
+        lac gtf_a
+        dac gtf_operand
+        lac gtf_local_x
+        jda gtf_product
+        dac gtf_whole_a
+        lac gtf_rem
+        dac gtf_rem_a
+        lac gtf_b
+        dac gtf_operand
+        lac gtf_local_y
+        jda gtf_product
+        add gtf_whole_a
+        dac gtf_total
+        lac gtf_rem
+        add gtf_rem_a
+        dac gtf_rem
+        lac gtf_total
+        jda gtf_round
+        jmp i gtf_dot_ret
+
+// Signed product -> whole part in AC and signed remainder in gtf_rem.
+// MUL's low magnitude limb is shifted left one in IO.
+gtf_product,0
+        dap gtf_product_ret
+        lac gtf_product
+        mul gtf_operand
+        dac gtf_high
+        dio gtf_low
+        dzm gtf_sign
+        lac gtf_high
+        spa
+        jmp gtf_magnitude
+        jmp gtf_extract
+gtf_magnitude,cma
+        dac gtf_high
+        lac gtf_low
+        cma
+        dac gtf_low
+        idx gtf_sign
+gtf_extract,lac gtf_low
+        and [03776]
+        sar 1s
+        dac gtf_rem
+        lac gtf_low
+        rar 9s
+        rar 2s
+        and [0177]
+        dac gtf_fraction
+        lac gtf_high
+        sal 7s
+        ior gtf_fraction
+        dac gtf_whole
+        lac gtf_sign
+        sza
+        jmp gtf_negate
+        lac gtf_whole
+        jmp i gtf_product_ret
+gtf_negate,lac gtf_rem
+        cma
+        add [0]
+        dac gtf_rem
+        lac gtf_whole
+        cma
+        add [0]
+        jmp i gtf_product_ret
+
+// Round ties toward positive coordinates. The summed remainder can extend
+// past one unit in either direction, so normalize until it is in [-512,511].
+gtf_round,0
+        dap gtf_round_ret
+        lac gtf_round
+        dac gtf_rounded
+gtf_round_up,lac gtf_rem
+        sub [0d512]
+        add [0]
+        spa
+        jmp gtf_round_down
+        lac gtf_rem
+        sub [0d1024]
+        dac gtf_rem
+        idx gtf_rounded
+        jmp gtf_round_up
+gtf_round_down,lac gtf_rem
+        add [0d512]
+        add [0]
+        sma
+        jmp gtf_round_done
+        lac gtf_rem
+        add [0d1024]
+        dac gtf_rem
+        lac gtf_rounded
+        sub [1]
+        dac gtf_rounded
+        jmp gtf_round_down
+gtf_round_done,lac gtf_rounded
+        add [0]
+        jmp i gtf_round_ret
+
+gtransform_x,0
+gtransform_y,0
+gtf_tx,0
+gtf_ty,0
+gtf_xx,0d1024
+gtf_xy,0
+gtf_yx,0
+gtf_yy,0d1024
+gtf_return,0
+gtf_line_ret,0
+gtf_dot_ret,0
+gtf_product_ret,0
+gtf_round_ret,0
+gtf_new_tx,0
+gtf_new_ty,0
+gtf_angle,0
+gtf_sx,0
+gtf_sy,0
+gtf_sin,0
+gtf_cos,0
+gtf_ptr,0
+gtf_local_x,0
+gtf_local_y,0
+gtf_operand,0
+gtf_a,0
+gtf_b,0
+gtf_high,0
+gtf_low,0
+gtf_sign,0
+gtf_fraction,0
+gtf_whole,0
+gtf_rem,0
+gtf_whole_a,0
+gtf_rem_a,0
+gtf_total,0
+gtf_rounded,0
+#include "../generated/transform-sine.ac"
+#undef GTF_READ
+#undef GTF_RANGE
+#undef GTF_COEFF

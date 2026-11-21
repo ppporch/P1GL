@@ -1,0 +1,4 @@
+// Place in the field declared by P1GL_PEN_LIST_BANK.
+#include <PENMENU/penmenulist.ac>
+gpen_resume, lpoff next(subroutine)
+gpen_jump,   jump 0 next(parameter)

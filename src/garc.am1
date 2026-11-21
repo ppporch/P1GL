@@ -1,0 +1,184 @@
+// Connected vector chords for circles, ellipses and arcs.
+// Uses G_FRAME, G_VIEWPORT and G_TRANSFORM's Q10 sine/product helpers.
+// Calls preserve the current viewport and transform.
+#define GAR_READ(dest) lac i gar_return; add [0]; dac dest; idx gar_return
+#define GAR_NONNEG(value,limit) lac value; spa; jmp gar_bad; sub [limit]; sma sza; jmp gar_bad
+#define GAR_PRODUCT(value) lac value; dac gtf_operand; lac i gar_trig; jda gtf_product; jda gtf_round
+
+// jda gcircle_vector; cx; cy; radius; step
+gcircle_vector,0
+        dac gar_return
+        GAR_READ(gar_cx)
+        GAR_READ(gar_cy)
+        GAR_READ(gar_rx)
+        lac gar_rx
+        dac gar_ry
+        jmp gar_full
+
+// jda gellipse_vector; cx; cy; rx; ry; step
+gellipse_vector,0
+        dac gar_return
+        GAR_READ(gar_cx)
+        GAR_READ(gar_cy)
+        GAR_READ(gar_rx)
+        GAR_READ(gar_ry)
+gar_full,dzm gar_angle
+        lac [0d256]
+        dac gar_sweep
+        jmp gar_read_step
+
+// jda garc; cx; cy; rx; ry; start; sweep; step
+garc,0
+        dac gar_return
+        GAR_READ(gar_cx)
+        GAR_READ(gar_cy)
+        GAR_READ(gar_rx)
+        GAR_READ(gar_ry)
+        GAR_READ(gar_angle)
+        GAR_READ(gar_sweep)
+gar_read_step,
+        GAR_READ(gar_step)
+        lac gf_fault
+        sza
+        jmp i gar_return
+        lac gar_cx
+        spa
+        cma
+        sub [0d1023]
+        sma sza
+        jmp gar_bad
+        lac gar_cy
+        spa
+        cma
+        sub [0d1023]
+        sma sza
+        jmp gar_bad
+        GAR_NONNEG(gar_rx,0d1023)
+        GAR_NONNEG(gar_ry,0d1023)
+        GAR_NONNEG(gar_angle,0d255)
+        GAR_NONNEG(gar_step,0d64)
+        lac gar_step
+        sza i
+        jmp gar_bad
+        dzm gar_clockwise
+        lac gar_sweep
+        spa
+        jmp gar_negative
+        jmp gar_check_sweep
+gar_negative,
+        idx gar_clockwise
+        lac gar_sweep
+        cma
+gar_check_sweep,dac gar_remaining
+        sub [0d256]
+        sma sza
+        jmp gar_bad
+
+        jsp gf_enter
+        dzm gar_has_chord
+        jsp gar_vertex
+gar_next,lac gar_remaining
+        sza i
+        jmp gar_finish
+        sub gar_step
+        sma
+        jmp gar_full_step
+        lac gar_remaining
+        jmp gar_take
+gar_full_step,lac gar_step
+gar_take,dac gar_delta
+        lac gar_remaining
+        sub gar_delta
+        add [0]
+        dac gar_remaining
+        lac gar_x1
+        dac gar_x0
+        lac gar_y1
+        dac gar_y0
+        lac gar_clockwise
+        sza
+        jmp gar_backward
+        lac gar_angle
+        add gar_delta
+        jmp gar_wrap
+gar_backward,lac gar_angle
+        sub gar_delta
+        add [0]
+        spa
+        add [0d256]
+gar_wrap,and [0377]
+        dac gar_angle
+        jsp gar_vertex
+        lac gar_x0
+        sas gar_x1
+        jmp gar_draw
+        lac gar_y0
+        sas gar_y1
+        jmp gar_draw
+        jmp gar_next
+gar_draw,law 1
+        dac gar_has_chord
+        jda gline_clip
+gar_x0,0
+gar_y0,0
+gar_x1,0
+gar_y1,0
+        sza
+        jmp gar_leave
+        jmp gar_next
+gar_finish,lac gar_has_chord
+        sza
+        jmp gar_leave
+        // A zero sweep or an entirely collapsed arc is a single point.
+        lac gar_x1
+        dac gar_point_x0
+        dac gar_point_x1
+        lac gar_y1
+        dac gar_point_y0
+        dac gar_point_y1
+        jda gline_clip
+gar_point_x0,0
+gar_point_y0,0
+gar_point_x1,0
+gar_point_y1,0
+gar_leave,jsp gf_leave
+        lac gf_fault
+        jmp i gar_return
+gar_bad,law 1
+        dac gf_fault
+        jmp i gar_return
+
+gar_vertex,dap gar_vertex_ret
+        lac gar_angle
+        add [0d64]
+        and [0377]
+        add [gtf_sine]
+        dac gar_trig
+        GAR_PRODUCT(gar_rx)
+        add gar_cx
+        dac gar_x1
+        lac gar_angle
+        add [gtf_sine]
+        dac gar_trig
+        GAR_PRODUCT(gar_ry)
+        add gar_cy
+        dac gar_y1
+        jmp i gar_vertex_ret
+
+gar_return,0
+gar_vertex_ret,0
+gar_cx,0
+gar_cy,0
+gar_rx,0
+gar_ry,0
+gar_angle,0
+gar_sweep,0
+gar_step,0
+gar_remaining,0
+gar_clockwise,0
+gar_delta,0
+gar_trig,0
+gar_has_chord,0
+#undef GAR_READ
+#undef GAR_NONNEG
+#undef GAR_PRODUCT

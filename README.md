@@ -119,6 +119,27 @@ A sticky fault suppresses replay of an invalid frame; a new begin clears it.
 Immediate primitives use a separate small scratch list and stream safe chunks,
 leaving a completed retained scene intact. Lists are not modified while active.
 
+The optional [retained groups and labels API](docs/G_RETAINED.md) lets a
+program replace a bounded drawing group or update a fixed-width label between
+refreshes. Labels support text and signed numbers with decimal places.
+Build `build/retained_demo.rim` to try a moving marker and numeric readout.
+
+The optional [viewport API](docs/G_VIEWPORT.md) clips signed line endpoints
+to an inclusive rectangular drawing area. The viewport demo moves a diamond
+across all four edges of a retained border.
+
+The optional [transform API](docs/G_TRANSFORM.md) scales, rotates and
+translates application coordinates. It can draw transformed lines through the
+active viewport. The transform demo animates an arrow inside a fixed border.
+
+The optional [vector curves API](docs/G_ARCS.md) draws circles, ellipses and
+arcs as connected native vectors, with adjustable angular steps and viewport
+clipping. The arc demo shows all three shapes.
+
+The optional [PENMENU adapter](docs/G_PENMENU.md) connects Bill's light-pen
+menu library to retained and immediate drawing. Its demo lets the viewer's
+left mouse button select a circle, ellipse or arc.
+
 P1GL uses explicit Type 340 IOT numbers to avoid the shared drum instruction
 names. Applications using named IOTs with the Type 23 drum should include Bill's
 `TYPE340/type340alt.ah` and use the prefixed names.

@@ -66,6 +66,27 @@ gl_start,
         jda gplot
 gl_plotx, 0
 gl_ploty, 0
+        // A short line is already one hardware vector. Preserve the existing
+        // point/segment command sequence without walking every pixel on CPU.
+        lac gl_dx
+        add gl_dy
+        sza i
+        jmp gl_loop
+        lac gl_dx
+        sub [0d127]
+        sma sza
+        jmp gl_loop
+        lac gl_dy
+        sub [0d127]
+        sma sza
+        jmp gl_loop
+        lac gl_xend
+        dac gl_x
+        lac gl_yend
+        dac gl_y
+        jsp gl_emit
+        jsp gf_leave
+        jmp i gl_ret
 gl_loop,
         lac gl_x
         sas gl_xend

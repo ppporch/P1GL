@@ -155,7 +155,7 @@ helpers are not general installers; use the documented loader commands above.
 
 ## License and credits
 
-GPL-3.0; see LICENSE. Phillip Porch directs the project, suggests features and
+MIT; see LICENSE. Phillip Porch directs the project, suggests features and
 performs hardware/visual tests; ChatGPT/Codex writes and tests the implementation.
 Bill Ezell's repository supplies AM1, the emulator, device support and integration
 examples. SignalAnalysis supplied the RIM decoder and isolated CPU-test harness.

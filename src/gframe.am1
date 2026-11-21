@@ -189,9 +189,16 @@ gf_flush_ret, jmp .
 
 gf_run,
         dap gf_run_ret
+#ifdef P1GL_DISPLAY_ENTRY
+        lio [P1GL_DISPLAY_ENTRY]
+#else
         lio gf_run_address
+#endif
         iot 015            // DLA: start the native display processor
 gf_wait,
+#ifdef P1GL_POLL_HOOK
+        P1GL_POLL_HOOK
+#endif
         iot 0217           // DSS: stopped?
         jmp gf_wait
         iot 0417           // DSV: vertical edge error?

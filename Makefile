@@ -2,7 +2,7 @@ AM1 ?= am1
 PDP1_ROOT ?= /opt/pidp1-mods
 CC ?= cc
 LIBS := $(wildcard src/*.am1 src/*.ah src/*.ac)
-DEMOS := frame_demo line_demo circle_demo gplot_demo vector_text_demo retained_demo viewport_demo transform_demo arc_demo
+DEMOS := frame_demo line_demo circle_demo gplot_demo vector_text_demo retained_demo viewport_demo transform_demo arc_demo path_demo
 
 .PHONY: all test test-host test-type340
 all: $(addprefix build/,$(addsuffix .rim,$(DEMOS))) build/calibrate.rim
@@ -81,3 +81,8 @@ test: test-penmenu
 endif
 test-penmenu: build/type340_runner generated/transform-sine.ac
 	AM1="$(AM1)" python3 tools/check_penmenu.py
+
+.PHONY: test-paths
+test: test-paths
+test-paths: build/type340_runner
+	AM1="$(AM1)" python3 tools/check_paths.py

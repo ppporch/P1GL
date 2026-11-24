@@ -1,0 +1,413 @@
+// Clipped paths using G_VIEW and G_FRAME. All arguments and tables are in
+// the current field with EEM off. Clobbers AC/IO; writable and non-reentrant.
+#include "type340.ah"
+#define GPATH_READ(dest) lac i gpath_return; add [0]; dac dest; idx gpath_return
+#define GPATH_NEXT(dest) lac i gpath_ptr; add [0]; dac dest; idx gpath_ptr
+#define GPATH_SIGNED(value) lac value; spa; cma; sub [0d8191]; sma sza; jmp gpath_bad
+
+// jda gpolyline; vertices; count; closed (0 or 1).
+gpolyline,0
+        dac gpath_return
+        GPATH_READ(gpath_ptr)
+        GPATH_READ(gpath_left)
+        GPATH_READ(gpath_close)
+        lac gpath_close
+        sza
+        sad [1]
+        jmp gpath_poly
+        jmp gpath_bad
+gpath_poly,
+        dzm gpath_stride
+        dzm gpath_trace
+        lac gpath_left
+        sal 1s
+        jmp gpath_validate
+
+// jda gtrace; samples; count; start_x; step_x.
+gtrace,0
+        dac gpath_return
+        GPATH_READ(gpath_ptr)
+        GPATH_READ(gpath_left)
+        GPATH_READ(gpath_next_x)
+        GPATH_READ(gpath_stride)
+        dzm gpath_close
+        law 1
+        dac gpath_trace
+        GPATH_SIGNED(gpath_next_x)
+        GPATH_SIGNED(gpath_stride)
+        lac gpath_next_x
+        dac gpath_cursor
+        lac gpath_left
+gpath_validate,
+        dac gpath_words
+        lac gf_fault
+        sza
+        jmp i gpath_return
+        lac gpath_ptr
+        and [007777]
+        sas gpath_ptr
+        jmp gpath_bad
+        lac gpath_left
+        sza i
+        jmp i gpath_return
+        spa
+        jmp gpath_bad
+        sub [010000]
+        sma sza
+        jmp gpath_bad
+        lac gpath_words
+        add gpath_ptr
+        sub [010000]
+        sma sza
+        jmp gpath_bad
+        jsp gf_enter
+        dzm gpath_count
+        jsp gpath_next
+        lac gpath_next_x
+        dac gpath_first_x
+        dac gpath_prev_x
+        lac gpath_next_y
+        dac gpath_first_y
+        dac gpath_prev_y
+        lac gpath_left
+        sas [1]
+        jmp gpath_loop
+        jsp gpath_edge
+        jmp gpath_done
+
+gpath_loop,
+        jsp gpath_next
+        jsp gpath_edge
+        lac gf_fault
+        sza
+        jmp gpath_done
+        lac gpath_next_x
+        dac gpath_prev_x
+        lac gpath_next_y
+        dac gpath_prev_y
+        lac gpath_left
+        sub [1]
+        dac gpath_left
+        sad [1]
+        jmp gpath_finish
+        jmp gpath_loop
+gpath_finish,
+        lac gpath_close
+        sza i
+        jmp gpath_done
+        lac gpath_first_x
+        dac gpath_next_x
+        lac gpath_first_y
+        dac gpath_next_y
+        jsp gpath_edge
+gpath_done,
+        jsp gpath_flush
+        jsp gf_leave
+        lac gf_fault
+        jmp i gpath_return
+gpath_bad,
+        lac gf_fault
+        sza
+        jmp i gpath_return
+        law 1
+        dac gf_fault
+        jmp i gpath_return
+
+gpath_next,dap gpath_next_return
+        lac gpath_trace
+        sza
+        jmp gpath_sample
+        GPATH_NEXT(gpath_next_x)
+        jmp gpath_read_y
+gpath_sample,
+        lac gpath_cursor
+        dac gpath_next_x
+        add gpath_stride
+        dac gpath_cursor
+gpath_read_y,
+        GPATH_NEXT(gpath_next_y)
+gpath_next_return,jmp .
+
+gpath_edge,dap gpath_edge_return
+        lac gpath_prev_x
+        dac gvc_x0
+        lac gpath_prev_y
+        dac gvc_y0
+        lac gpath_next_x
+        dac gvc_x1
+        lac gpath_next_y
+        dac gvc_y1
+        jsp gvc_clip
+        sza i
+        jmp gpath_break
+        lac gvc_draw_x1
+        sub gvc_draw_x0
+        add [0]
+        dac p1gl_vdx
+        lac gvc_draw_y1
+        sub gvc_draw_y0
+        add [0]
+        dac p1gl_vdy
+        lac gpath_count
+        sza i
+        jmp gpath_start_run
+        sub [0d16]          // leave room for the worst case of sixteen words
+        sma sza
+        jmp gpath_check_space
+        jmp gpath_check_join
+gpath_check_space,
+        // Near the batch limit, a short vector still fits in one word.
+        lac gpath_count
+        sad [0d32]
+        jmp gpath_restart_run
+        lac p1gl_vdx
+        spa
+        cma
+        sub [0d127]
+        sma sza
+        jmp gpath_restart_run
+        lac p1gl_vdy
+        spa
+        cma
+        sub [0d127]
+        sma sza
+        jmp gpath_restart_run
+gpath_check_join,
+        lac gvc_draw_x0
+        sas gpath_end_x
+        jmp gpath_restart_run
+        lac gvc_draw_y0
+        sas gpath_end_y
+        jmp gpath_restart_run
+        jmp gpath_vector
+gpath_restart_run,
+        jsp gpath_flush
+gpath_start_run,
+        lac p1gl_vdx
+        ior p1gl_vdy
+        sza i
+        jmp gpath_point
+        lac gvc_draw_x0
+        dac gpath_run_x
+        lac gvc_draw_y0
+        dac gpath_run_y
+        law gpath_buffer
+        dac gpath_buffer_end
+gpath_vector,
+        lac p1gl_vdx
+        ior p1gl_vdy
+        sza i
+        jmp gpath_edge_return
+        dzm p1gl_vtail
+        jsp p1gl_vector
+        lac gvc_draw_x1
+        dac gpath_end_x
+        lac gvc_draw_y1
+        dac gpath_end_y
+gpath_edge_return,jmp .
+gpath_point,
+        lac gvc_draw_x0
+        dac gpath_point_x
+        lac gvc_draw_y0
+        dac gpath_point_y
+        jda gplot
+gpath_point_x,0
+gpath_point_y,0
+        jmp gpath_edge_return
+gpath_break,
+        jsp gpath_flush
+        jmp gpath_edge_return
+
+// Each completed batch returns to POINT, including across immediate flushes.
+gpath_flush,dap gpath_flush_return
+        lac gpath_count
+        sza i
+        jmp gpath_flush_return
+        add [3]
+        dac gf_need
+        jsp gf_reserve
+        lac gf_fault
+        sza
+        jmp gpath_clear
+        lac gpath_buffer_end
+        sub [1]
+        dac gpath_copy
+        lac i gpath_copy
+        ior [T_END]
+        dac i gpath_copy
+        lac gpath_run_y
+        ior [T_Y | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gpath_run_x
+        ior [T_VECTOR]
+        dac i gf_write
+        idx gf_write
+        law gpath_buffer
+        dac gpath_copy
+gpath_copy_loop,
+        lac i gpath_copy
+        dac i gf_write
+        idx gf_write
+        idx gpath_copy
+        sas gpath_buffer_end
+        jmp gpath_copy_loop
+        lac [T_PARAMETER | T_POINT]
+        dac i gf_write
+        idx gf_write
+        lac gf_recording
+        sza i
+        jmp gpath_clear
+        lac gf_vectors
+        add gpath_count
+        dac gf_vectors
+gpath_clear,
+        dzm gpath_count
+gpath_flush_return,jmp .
+
+#define P1GL_VECTOR_EMIT dac i gpath_buffer_end; idx gpath_buffer_end; idx gpath_count
+#include "vector_sink.ac"
+#undef P1GL_VECTOR_EMIT
+
+gpath_return,0
+gpath_ptr,0
+gpath_left,0
+gpath_close,0
+gpath_trace,0
+gpath_stride,0
+gpath_cursor,0
+gpath_words,0
+gpath_prev_x,0
+gpath_prev_y,0
+gpath_next_x,0
+gpath_next_y,0
+gpath_first_x,0
+gpath_first_y,0
+gpath_run_x,0
+gpath_run_y,0
+gpath_end_x,0
+gpath_end_y,0
+gpath_count,0
+gpath_copy,0
+gpath_buffer_end,0
+gpath_buffer,
+        table 0d32,0
+#undef GPATH_READ
+#undef GPATH_NEXT
+#undef GPATH_SIGNED
+
+// jda gmarker; x; y; radius; shape (0 plus, 1 X, 2 diamond).
+#define GM_READ(dest) lac i gm_return; add [0]; dac dest; idx gm_return
+#define GM_LIMIT(value) lac value; spa; cma; sub [0d8191]; sma sza; jmp gm_bad
+#define GM_SET(slot,value) lac value; dac gm_vertices+slot
+gmarker,0
+        dac gm_return
+        GM_READ(gm_x)
+        GM_READ(gm_y)
+        GM_READ(gm_radius)
+        GM_READ(gm_shape)
+        lac gf_fault
+        sza
+        jmp i gm_return
+        GM_LIMIT(gm_x)
+        GM_LIMIT(gm_y)
+        lac gm_radius
+        spa
+        jmp gm_bad
+        sub [0d1023]
+        sma sza
+        jmp gm_bad
+        lac gm_shape
+        and [3]
+        sas gm_shape
+        jmp gm_bad
+        sad [3]
+        jmp gm_bad
+        lac gm_x
+        sub gm_radius
+        add [0]
+        dac gm_left
+        lac gm_x
+        add gm_radius
+        dac gm_right
+        lac gm_y
+        sub gm_radius
+        add [0]
+        dac gm_bottom
+        lac gm_y
+        add gm_radius
+        dac gm_top
+        GM_LIMIT(gm_left)
+        GM_LIMIT(gm_right)
+        GM_LIMIT(gm_bottom)
+        GM_LIMIT(gm_top)
+        lac gm_radius
+        sza i
+        jmp gm_dot
+        lac gm_shape
+        sad [2]
+        jmp gm_diamond
+        sza
+        jmp gm_cross
+        GM_SET(0,gm_left)
+        GM_SET(1,gm_y)
+        GM_SET(2,gm_right)
+        GM_SET(3,gm_y)
+        GM_SET(4,gm_x)
+        GM_SET(5,gm_bottom)
+        GM_SET(6,gm_x)
+        GM_SET(7,gm_top)
+        jmp gm_strokes
+gm_cross,
+        GM_SET(0,gm_left)
+        GM_SET(1,gm_bottom)
+        GM_SET(2,gm_right)
+        GM_SET(3,gm_top)
+        GM_SET(4,gm_left)
+        GM_SET(5,gm_top)
+        GM_SET(6,gm_right)
+        GM_SET(7,gm_bottom)
+gm_strokes,
+        jsp gf_enter
+        jda gpolyline
+        gm_vertices; 2; 0
+        jda gpolyline
+        gm_vertices+4; 2; 0
+        jsp gf_leave
+        lac gf_fault
+        jmp i gm_return
+gm_diamond,
+        GM_SET(0,gm_left)
+        GM_SET(1,gm_y)
+        GM_SET(2,gm_x)
+        GM_SET(3,gm_top)
+        GM_SET(4,gm_right)
+        GM_SET(5,gm_y)
+        GM_SET(6,gm_x)
+        GM_SET(7,gm_bottom)
+        jda gpolyline
+        gm_vertices; 4; 1
+        jmp i gm_return
+gm_dot,
+        GM_SET(0,gm_x)
+        GM_SET(1,gm_y)
+        jda gpolyline
+        gm_vertices; 1; 0
+        jmp i gm_return
+gm_bad, law 1
+        dac gf_fault
+        jmp i gm_return
+gm_return,0
+gm_x,0
+gm_y,0
+gm_radius,0
+gm_shape,0
+gm_left,0
+gm_right,0
+gm_bottom,0
+gm_top,0
+gm_vertices,
+        table 0d8,0
+#undef GM_READ
+#undef GM_LIMIT
+#undef GM_SET

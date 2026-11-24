@@ -136,6 +136,11 @@ The optional [vector curves API](docs/G_ARCS.md) draws circles, ellipses and
 arcs as connected native vectors, with adjustable angular steps and viewport
 clipping. The arc demo shows all three shapes.
 
+The optional [path API](docs/G_PATHS.md) draws clipped polylines, evenly
+spaced sample traces, and plus, X, or diamond markers. It keeps the beam in
+vector mode across connected segments to reduce display-list size. Build
+`build/path_demo.rim` to see the three calls together.
+
 The optional [PENMENU adapter](docs/G_PENMENU.md) connects Bill's light-pen
 menu library to retained and immediate drawing. Its demo lets the viewer's
 left mouse button select a circle, ellipse or arc.

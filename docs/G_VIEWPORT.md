@@ -26,8 +26,7 @@ Both outcomes return 0. An endpoint outside the supported range sets the
 usual G_FRAME argument fault (1). Other drawing faults propagate from G_LINE.
 
 Call GLINE_CLIP for immediate drawing, while recording a frame, or while
-building or replacing a retained drawing group. The viewport applies to this
-entry only. The normal line, circle and text APIs retain their existing
+building or replacing a retained drawing group. The [path API](G_PATHS.md) also uses the active viewport. The normal line, circle and text APIs retain their existing
 coordinate rules, so a frame can mix clipped geometry with labels or a border.
 
 Build and load the [viewport demo](../examples/viewport_demo.am1) to see a

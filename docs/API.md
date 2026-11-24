@@ -9,6 +9,9 @@ All primitives require gframe.am1 for recording and immediate-list ownership.
 | `jda gplot` | X, Y | Native point, true 0..1023 coordinates |
 | `jda gline` | X0, Y0, X1, Y1 | Connected native vectors, exact endpoints |
 | `jda gcircle` | CX, CY, radius | Midpoint points, clipped circumference |
+| `jda gpolyline` | X/Y table, count, closed flag | Connected vectors clipped to the active viewport |
+| `jda gtrace` | Y table, count, start X, X step | Equally spaced samples clipped to the active viewport |
+| `jda gmarker` | X, Y, radius, shape | Plus, X, or diamond clipped to the active viewport |
 | `jda gtext` | X, Y, size, ASCII address | Native Type 342 glyphs |
 | `jda gvtext` | X, Y, size, ASCII address | Optional proportional stroke glyphs |
 | `jda gframe_begin` | Buffer address, capacity words | Start a new retained list |

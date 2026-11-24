@@ -1,0 +1,48 @@
+P1GL path demo -- clipped outline, trace and markers
+100/
+go,     lem
+        lsm
+        cbs
+        jda gframe_begin
+        scene; 0d160
+        jda gtext
+        0d205; 0d850; 2; title
+        jda gpolyline
+        border; 4; 1
+        jda gview_set
+        0d190; 0d240; 0d830; 0d760
+        jda gtrace
+        samples; 0d17; 0d150; 0d45
+        jda gmarker
+        0d315; 0d325; 0d24; 0
+        jda gmarker
+        0d510; 0d325; 0d24; 1
+        jda gmarker
+        0d705; 0d325; 0d24; 2
+        jsp gframe_end
+refresh,jsp gframe_refresh
+        sza
+        hlt
+#ifdef DEMO_CPU_TEST
+        hlt
+#else
+        jmp refresh
+#endif
+title, ascii "P1GL PATHS"
+border,
+        0d190; 0d240; 0d830; 0d240
+        0d830; 0d760; 0d190; 0d760
+samples,
+        0d500; 0d500; 0d526; 0d500; 0d535; 0d480; 0d407; 0d610
+        0d805; 0d515; 0d388; 0d457; 0d550; 0d523; 0d500; 0d500; 0d500
+#include "../src/gplot.am1"
+#include "../src/gline.am1"
+#include "../src/gframe.am1"
+#include "../src/gview.am1"
+#include "../src/gtext.am1"
+#include "../src/gpath.am1"
+constants
+scene,
+        table 0d160,0
+assert . < 07751, "path demo exceeds field 0"
+start go

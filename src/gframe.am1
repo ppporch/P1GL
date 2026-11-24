@@ -167,7 +167,7 @@ gf_reset_list,
         idx gf_write
 gf_reset_ret, jmp .
 
-// gf_need is an atomic command-group size, <=5 in current primitives.
+// gf_need is an atomic command-group size; it must fit in an empty scratch list.
 gf_reserve,
         dap gf_reserve_ret
         lac gf_fault

@@ -50,9 +50,18 @@ gline_clip,0
         GV_READ(gvc_y0)
         GV_READ(gvc_x1)
         GV_READ(gvc_y1)
+        jsp gvc_clip
+        sza
+        jsp gvc_draw
+        lac gf_fault
+        jmp i gvc_return
+
+// Shared clipper: inputs in gvc_x0..gvc_y1, endpoints in gvc_draw_x0..y1.
+// AC is one for a visible segment, zero for a miss or a sticky fault.
+gvc_clip,dap gvc_clip_return
         lac gf_fault
         sza
-        jmp i gvc_return
+        jmp gvc_hidden
         GV_COORD(gvc_x0)
         GV_COORD(gvc_y0)
         GV_COORD(gvc_x1)
@@ -108,18 +117,20 @@ gline_clip,0
         jda gvc_scale
         add gvc_y0
         dac gvc_draw_y1
+        law 1
+gvc_clip_return,jmp .
+gvc_draw,dap gvc_draw_return
         jda gline
 gvc_draw_x0,0
 gvc_draw_y0,0
 gvc_draw_x1,0
 gvc_draw_y1,0
-        lac gf_fault
-        jmp i gvc_return
+gvc_draw_return,jmp .
 gvc_hidden,cla
-        jmp i gvc_return
+        jmp gvc_clip_return
 gvc_bad_line,law 1
         dac gf_fault
-        jmp i gvc_return
+        jmp gvc_hidden
 
 // For one edge, d0 and d1 are signed distances, nonnegative inside.
 // Only crossings constrain the interval. Parallel outside lines reject.

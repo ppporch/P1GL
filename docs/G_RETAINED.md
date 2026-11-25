@@ -4,10 +4,10 @@ Build a frame once, then replace individual drawing groups or update fixed-width
 native Type 342 labels. Refresh still uses G_FRAME's synchronous scan. Update
 between scans, from the main program, with ordinary same-bank addressing.
 
-Define `P1GL_RETAINED` before including `gframe.am1`. Include `gretained.am1`
+Define `P1GL_RETAINED` before including `gframe.ac`. Include `gretained.ac`
 as well as the usual G_FRAME, G_TEXT and G_PLOT modules. Applications using the
 default G_FRAME build do not allocate the new routines or state. See
-[the demo](../examples/retained_demo.am1) for a complete program.
+[the demo](../examples/retained_demo.ac) for a complete program.
 
 ## Drawing groups
 

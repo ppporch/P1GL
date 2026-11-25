@@ -3,7 +3,7 @@
 // AM1 ascii packing: two 9-bit characters per word, NUL terminates.
 // Up to 256 characters; unsupported printing codes become '?'.
 // Whole glyphs outside the viewport are omitted; no wrapped hardware strokes.
-// Requires gframe.am1 and gplot.am1. Native Type 342 characters; no Type 33 bitmaps or IOTs.
+// Requires gframe.ac and gplot.am1. Native Type 342 characters; no Type 33 bitmaps or IOTs.
 #include "type340.ah"
 gtext, 0
         dac gt_ret

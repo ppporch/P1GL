@@ -7,11 +7,11 @@ root=Path(__file__).resolve().parents[1];build=root/'build'
 sys.path.insert(0,str(root/'reference'))
 from gcircle import circle_points
 from gline import line_points
-includes='''#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gcircle.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
+includes='''#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gcircle.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
 constants
 before_guard, 0654321
 buffer, 0
@@ -102,17 +102,17 @@ for name,x,y,size,text in [('descender-clip',100,0,2,'AgjpqyB'),('right-clip',10
 run('bad-text-size',begin()+t.replace('\n2\n','\n4\n')+finish,data=message,fault=1)
 run('unterminated-text',begin()+t+finish,data='message, ascii "'+('A'*257)+'"\n',fault=1)
 # The exact combined demo must use native vectors/characters, no Type 30/33 IOTs.
-d,out,sy=run('actual-demo',source=(root/'examples/frame_demo.am1').read_text(),defines=('DEMO_CPU_TEST',))
+d,out,sy=run('actual-demo',source=(root/'examples/frame_demo.ac').read_text(),defines=('DEMO_CPU_TEST',))
 assert len(d)==3 and out[sy['frames']]==3 and out[sy['fault']]==0
 for i,(item,r) in enumerate(zip(d,(96,128,160)),1):
     assert item['points']==circle_points(512,512,r)+[(512,512),(512,512)]
     assert item['vectors'][-1][1]==(512+r,512)
     assert item['chars']==label(330,840,2,'P1GL TYPE 340')+label(414,140,2,f'FRAME {i}')
 # Standalone native line and full-resolution circle screens.
-ld,lo,ls=run('line-demo',source=(root/'examples/line_demo.am1').read_text(),defines=('DEMO_CPU_TEST',))
+ld,lo,ls=run('line-demo',source=(root/'examples/line_demo.ac').read_text(),defines=('DEMO_CPU_TEST',))
 assert len(ld)==32 and lo[ls['frames']]==32 and lo[ls['fault']]==0
 for item in ld: assert item['vectors'] and item['chars']==label(288,840,2,'TYPE 340 LINES')
-cd,co,cs=run('circle-demo',source=(root/'examples/circle_demo.am1').read_text(),defines=('DEMO_CPU_TEST',))
+cd,co,cs=run('circle-demo',source=(root/'examples/circle_demo.ac').read_text(),defines=('DEMO_CPU_TEST',))
 circle_demo=[(512,512,r) for r in (64,96,128,160)]+[(0,512,96),(1023,512,96),(512,0,96),(512,1023,96),(0,0,128),(1023,1023,128),(512,512,0)]
 assert len(cd)==11 and co[cs['frames']]==11 and co[cs['fault']]==0
 for item,a in zip(cd,circle_demo):

@@ -18,7 +18,7 @@ def main():
         '10 26 1004 760\n'
     )
     env = dict(os.environ, P1GL_TEST_PEN=str(script))
-    source = (root / 'examples/penmenu_demo.am1').read_text()
+    source = (root / 'examples/penmenu_demo.ac').read_text()
     out, sy, scans = execute(source, demo=True, env=env)
     assert len(scans) == 12
     assert out[sy['selected']] == 1

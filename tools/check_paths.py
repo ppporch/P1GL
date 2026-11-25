@@ -96,7 +96,7 @@ def main():
     long_points = [(200 + 5*i, 600 + 10*(i % 2)) for i in range(100)]
     source += table('long_trace', [coord for point in long_points for coord in point])
     for module in ('gplot', 'gline', 'gframe', 'gview', 'gpath', 'gtext', 'gretained'):
-        source += f'#include "../src/{module}.am1"\n'
+        source += f'#include "../src/{module}.ac"\n'
     source += ('constants\nmarker_group,0; 0; 0\nmarker_scratch,\ntable 0d10,0\n'
                'scene,\ntable 0d256,0\nguard,0123456\nstart go\n')
     lists = execute('paths-check', source)
@@ -138,7 +138,7 @@ def main():
           f'{len(lists[1])} words with gpolyline.')
     print(f'Nominal redraw: {baseline_us/1000:.3f} ms vs {path_us/1000:.3f} ms.')
 
-    demo = execute('path-demo-check', (root / 'examples/path_demo.am1').read_text())
+    demo = execute('path-demo-check', (root / 'examples/path_demo.ac').read_text())
     assert len(demo) == 1 and decode(demo[0])['vectors']
     print('Clipping, disconnected runs, markers, immediate chunks, faults and demo passed.')
 

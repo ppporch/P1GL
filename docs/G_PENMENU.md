@@ -6,7 +6,7 @@ memory, the Type 340 and Type 342, and the BBN clock. For the viewer, the left
 mouse button is the light pen.
 
 Declare a menu using Bill's `PM_BAR` macros, then include `gpenmenu.ah` before
-`gframe.am1`. The demo uses direct buttons. Use PENMENU's own declaration and
+`gframe.ac`. The demo uses direct buttons. Use PENMENU's own declaration and
 action rules for dropdown menus and submenus.
 
 ```text
@@ -19,7 +19,7 @@ action rules for dropdown menus and submenus.
         jsp gframe_refresh
         jsp gpen_service  // AC = declared action, or zero
 
-        // Include gpenmenu.am1 with the other field-0 P1GL modules.
+        // Include gpenmenu.ac with the other field-0 P1GL modules.
         // At a free address in field 1:
 #include "../src/gpenmenu-list.ac"
 

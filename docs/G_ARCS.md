@@ -1,6 +1,6 @@
 # Vector circles, ellipses, and arcs
 
-Include `garc.am1` with G_TRANSFORM, G_VIEWPORT, G_LINE, G_PLOT and G_FRAME.
+Include `garc.ac` with G_TRANSFORM, G_VIEWPORT, G_LINE, G_PLOT and G_FRAME.
 The curves share the Q10 sine table and fixed-point helpers with G_TRANSFORM
 and require the Type 10 multiply/divide option. They draw in device
 coordinates and respect the active viewport. Calls preserve the current
@@ -44,6 +44,6 @@ the curve. Allow up to 256 chords for a full turn at step 1. A short visible
 chord takes six display words with the current G_LINE implementation.
 Longer chords can need additional native segments.
 
-The [arc demo](../examples/arc_demo.am1) shows a circle, an ellipse, and two
+The [arc demo](../examples/arc_demo.ac) shows a circle, an ellipse, and two
 clockwise arcs that cross the viewport's right edge. `make test-arcs` checks
 the executed display lists against reference geometry.

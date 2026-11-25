@@ -115,11 +115,11 @@ upper, ascii "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 lower, ascii "abcdefghijklmnopqrstuvwxyz"
 digits, ascii "0123456789  !?+-=/()[]"
 native, ascii "NATIVE TYPE 342"
-#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
-#include "../src/gvtext.am1"
+#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
+#include "../src/gvtext.ac"
 constants
 frame_buffer, 0
 frame_buffer + 0d2048/

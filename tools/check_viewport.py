@@ -52,7 +52,7 @@ def run(cases):
                call('gline_clip', (-131071, 0, 100, 100)),
                'dac invalid_line\njsp gframe_end\njsp gframe_refresh\nhlt\ninvalid_line,0\n']
     for module in ('gplot', 'gline', 'gframe', 'gview'):
-        source.append(f'#include "../src/{module}.am1"\n')
+        source.append(f'#include "../src/{module}.ac"\n')
     source.append('constants\nscene,\ntable 0d64,0\nguard,0123456\nstart go\n')
     (build / 'viewport-check.am1').write_text(''.join(source))
     subprocess.run([os.environ.get('AM1', 'am1'), '-d', '-S', 'viewport-check.am1'],
@@ -98,7 +98,7 @@ def run(cases):
 
 def check_demo():
     test_source = build / 'viewport-demo-check.am1'
-    test_source.write_text((root / 'examples/viewport_demo.am1').read_text())
+    test_source.write_text((root / 'examples/viewport_demo.ac').read_text())
     subprocess.run([os.environ.get('AM1', 'am1'), '-d', '-DDEMO_CPU_TEST',
                     test_source.name], cwd=build, check=True)
     memory, entry = tape_memory(test_source.with_suffix('.rim'))

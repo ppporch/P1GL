@@ -2,7 +2,7 @@
 
 `jda gline; X0; Y0; X1; Y1` accepts literal integer endpoints 0..1023. Endpoints
 must be valid; general line clipping is not implemented. Radius-zero/degenerate
-lines plot their one point once. All calls require gframe.am1 and gplot.am1,
+lines plot their one point once. All calls require gframe.ac and gplot.ac,
 non-reentrant writable same-bank linkage in ordinary addressing mode; AC/IO
 are clobbered.
 

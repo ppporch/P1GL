@@ -1,6 +1,6 @@
 # Application coordinates and transforms
 
-Include `gtransform.am1` with G_VIEWPORT, G_LINE, G_PLOT and G_FRAME. Enable the
+Include `gtransform.ac` with G_VIEWPORT, G_LINE, G_PLOT and G_FRAME. Enable the
 PDP-1 Type 10 multiply/divide option. The module uses ordinary same-field
 addressing and non-reentrant scratch, like the other drawing modules.
 
@@ -46,7 +46,7 @@ larger coordinate. The calculation keeps both fractional products until
 their sum is rounded. Viewport clipping operates on the resulting integer
 endpoints. Angles 0, 64, 128 and 192 give exact cardinal rotations at unit scale.
 
-The [demo](../examples/transform_demo.am1) rotates, scales and moves an arrow
+The [demo](../examples/transform_demo.ac) rotates, scales and moves an arrow
 across a retained border. It uses the BBN clock for pacing. Run
 `make test-transform` to compare point and line results against the reference
 and check every frame of one turn.

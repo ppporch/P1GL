@@ -26,11 +26,11 @@ def geometry(x,y,size,text):
         x+=g['advance']*scale
     return points,vectors
 
-includes='''#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
-#include "../src/gvtext.am1"
+includes='''#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
+#include "../src/gvtext.ac"
 constants
 before_guard, 0654321
 buffer, 0
@@ -93,7 +93,7 @@ run('invalid-size',call(100,200,4),data='message, ascii "A"\n',fault=1)
 run('invalid-position',call(1024,200,1),data='message, ascii "A"\n',fault=1)
 run('string-limit',begin+call(100,200,0)+finish,data='message, ascii "'+(' '*257)+'"\n',fault=1)
 # Actual four-page demo, one replay per page, including native-text coexistence.
-d,o,s=run('actual-demo',source=(root/'examples/vector_text_demo.am1').read_text(),defines=('DEMO_CPU_TEST',))
+d,o,s=run('actual-demo',source=(root/'examples/vector_text_demo.ac').read_text(),defines=('DEMO_CPU_TEST',))
 assert len(d)==4 and o[s['frames']]==4 and o[s['fault']]==0
 bodies=[(335,590,1,'Vector Text'),(255,590,0,'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),(291,590,0,'abcdefghijklmnopqrstuvwxyz'),(304,590,0,'0123456789  !?+-=/()[]')]
 for i,(item,b) in enumerate(zip(d,bodies)):

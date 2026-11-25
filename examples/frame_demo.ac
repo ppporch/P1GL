@@ -128,11 +128,11 @@ heading, ascii "P1GL TYPE 340"
 footer_one, ascii "FRAME 1"
 footer_two, ascii "FRAME 2"
 footer_three, ascii "FRAME 3"
-#include "../src/gcircle.am1"
-#include "../src/gline.am1"
-#include "../src/gplot.am1"
-#include "../src/gframe.am1"
-#include "../src/gtext.am1"
+#include "../src/gcircle.ac"
+#include "../src/gline.ac"
+#include "../src/gplot.ac"
+#include "../src/gframe.ac"
+#include "../src/gtext.ac"
 constants
 frame_buffer, 0
 frame_buffer + 0d2048/

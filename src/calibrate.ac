@@ -151,7 +151,7 @@ jmp frame
 #endif
 frames, 0
 delay_count, 0
-#include "gplot.am1"
-#include "gframe.am1"
+#include "gplot.ac"
+#include "gframe.ac"
 constants
 start go

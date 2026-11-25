@@ -1,7 +1,7 @@
 // Opt in with P1GL_RETAINED before gframe.am1. Groups and labels use
 // caller-owned three-word handles, initialized to zero.
 #ifndef P1GL_RETAINED
-#error "Define P1GL_RETAINED before including gframe.am1"
+#error "Define P1GL_RETAINED before including gframe.ac"
 #endif
 #include "type340.ah"
 

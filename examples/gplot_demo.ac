@@ -19,7 +19,7 @@ loop,   jda gplot
         0d512
         0d112
         jmp loop
-#include "../src/gplot.am1"
-#include "../src/gframe.am1"
+#include "../src/gplot.ac"
+#include "../src/gframe.ac"
 constants
 start go

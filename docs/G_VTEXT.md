@@ -19,7 +19,7 @@ any viewport edge are omitted, while the logical cursor advances normally.
 
 ## Integration
 
-Include gplot.am1, gline.am1, gframe.am1 and gvtext.am1. Native gtext.am1 is
+Include gplot.ac, gline.ac, gframe.ac and gvtext.am1. Native gtext.ac is
 needed only if the program also wants native Type 342 labels. Drawing follows
 the usual P1GL ownership rules: build silently between gframe_begin/end, then
 refresh; outside a build, immediate scratch lists are safely streamed.
@@ -27,11 +27,11 @@ refresh; outside a build, immediate scratch lists are safely streamed.
 Code, strings, variables and display lists remain in bank 0. The font occupies
 1,759 words in a separate read-only extended-memory bank, default bank 1,
 starting at 0100. Extended memory must be enabled. Select a free bank before
-including gvtext.am1, for example:
+including gvtext.ac, for example:
 
 ```text
 #define P1GL_FONT_BANK 3
-#include "../src/gvtext.am1"
+#include "../src/gvtext.ac"
 ```
 
 The valid range is banks 1..15; hexadecimal 0xf names bank 15 unambiguously.

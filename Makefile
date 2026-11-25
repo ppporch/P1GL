@@ -1,7 +1,7 @@
 AM1 ?= am1
 PDP1_ROOT ?= /opt/pidp1-mods
 CC ?= cc
-LIBS := $(wildcard src/*.am1 src/*.ah src/*.ac)
+LIBS := $(filter-out src/calibrate.ac,$(wildcard src/*.ac src/*.ah))
 DEMOS := frame_demo line_demo circle_demo gplot_demo vector_text_demo retained_demo viewport_demo transform_demo arc_demo path_demo
 
 .PHONY: all test test-host test-type340
@@ -10,10 +10,10 @@ all: $(addprefix build/,$(addsuffix .rim,$(DEMOS))) build/calibrate.rim
 build:
 	mkdir -p build
 
-build/%.rim: examples/%.am1 $(LIBS) | build
+build/%.rim: examples/%.ac $(LIBS) | build
 	cd build && $(AM1) -d ../$<
 
-build/calibrate.rim: src/calibrate.am1 $(LIBS) | build
+build/calibrate.rim: src/calibrate.ac $(LIBS) | build
 	cd build && $(AM1) -d ../$<
 
 build/type340_runner: tools/plot_runner.c $(PDP1_ROOT)/src/pdp1/pdp1.o | build
@@ -28,7 +28,7 @@ test-type340: build/type340_runner
 test: all test-host test-type340 test-vector-text test-vector-sink
 
 
-build/vector_text_demo.rim: examples/vector_text_demo.am1 $(LIBS) generated/vector-font.ac | build
+build/vector_text_demo.rim: examples/vector_text_demo.ac $(LIBS) generated/vector-font.ac | build
 	cd build && $(AM1) -d ../$<
 
 generated/vector-font.ac: fonts/futural.jhf tools/generate_vfont.py

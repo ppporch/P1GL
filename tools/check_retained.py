@@ -77,11 +77,11 @@ message,ascii "TEST"
 too_long,ascii "THIS IS TOO LONG"
 group_handle,0; 0; 0
 label_handle,0; 0; 0
-#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
-#include "../src/gretained.am1"
+#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
+#include "../src/gretained.ac"
 constants
 scratch,
 table 0d12,0

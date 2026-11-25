@@ -125,11 +125,11 @@ scene_table,
 0d512
 0d0
 heading, ascii "TYPE 340 CIRCLES"
-#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gcircle.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
+#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gcircle.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
 constants
 frame_buffer, 0
 frame_buffer + 0d2048/

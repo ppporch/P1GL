@@ -16,8 +16,8 @@ The full-resolution combined demo uses actual radii 96,128,160, removing the
 old magnification gaps. The standalone circle demo also exercises clipped edges,
 corners and radius zero. Tests compare 277 circles, including screen edges, corners and large radii, point for point against the independent reference.
 
-Code/data/list occupy one bank in ordinary addressing mode; require gplot.am1
-and gframe.am1, writable non-reentrant linkage, and clobber AC/IO. A retained
+Code/data/list occupy one bank in ordinary addressing mode; require gplot.ac
+and gframe.ac, writable non-reentrant linkage, and clobber AC/IO. A retained
 buffer still needs enough words for its scene. Large immediate circles do not
 require a private full-circle buffer because safe chunks are streamed.
 

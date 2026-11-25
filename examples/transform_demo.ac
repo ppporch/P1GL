@@ -160,13 +160,13 @@ translation,0
 started,0
 now,0
 title,ascii "SCALE ROTATE TRANSLATE"
-#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gtext.am1"
-#include "../src/gframe.am1"
-#include "../src/gretained.am1"
-#include "../src/gview.am1"
-#include "../src/gtransform.am1"
+#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gtext.ac"
+#include "../src/gframe.ac"
+#include "../src/gretained.ac"
+#include "../src/gview.ac"
+#include "../src/gtransform.ac"
 constants
 arrow,0; 0; 0
 scratch,

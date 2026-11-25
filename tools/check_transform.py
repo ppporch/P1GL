@@ -63,7 +63,7 @@ def check_points(cases):
     for n in range(len(cases)):
         source.append(f'set{n},0\nstatus{n},0\nx{n},0\ny{n},0\n')
     for module in ('gplot', 'gline', 'gframe', 'gview', 'gtransform'):
-        source.append(f'#include "../src/{module}.am1"\n')
+        source.append(f'#include "../src/{module}.ac"\n')
     source.append('constants\nstart go\n')
     out, sy, lists = execute(''.join(source))
     assert not lists
@@ -96,7 +96,7 @@ def check_line_entry():
                    'jsp gframe_end\njsp gframe_refresh\n']
     source.append('hlt\n')
     for module in ('gplot', 'gline', 'gframe', 'gview', 'gtransform'):
-        source.append(f'#include "../src/{module}.am1"\n')
+        source.append(f'#include "../src/{module}.ac"\n')
     source.append('constants\nscene,\ntable 0d64,0\nstart go\n')
     _, _, lists = execute(''.join(source))
     assert len(lists) == len(lines)
@@ -113,7 +113,7 @@ def check_line_entry():
 
 
 def check_demo():
-    _, _, lists = execute((root / 'examples/transform_demo.am1').read_text(), demo=True)
+    _, _, lists = execute((root / 'examples/transform_demo.ac').read_text(), demo=True)
     assert len(lists) == 256, len(lists)
     border_count = 20
     border = decode(lists[0])['vectors'][:border_count]

@@ -45,7 +45,7 @@ def run(cases):
                    call(entry, args), 'jsp gframe_end\njsp gframe_refresh\n']
     source += ['hlt\n']
     for module in ('gplot', 'gline', 'gframe', 'gview', 'gtransform', 'garc'):
-        source.append(f'#include "../src/{module}.am1"\n')
+        source.append(f'#include "../src/{module}.ac"\n')
     source.append('constants\nscene,\ntable 0d1700,0\nguard,0123456\nstart go\n')
     out, sy, lists = execute(''.join(source))
     assert len(lists) == len(cases)
@@ -79,7 +79,7 @@ def main():
         run(cases[start:start + 8])
     print(f'{len(cases)} curve cases matched the reference geometry.')
     from check_transform import root
-    _, _, lists = execute((root / 'examples/arc_demo.am1').read_text(), demo=True)
+    _, _, lists = execute((root / 'examples/arc_demo.ac').read_text(), demo=True)
     assert len(lists) == 1
     scene = decode(lists[0])
     viewport = (88, 230, 936, 750)

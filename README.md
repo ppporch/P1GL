@@ -55,8 +55,9 @@ Arguments are literal inline words, not addresses of coordinate variables:
 scale 1, 2, 4 or 8. Labels use the Type 342 repertoire; standalone `^` and grave
 accent are replaced by `?` rather than applying an accent over a preceding glyph.
 
-Include `src/gplot.am1`, `src/gline.am1`, `src/gcircle.am1`, `src/gtext.am1`, and
-`src/gframe.am1` as required. All primitives need the frame module, including
+Include `src/gplot.ac`, `src/gline.ac`, `src/gcircle.ac`, `src/gtext.ac`, and
+`src/gframe.ac` as required. P1GL uses `.ac` for reusable code, demos, and calibration,
+and `.ah` for definitions. All primitives need the frame module, including
 immediate drawing. No external font-table include path is needed.
 
 Coordinates are the full 0..1023 device range, with Y increasing upward.
@@ -82,7 +83,7 @@ printable ASCII characters, proportional spacing, lowercase and punctuation.
 ```
 
 X/Y are baseline coordinates; size 0..3 selects 1,2,4,8 font units, with a nominal
-capital height of 21 units. Include src/gvtext.am1 alongside the point, line and
+capital height of 21 units. Include src/gvtext.ac alongside the point, line and
 frame modules. The font occupies 1,759 words in a separate memory bank (default
 bank 1), and requires extended memory. Programs that do not include this module
 load no font bank. Choose a free bank using P1GL_FONT_BANK; see

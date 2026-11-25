@@ -35,12 +35,12 @@ border,
 samples,
         0d500; 0d500; 0d526; 0d500; 0d535; 0d480; 0d407; 0d610
         0d805; 0d515; 0d388; 0d457; 0d550; 0d523; 0d500; 0d500; 0d500
-#include "../src/gplot.am1"
-#include "../src/gline.am1"
-#include "../src/gframe.am1"
-#include "../src/gview.am1"
-#include "../src/gtext.am1"
-#include "../src/gpath.am1"
+#include "../src/gplot.ac"
+#include "../src/gline.ac"
+#include "../src/gframe.ac"
+#include "../src/gview.ac"
+#include "../src/gtext.ac"
+#include "../src/gpath.ac"
 constants
 scene,
         table 0d160,0

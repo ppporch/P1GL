@@ -2,7 +2,7 @@
 
 All inline arguments below are literal words. Code/data/list in one 4K bank,
 ordinary memory mode; writable, non-reentrant linkage; AC/IO clobbered.
-All primitives require gframe.am1 for recording and immediate-list ownership.
+All primitives require gframe.ac for recording and immediate-list ownership.
 
 | Call | Inline arguments | Behavior |
 |---|---|---|

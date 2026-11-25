@@ -29,6 +29,6 @@ This remains a native dot-matrix font, which can look dotted at large scales.
 The separate G_VTEXT routine now supplies optional continuous-stroke letters.
 It coexists with this compact hardware font; see G_VTEXT.md.
 
-All calls require gframe.am1, writable non-reentrant linkage and same-bank data
+All calls require gframe.ac, writable non-reentrant linkage and same-bank data
 in ordinary memory mode. AC/IO are clobbered. See TYPE340.md for verification
 limits, and legacy/type30 for the earlier character implementation.

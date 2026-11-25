@@ -1,6 +1,6 @@
 # Polylines, sample traces, and markers
 
-Include `gpath.am1` alongside G_VIEW, G_LINE, G_PLOT, and G_FRAME. These calls
+Include `gpath.ac` alongside G_VIEW, G_LINE, G_PLOT, and G_FRAME. These calls
 use the active [viewport](G_VIEWPORT.md), which defaults to 0–1023 inclusive on
 both axes. Enable Type 10 multiply/divide. Code, data, and tables must reside
 in the current field with extended addressing off. Calls clobber AC and IO
